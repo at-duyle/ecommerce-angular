@@ -10,7 +10,6 @@ import { FooterComponent } from './shared/layouts/footer/footer.component';
 
 // Import your library
 import { SlimScroll } from 'angular-io-slimscroll';
-import { OwlCarouselDirective } from './shared/directives/owl-carousel.directive';
 import { HomeComponent } from './shared/home.component';
 import { AuthComponent } from './auth/auth.component';
 import { RegisterComponent } from './register/register.component';
@@ -30,7 +29,6 @@ export const routing = RouterModule.forRoot(routes);
     SlimScroll,
     HeaderComponent,
     FooterComponent,
-    OwlCarouselDirective,
     HomeComponent,
     AuthComponent,
     RegisterComponent
