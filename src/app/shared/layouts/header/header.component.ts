@@ -2,6 +2,9 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { SlimScroll } from 'angular-io-slimscroll';
 import * as $ from 'jquery';
 
+import { User } from '../../models';
+import { UserService } from '../../services'
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -9,11 +12,19 @@ import * as $ from 'jquery';
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
 
-  constructor() {
-  }
+  currentUser: User;
+
+  constructor(
+    private userService: UserService
+    ) {}
 
   ngOnInit() {
-
+    this.userService.currentUser.subscribe(
+      (userData) => {
+        this.currentUser = userData;
+        console.log(this.currentUser);
+      }
+      )
   }
 
   ngAfterViewInit(){

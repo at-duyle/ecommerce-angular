@@ -10,15 +10,26 @@ import { FooterComponent } from './shared/layouts/footer/footer.component';
 
 // Import your library
 import { SlimScroll } from 'angular-io-slimscroll';
+
 import { HomeComponent } from './shared/home.component';
 import { AuthComponent } from './auth/auth.component';
 import { RegisterComponent } from './register/register.component';
+import {
+  ApiService,
+  JwtService,
+  UserService,
+  NoAuthGuardService,
+  AuthGuardService
+} from './shared';
+import { ShowAuthedDirective } from './shared/directives/show-authed.directive';
+import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'login', component: AuthComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'login', component: AuthComponent, canActivate: [NoAuthGuardService] },
+  { path: 'register', component: RegisterComponent },
+  { path: 'error', component: ErrorComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);
@@ -31,7 +42,9 @@ export const routing = RouterModule.forRoot(routes);
     FooterComponent,
     HomeComponent,
     AuthComponent,
-    RegisterComponent
+    RegisterComponent,
+    ShowAuthedDirective,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +52,14 @@ export const routing = RouterModule.forRoot(routes);
     FormsModule,
     routing
   ],
-  providers: [],
+  providers: [
+    ShowAuthedDirective,
+    ApiService,
+    JwtService,
+    UserService,
+    NoAuthGuardService,
+    AuthGuardService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

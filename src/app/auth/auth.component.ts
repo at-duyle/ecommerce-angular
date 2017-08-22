@@ -1,5 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as $ from 'jquery';
+
+import { Error } from '../shared/models/error';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-auth',
@@ -7,27 +12,33 @@ import * as $ from 'jquery';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit, AfterViewInit {
+  errors: Error;
 
-  constructor() { }
+  constructor(
+    private userService: UserService,
+    private router: Router
+    ) {
+    this.errors = new Error()
+  }
 
   ngOnInit() {
   }
 
   ngAfterViewInit(){
-    // var bgCounter = 0,
-    // backgrounds = [
-    // "../../assets/corporate/img/backgrounds/1.jpg",
-    // "../../assets/corporate/img/backgrounds/2.jpg",
-    // "../../assets/corporate/img/backgrounds/3.jpg"
-    // ];
-    // function changeBackground()
-    // {
-    //   bgCounter = (bgCounter+1) % backgrounds.length;
-    //   $('body').css('background', '#000 url('+backgrounds[bgCounter]+') no-repeat');
-    //   setTimeout(changeBackground, 10000);
-
-    // }
-    // changeBackground();
   }
 
+  login(loginForm: NgForm){
+    let credentials = loginForm.value;
+    this.userService
+    .attemptAuth(credentials)
+    .subscribe(
+      (data: any) => {
+        console.log(data);
+        this.router.navigateByUrl('/')
+      },
+      (err: any) => {
+        this.errors = err;
+      }
+      );
+  }
 }
