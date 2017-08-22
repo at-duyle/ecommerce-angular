@@ -1,36 +1,27 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+
 import { ActivatedRoute, Router } from '@angular/router';
-import * as $ from 'jquery';
 
 import { Error } from '../shared/models/error';
 import { UserService } from '../shared/services/user.service';
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  selector: 'app-logout',
+  templateUrl: './logout.component.html'
 })
-export class AuthComponent implements OnInit, AfterViewInit {
+export class LogoutComponent implements OnInit {
   errors: Error;
 
   constructor(
     private userService: UserService,
     private router: Router
-    ) {
-    this.errors = new Error();
+  ) {
+    this.errors = new Error()
   }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit(){
-  }
-
-  login(loginForm: NgForm){
-    let credentials = loginForm.value;
     this.userService
-    .attemptAuth(credentials)
+    .purgeAuth()
     .subscribe(
       (data: any) => {
         console.log(data);
@@ -38,7 +29,9 @@ export class AuthComponent implements OnInit, AfterViewInit {
       },
       (err: any) => {
         this.errors = err;
+        console.log(this.errors);
       }
       );
   }
+
 }

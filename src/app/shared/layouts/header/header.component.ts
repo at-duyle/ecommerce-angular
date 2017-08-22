@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.userService.currentUser.subscribe(
       (userData) => {
         this.currentUser = userData;
-        console.log(this.currentUser);
       }
       )
   }
@@ -46,7 +45,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
           .appendTo($(this));
         }
       });
-    })  
+    });
   }
 
 }
