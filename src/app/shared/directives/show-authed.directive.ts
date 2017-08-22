@@ -18,7 +18,6 @@ export class ShowAuthedDirective {
   ngOnInit() {
     this.userService.isAuthenticated.subscribe(
       (isAuthenticated) => {
-        console.log(isAuthenticated);
         if (isAuthenticated && this.condition || !isAuthenticated && !this.condition) {
           this.viewContainer.createEmbeddedView(this.templateRef);
         } else {

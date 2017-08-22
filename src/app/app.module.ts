@@ -23,12 +23,14 @@ import {
 } from './shared';
 import { ShowAuthedDirective } from './shared/directives/show-authed.directive';
 import { ErrorComponent } from './error/error.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: AuthComponent, canActivate: [NoAuthGuardService] },
-  { path: 'register', component: RegisterComponent },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuardService] },
+  { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuardService] },
   { path: 'error', component: ErrorComponent }
 ];
 
@@ -45,6 +47,7 @@ export const routing = RouterModule.forRoot(routes);
     RegisterComponent,
     ShowAuthedDirective,
     ErrorComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

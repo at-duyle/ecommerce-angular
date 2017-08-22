@@ -8,9 +8,9 @@
           <li><i class="fa fa-phone"></i><span>+1 456 6717</span></li>
           <!-- BEGIN LANGS -->
           <li class="langs-block">
-            <a href="" class="current"><span class="flag-icon flag-icon-gb"></span>English</a>
+            <a  class="current"><span class="flag-icon flag-icon-gb"></span>English</a>
             <div class="langs-block-others-wrapper"><div class="langs-block-others">
-              <a href=""><span class="flag-icon flag-icon-vn"></span>Vietnamese</a>
+              <a ><span class="flag-icon flag-icon-vn"></span>Vietnamese</a>
             </div></div>
           </li>
           <!-- END LANGS -->
@@ -24,7 +24,7 @@
           <li><a [routerLink]="['/register']">Sign Up</a></li>
         </ul>
         <ul *showAuthed="true" class="list-unstyled list-inline pull-right">
-          <li><a [routerLink]="['/login']">Logout</a></li>
+          <li><a [routerLink]="['/logout']">Logout</a></li>
           <li>
             <a>
               <!-- <img [src]="currentUser.avatar" *ngIf="currentUser.avatar" class="user-pic" /> -->
@@ -42,15 +42,15 @@
 <!-- BEGIN HEADER -->
 <div class="header" sticker>
   <div class="container">
-    <a class="site-logo" href="shop-index.html"><img src="assets/corporate/img/logos/logo-shop-red.png" alt=""></a>
+    <a class="site-logo" [routerLink]="['']"><img src="assets/corporate/img/logos/logo-shop-red.png" alt=""></a>
 
-    <a href="" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+    <a class="mobi-toggler"><i class="fa fa-bars"></i></a>
 
     <!-- BEGIN CART -->
     <div class="top-cart-block">
       <div class="top-cart-info">
-        <a href="" class="top-cart-info-count">3 items</a>
-        <a href="" class="top-cart-info-value">$1260</a>
+        <a  class="top-cart-info-count">3 items</a>
+        <a  class="top-cart-info-value">$1260</a>
       </div>
       <i class="fa fa-shopping-cart"></i>
       
@@ -64,56 +64,56 @@
               <span class="cart-content-count">x 1</span>
               <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
               <em>$1230</em>
-              <a href="" class="del-goods">&nbsp;</a>
+              <a  class="del-goods">&nbsp;</a>
             </li>
             <li>
               <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
               <span class="cart-content-count">x 1</span>
               <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
               <em>$1230</em>
-              <a href="" class="del-goods">&nbsp;</a>
+              <a  class="del-goods">&nbsp;</a>
             </li>
             <li>
               <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
               <span class="cart-content-count">x 1</span>
               <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
               <em>$1230</em>
-              <a href="" class="del-goods">&nbsp;</a>
+              <a  class="del-goods">&nbsp;</a>
             </li>
             <li>
               <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
               <span class="cart-content-count">x 1</span>
               <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
               <em>$1230</em>
-              <a href="" class="del-goods">&nbsp;</a>
+              <a  class="del-goods">&nbsp;</a>
             </li>
             <li>
               <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
               <span class="cart-content-count">x 1</span>
               <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
               <em>$1230</em>
-              <a href="" class="del-goods">&nbsp;</a>
+              <a  class="del-goods">&nbsp;</a>
             </li>
             <li>
               <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
               <span class="cart-content-count">x 1</span>
               <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
               <em>$1230</em>
-              <a href="" class="del-goods">&nbsp;</a>
+              <a  class="del-goods">&nbsp;</a>
             </li>
             <li>
               <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
               <span class="cart-content-count">x 1</span>
               <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
               <em>$1230</em>
-              <a href="" class="del-goods">&nbsp;</a>
+              <a  class="del-goods">&nbsp;</a>
             </li>
             <li>
               <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
               <span class="cart-content-count">x 1</span>
               <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
               <em>$1230</em>
-              <a href="" class="del-goods">&nbsp;</a>
+              <a  class="del-goods">&nbsp;</a>
             </li>
           </ul>
           <div class="text-right">
@@ -130,13 +130,13 @@
       <ul>
         <!-- BEGIN ALL SHOP -->
         <li class="dropdown dropdown100 nav-catalogue">
-          <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="">
+          <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" >
             All Shop <i class="fa fa-chevron-down" aria-hidden="true"></i>
           </a>
           <ul class="dropdown-menu">
             <li>
               <div class="col-md-12">
-                <div class="carousel carousel-showmanymoveone slide" data-ride="carousel" data-type="multi" data-interval="3600">
+                <div class="carousel carousel-showmanymoveone slide" id="myCarousel" data-ride="carousel" data-type="multi" data-interval="3600">
                   <div class="carousel-inner">
                     <div class="item active">
                       <div class="col-xs-12 col-sm-6 col-md-3"><a href="#"><img src="http://placehold.it/500/0054A6/fff/&amp;text=1" class="img-responsive"></a></div>
@@ -163,8 +163,8 @@
                       <div class="col-xs-12 col-sm-6 col-md-3"><a href="#"><img src="http://placehold.it/500/40a1ff/002040&amp;text=8" class="img-responsive"></a></div>
                     </div>
                   </div>
-                  <a class="left carousel-control" href="#carousel123" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                  <a class="right carousel-control" href="#carousel123" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                  <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                  <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
                 </div>
               </div>
             </li>

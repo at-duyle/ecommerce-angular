@@ -33,11 +33,11 @@ export class UserService {
       this.apiService.get('/users/current')
       .subscribe(
         data => this.setAuth(data.user),
-        err => this.purgeAuth()
+        err => this.purgeToken()
         );
     } else {
       // Remove any potential remnants of previous auth states
-      this.purgeAuth();
+      this.purgeToken();
     }
   }
 
@@ -50,7 +50,7 @@ export class UserService {
     this.isAuthenticatedSubject.next(true);
   }
 
-  purgeAuth() {
+  purgeToken() {
     // Remove JWT from localstorage
     this.jwtService.destroyToken();
     // Set current user to an empty object
@@ -70,4 +70,13 @@ export class UserService {
       );
   }
 
+  purgeAuth(): Observable<User> {
+    return this.apiService.delete('/sessions/1')
+    .map(
+      data => {
+        this.purgeToken();
+        return data;
+      }
+      );
+  }
 }
