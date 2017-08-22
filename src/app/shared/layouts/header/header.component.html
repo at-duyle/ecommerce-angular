@@ -19,9 +19,18 @@
       <!-- END TOP BAR LEFT PART -->
       <!-- BEGIN TOP BAR MENU -->
       <div class="col-md-6 col-sm-6 additional-nav">
-        <ul class="list-unstyled list-inline pull-right">
+        <ul *showAuthed="false" class="list-unstyled list-inline pull-right">
           <li><a [routerLink]="['/login']">Log In</a></li>
           <li><a [routerLink]="['/register']">Sign Up</a></li>
+        </ul>
+        <ul *showAuthed="true" class="list-unstyled list-inline pull-right">
+          <li><a [routerLink]="['/login']">Logout</a></li>
+          <li>
+            <a>
+              <!-- <img [src]="currentUser.avatar" *ngIf="currentUser.avatar" class="user-pic" /> -->
+              {{ currentUser.username }}
+            </a>
+          </li>
         </ul>
       </div>
       <!-- END TOP BAR MENU -->
@@ -127,7 +136,7 @@
           <ul class="dropdown-menu">
             <li>
               <div class="col-md-12">
-              <div class="carousel carousel-showmanymoveone slide" data-ride="carousel" data-type="multi" data-interval="3600">
+                <div class="carousel carousel-showmanymoveone slide" data-ride="carousel" data-type="multi" data-interval="3600">
                   <div class="carousel-inner">
                     <div class="item active">
                       <div class="col-xs-12 col-sm-6 col-md-3"><a href="#"><img src="http://placehold.it/500/0054A6/fff/&amp;text=1" class="img-responsive"></a></div>
