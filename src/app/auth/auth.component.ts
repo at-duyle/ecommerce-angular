@@ -37,7 +37,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
         this.router.navigateByUrl('/')
       },
       (err: any) => {
-        this.errors = err;
+        this.errors = err.errors;
       }
       );
   }

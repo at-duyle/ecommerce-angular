@@ -4,4 +4,6 @@ export class User {
   username: string;
   id: string;
   image: string;
+  password: string;
+  confirmation_password: string;
 }
