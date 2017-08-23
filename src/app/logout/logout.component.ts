@@ -24,11 +24,10 @@ export class LogoutComponent implements OnInit {
     .purgeAuth()
     .subscribe(
       (data: any) => {
-        console.log(data);
         this.router.navigateByUrl('/')
       },
       (err: any) => {
-        this.errors = err;
+        this.errors = err.errors;
         console.log(this.errors);
       }
       );

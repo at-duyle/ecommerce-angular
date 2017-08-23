@@ -79,4 +79,13 @@ export class UserService {
       }
       );
   }
+
+  register(credentials): Observable<User> {
+    return this.apiService.post('/users', {user: credentials})
+    .map(
+      data => {
+        return data;
+      }
+      );
+  }
 }

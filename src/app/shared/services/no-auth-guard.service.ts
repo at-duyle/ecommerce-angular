@@ -20,7 +20,7 @@ export class NoAuthGuardService {
 
     return this.userService.isAuthenticated.take(1).map(bool => {
       if(bool == true){
-        this.router.navigate(['home'], { queryParams: { message:'You are logged in!'}});
+        this.router.navigate(['home'], { queryParams: { ms:'ms1'}});
       }
       return !bool;
     });

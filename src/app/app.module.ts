@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -10,7 +10,6 @@ import { FooterComponent } from './shared/layouts/footer/footer.component';
 
 // Import your library
 import { SlimScroll } from 'angular-io-slimscroll';
-
 import { HomeComponent } from './shared/home.component';
 import { AuthComponent } from './auth/auth.component';
 import { RegisterComponent } from './register/register.component';
@@ -19,7 +18,8 @@ import {
   JwtService,
   UserService,
   NoAuthGuardService,
-  AuthGuardService
+  AuthGuardService,
+  NotificationService
 } from './shared';
 import { ShowAuthedDirective } from './shared/directives/show-authed.directive';
 import { ErrorComponent } from './error/error.component';
@@ -53,6 +53,7 @@ export const routing = RouterModule.forRoot(routes);
     BrowserModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     routing
   ],
   providers: [
@@ -61,7 +62,8 @@ export const routing = RouterModule.forRoot(routes);
     JwtService,
     UserService,
     NoAuthGuardService,
-    AuthGuardService
+    AuthGuardService,
+    NotificationService
   ],
   bootstrap: [AppComponent],
 })
