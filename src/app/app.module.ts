@@ -24,6 +24,7 @@ import {
 import { ShowAuthedDirective } from './shared/directives/show-authed.directive';
 import { ErrorComponent } from './error/error.component';
 import { LogoutComponent } from './logout/logout.component';
+import { MenuBarComponent } from './shared/layouts/menu-bar/menu-bar.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -48,6 +49,7 @@ export const routing = RouterModule.forRoot(routes);
     ShowAuthedDirective,
     ErrorComponent,
     LogoutComponent,
+    MenuBarComponent,
   ],
   imports: [
     BrowserModule,
