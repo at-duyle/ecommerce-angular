@@ -13,13 +13,16 @@ import { SlimScroll } from 'angular-io-slimscroll';
 import { HomeComponent } from './shared/home.component';
 import { AuthComponent } from './auth/auth.component';
 import { RegisterComponent } from './register/register.component';
+
+// Import services
 import {
   ApiService,
   JwtService,
   UserService,
   NoAuthGuardService,
   AuthGuardService,
-  NotificationService
+  NotificationService,
+  CategoryService
 } from './shared';
 import { ShowAuthedDirective } from './shared/directives/show-authed.directive';
 import { ErrorComponent } from './error/error.component';
@@ -67,7 +70,8 @@ export const routing = RouterModule.forRoot(routes);
     UserService,
     NoAuthGuardService,
     AuthGuardService,
-    NotificationService
+    NotificationService,
+    CategoryService
   ],
   bootstrap: [AppComponent],
 })

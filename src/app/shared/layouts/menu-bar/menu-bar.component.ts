@@ -1,15 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 
+import { CategoryService } from '../../services';
+import { Category } from '../../models';
+import { NotificationService } from '../../services';
+
 @Component({
   selector: 'app-menu-bar',
   templateUrl: './menu-bar.component.html',
   styleUrls: ['./menu-bar.component.scss']
 })
 export class MenuBarComponent implements OnInit {
-
-  constructor() { }
+  categories: Array<Category>;
+  constructor(
+    private notify: NotificationService,
+    private categorySercive: CategoryService
+    ) { }
 
   ngOnInit() {
+    this.categorySercive.getAll().subscribe(
+      (data: any) => {
+        this.categories = data;
+        console.log(this.categories);
+      }, (err: any) => {
+        for (let error of err.errors) {
+          this.notify.printErrorMessage(error);
+        }
+      }
+      );
   }
 
 }
