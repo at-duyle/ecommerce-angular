@@ -1,105 +1,3 @@
-body.ecommerce {
-  background: #f9f9f9;
-}
-
-.ecommerce {
-  h1, h2, h3, h4, h5, h6 {
-    font-family: "PT Sans Narrow", sans-serif;
-    margin: 0 0 10px;
-    text-transform: uppercase;
-  }
-  h1 {
-    font-size: 23px;
-  }
-  h2 {
-    font-size: 20px;
-  }
-  .content-page {
-    h2, h3, h4, h5, h6 {
-      padding-top: 10px;
-    }
-    h3 {
-      font-size: 20px;
-      margin-bottom: 7px;
-    }
-    h4 {
-      font-size: 17px;
-      margin-bottom: 4px;
-    }
-    h5, h6 {
-      font: 700 15px "Open Sans", Arial, sans-serif;
-      margin-bottom: 2px;
-    }
-  }
-  .header {
-    position: inherit;
-  }
-  .site-logo {
-    padding-top: 28px;
-    padding-bottom: 27px;
-  }
-  .reduce-header .site-logo {
-    padding-top: 16px;
-    padding-bottom: 18px;
-  }
-  .header-navigation {
-    li.menu-search {
-      top: 31px;
-      i {
-        color: #8a949e;
-      }
-    }
-    font: 19px "PT Sans Narrow", sans-serif;
-    letter-spacing: 1px;
-    margin: 0;
-    > ul > li > a {
-      color: #767f88;
-      padding: 34px 12px 32px;
-    }
-    ul > li {
-      &.active > a {
-        color: #e02222;
-      }
-      > a {
-        &:hover, &:focus {
-          color: #e02222;
-        }
-      }
-      &.open > a {
-        color: #e02222;
-        &:hover, &:focus {
-          color: #e02222;
-        }
-      }
-    }
-    .dropdown-menu > li {
-      > a:hover, &.active > a {
-        color: #fff;
-      }
-    }
-    .header-navigation-content .header-navigation-col li {
-      > a:hover, &.active > a {
-        color: #fff;
-      }
-    }
-    ul > li.active > a {
-      /*border-bottom: 2px solid #E44F00;*/
-      border-bottom: none !important;
-    }
-    > ul > li > .dropdown-menu {
-      margin-top: -3px;
-    }
-  }
-  .reduce-header .header-navigation > ul > li {
-    > .dropdown-menu {
-      margin-top: -3px;
-    }
-    &.dropdown:hover > a:after {
-      bottom: 0;
-    }
-  }
-}
-
 /***
 Header and header elements
 ***/
@@ -148,15 +46,6 @@ Header and header elements
   margin-top: 30px;
   position: relative;
   font: 400 13px 'Open Sans', Arial, sans-serif;
-}
-
-.ecommerce {
-  .header .mobi-toggler {
-    margin-top: 30px;
-  }
-  .reduce-header .mobi-toggler {
-    margin-top: 19px;
-  }
 }
 
 .reduce-header .top-cart-block {
@@ -325,15 +214,6 @@ Header and header elements
   }
 }
 
-.ecommerce {
-  .page-slider {
-    margin-top: -23px;
-  }
-  .breadcrumb {
-    text-transform: uppercase;
-    font: 13px "PT Sans Narrow", sans-serif;
-  }
-}
 
 /* breadcrumb */
 
@@ -826,16 +706,6 @@ div {
   }
 }
 
-.ecommerce .sidebar {
-  font: 15px 'PT Sans Narrow', sans-serif;
-  color: #3E4D5C;
-  text-transform: uppercase;
-  .list-group-item {
-    background: #fff;
-    padding: 8px 10px 6px;
-  }
-}
-
 /* sidebar filter */
 
 .sidebar-filter {
@@ -1163,19 +1033,6 @@ table .product-quantity {
   width: 100%;
   overflow: hidden;
   padding: 50px 13px 0;
-}
-
-.ecommerce .nav-tabs {
-  text-transform: uppercase;
-  font: 16px/1 "PT Sans Narrow", sans-serif;
-  > li > a {
-    padding: 5px 15px 3px;
-    background: #edeff1;
-    &:hover, &:focus {
-      padding: 5px 15px 3px;
-      background: #edeff1;
-    }
-  }
 }
 
 .nav-tabs > li.active > a {

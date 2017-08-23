@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationService } from '../shared/services'
+import { NotificationService } from '../shared/services';
 import { NgForm } from '@angular/forms';
 
 import { Error } from '../shared/models/error';

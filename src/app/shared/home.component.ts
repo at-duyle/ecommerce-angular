@@ -13,10 +13,12 @@ import { NotificationService } from './services';
 export class HomeComponent implements OnInit, AfterViewInit {
 
   subscription: Subscription;
+  hiddenSlider: boolean;
 
   constructor (
     private route: ActivatedRoute,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private router: Router
     ) {
     this.subscription = route.queryParams.subscribe(
       (queryParam: any) => {
@@ -27,7 +29,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
           }
         }
       }
-      );
+    );
+
+    if (this.router.url === '/' || this.router.url === '/home') { 
+      this.hiddenSlider = true;
+    } else {
+      this.hiddenSlider = false;
+    }
   }
 
   ngOnInit() {

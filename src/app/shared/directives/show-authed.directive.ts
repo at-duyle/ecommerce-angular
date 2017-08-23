@@ -7,13 +7,13 @@ import { UserService } from '../services/user.service';
 })
 export class ShowAuthedDirective {
 
+  condition: boolean;
+
   constructor(
     private templateRef: TemplateRef<any>,
     private userService: UserService,
     private viewContainer: ViewContainerRef
   ) { }
-
-  condition: boolean;
 
   ngOnInit() {
     this.userService.isAuthenticated.subscribe(
