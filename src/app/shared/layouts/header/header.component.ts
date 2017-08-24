@@ -49,4 +49,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     });
   }
 
+  onClick = (id :any) => {
+    if(id === '#myCarousel-prev'){
+      $('#myCarousel').carousel('prev');
+    } else{
+      $('#myCarousel').carousel('next');
+    }
+  }
+
 }

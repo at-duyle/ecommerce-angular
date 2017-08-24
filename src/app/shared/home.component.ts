@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
     private notify: NotificationService,
     private router: Router
     ) {
-    console.log(route.url);
     this.subscription = route.queryParams.subscribe(
       (queryParam: any) => {
         if(queryParam['ms'] != undefined){
@@ -31,15 +30,13 @@ export class HomeComponent implements OnInit {
         }
       }
       );
-    // console.log(this.router.url);
-    // if (this.router.url === '/' || this.router.url === '/home') { 
-    //   this.hiddenSlider = true;
-    // } else {
-    //   this.hiddenSlider = false;
-    // }
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 
 }

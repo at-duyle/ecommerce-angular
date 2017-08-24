@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 import * as $ from 'jquery';
 
 import { Error } from '../shared/models/error';
@@ -13,7 +15,7 @@ import { UserService } from '../shared/services/user.service';
 })
 export class AuthComponent implements OnInit, AfterViewInit {
   errors: Error;
-
+  subscription: Subscription;
   constructor(
     private userService: UserService,
     private router: Router
@@ -29,7 +31,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
 
   login(loginForm: NgForm){
     let credentials = loginForm.value;
-    this.userService
+    this.subscription = this.userService
     .attemptAuth(credentials)
     .subscribe(
       (data: any) => {
@@ -40,5 +42,9 @@ export class AuthComponent implements OnInit, AfterViewInit {
         this.errors = err.errors;
       }
       );
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Error } from '../shared/models/error';
@@ -11,6 +11,7 @@ import { UserService } from '../shared/services/user.service';
 })
 export class LogoutComponent implements OnInit {
   errors: Error;
+  subscription: Subscription;
 
   constructor(
     private userService: UserService,
@@ -20,7 +21,7 @@ export class LogoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService
+    this.subscription = this.userService
     .purgeAuth()
     .subscribe(
       (data: any) => {
@@ -33,4 +34,8 @@ export class LogoutComponent implements OnInit {
       );
   }
 
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+    console.log('destroyed');
+  }
 }
