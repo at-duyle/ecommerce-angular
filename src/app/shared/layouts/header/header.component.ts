@@ -1,9 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { SlimScroll } from 'angular-io-slimscroll';
-import * as $ from 'jquery';
 
 import { User } from '../../models';
 import { UserService } from '../../services'
+
+declare var $: any;
 
 @Component({
   selector: 'app-header',

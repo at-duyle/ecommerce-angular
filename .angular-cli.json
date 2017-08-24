@@ -23,12 +23,17 @@
         "../node_modules/font-awesome/css/font-awesome.css",
         "../node_modules/alertifyjs/build/css/alertify.min.css",
         "../node_modules/alertifyjs/build/css/themes/default.min.css",
+        "../node_modules/fancybox/dist/css/jquery.fancybox.css",
+        "../node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css",
         "styles.scss"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
         "../node_modules/alertifyjs/build/alertify.min.js",
+        "../node_modules/fancybox/dist/js/jquery.fancybox.js",
+        "../node_modules/fancybox/dist/js/jquery.fancybox.pack.js",
+        "../node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js",
         "script.js"
       ],
       "environmentSource": "environments/environment.ts",

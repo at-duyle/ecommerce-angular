@@ -22,17 +22,23 @@ import {
   NoAuthGuardService,
   AuthGuardService,
   NotificationService,
-  CategoryService
+  CategoryService,
+  ProductService
 } from './shared';
 import { ShowAuthedDirective } from './shared/directives/show-authed.directive';
 import { ErrorComponent } from './error/error.component';
 import { LogoutComponent } from './logout/logout.component';
 import { MenuBarComponent } from './shared/layouts/menu-bar/menu-bar.component';
 import { SliderComponent } from './slider/slider.component';
+import { ProductsByCategoryComponent } from './products-by-category/products-by-category.component';
+import { RouterLinkDirective } from './shared/directives/router-link.directive';
+import { ImageProductPipe } from './shared/pipes/image-product.pipe';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent, children: [
+        { path: 'categories/:id/:type/products', component: ProductsByCategoryComponent, outlet:'main'}
+    ] },
   { path: 'login', component: AuthComponent, canActivate: [NoAuthGuardService] },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuardService] },
   { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuardService] },
@@ -55,6 +61,9 @@ export const routing = RouterModule.forRoot(routes);
     LogoutComponent,
     MenuBarComponent,
     SliderComponent,
+    ProductsByCategoryComponent,
+    RouterLinkDirective,
+    ImageProductPipe,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +80,8 @@ export const routing = RouterModule.forRoot(routes);
     NoAuthGuardService,
     AuthGuardService,
     NotificationService,
-    CategoryService
+    CategoryService,
+    ProductService
   ],
   bootstrap: [AppComponent],
 })
