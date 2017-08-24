@@ -20,7 +20,6 @@ export class MenuBarComponent implements OnInit {
     this.categorySercive.getAll().subscribe(
       (data: any) => {
         this.categories = data;
-        console.log(this.categories);
       }, (err: any) => {
         for (let error of err.errors) {
           this.notify.printErrorMessage(error);
