@@ -9,7 +9,7 @@
     <ul>
       <li class="clearfix" *ngFor="let category of categories">
         <a *ngIf=" category.sub_categories.length === 0 " [routerLink]="['/home', {outlets: 
-        {main: ['categories', category.id, 'Category', 'products']}}]">
+        {main: ['categories', category.slug, 'Category', 'products']}}]">
         {{category.name}} 
         <i class="icons icon-right-dir"></i>
       </a>
@@ -21,7 +21,7 @@
         <li>
           <ul>
             <li *ngFor=" let sub of category.sub_categories">
-              <a [routerLink]="['/home', {outlets: {main: ['categories', sub.id, 'SubCategory', 'products']}}]">{{sub.name}}
+              <a [routerLink]="['/home', {outlets: {main: ['categories', sub.slug, 'SubCategory', 'products']}}]">{{sub.name}}
               </a>
             </li>
           </ul>
