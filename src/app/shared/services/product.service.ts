@@ -17,7 +17,7 @@ export class ProductService {
 
   getProductByCategory(categorical: any): Observable<Array<Product>>{
     console.log(categorical);
-    return this.apiService.get('/categories/'+ categorical.id + '/products_category?type=' + categorical.type)
+    return this.apiService.get('/categories/'+ categorical.slug + '/products_category?type=' + categorical.type)
            .map(data => data.products);
   }
 
