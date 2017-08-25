@@ -31,7 +31,8 @@
         <img src="{{product.images[0] | imageProduct }}" class="img-responsive" alt="Berry Lace Dress">
         <div>
           <a href="{{product.images[0] | imageProduct }}" class="btn btn-default fancybox-button">Zoom</a>
-          <a href="#product-pop-up" (click)=(view(product)) class="btn btn-default fancybox-fast-view">View</a>
+          <a (click)="view(product)" class="btn btn-default fancybox-fast-view">View
+          </a>
         </div>
       </div>
       <h3><a href="shop-item.html">{{product.name}}</a></h3>
@@ -77,7 +78,7 @@
         </div>
       </div>
       <div class="col-md-6 col-sm-6 col-xs-9">
-        <h1>Cool green dress with red bell</h1>
+        <h1>{{product.name}}</h1>
         <div class="price-availability-block clearfix">
           <div class="price">
             <strong><span>$</span>{{product.price}}</strong>

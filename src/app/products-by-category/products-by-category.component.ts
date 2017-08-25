@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { ProductService } from '../shared/services';
 import { NotificationService } from '../shared/services';
@@ -15,7 +16,7 @@ declare var $: any;
 export class ProductsByCategoryComponent implements OnInit {
   products: Array<Product>;
   product: Product;
-
+  subscription: Subscription;
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -25,42 +26,53 @@ export class ProductsByCategoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    $("#product-quantity").TouchSpin({
+      verticalbuttons: true
+    });
+    this.subscription = this.route.params.subscribe(params => {
       this.productService.getProductByCategory(params).subscribe(
         (data: any) => {
           this.products = data;
+          $(document).ready(function() {
+            $(".fancybox-button").fancybox({
+              groupAttr: 'data-rel',
+              prevEffect: 'none',
+              nextEffect: 'none',
+              closeBtn: true,
+              helpers: {
+                title: {
+                  type: 'inside'
+                }
+              }
+            });
+          });
         }, (err: any) => {
-          for (let error of err) {
-            this.notify.printErrorMessage(error);
+          console.log(err);
+          if(Array.isArray(err)){
+            for (let error of err) {
+              this.notify.printErrorMessage(error);
+            }
+          } else {
+            this.notify.printErrorMessage(err.error);
           }
         })
     });
   }
 
-  ngAfterViewInit(){
-    $(document).ready(function() {
-      $(".fancybox-fast-view").fancybox();
-      $(".fancybox-button").fancybox({
-        groupAttr: 'data-rel',
-        prevEffect: 'none',
-        nextEffect: 'none',
-        closeBtn: true,
-        helpers: {
-          title: {
-            type: 'inside'
-          }
-        }
-      });
-      $("#product-quantity").TouchSpin({
-        verticalbuttons: true
-      });
-      $("input[name='demo_vertical']").TouchSpin({
-        verticalbuttons: true
-      });
-    });
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
+
+  zoom = () => {
+
   }
 
   view = (product: Product) => {
     this.product = product;
+    $(document).ready(function() {
+      $(".fancybox-fast-view").fancybox({
+        href: '#product-pop-up'
+      });
+    });
   }
 }

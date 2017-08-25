@@ -21,11 +21,8 @@ export class MenuBarComponent implements OnInit {
       (data: any) => {
         this.categories = data;
       }, (err: any) => {
-        for (let error of err.errors) {
-          this.notify.printErrorMessage(error);
-        }
-      }
-      );
+        this.notify.printErrorMessage(err.error);
+      });
   }
 
 }
