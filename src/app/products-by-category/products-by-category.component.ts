@@ -60,7 +60,9 @@ export class ProductsByCategoryComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    this.subscription.unsubscribe();
+    if(this.subscription != undefined){
+      this.subscription.unsubscribe();
+    }
   }
 
   zoom = () => {

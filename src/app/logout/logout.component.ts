@@ -35,7 +35,8 @@ export class LogoutComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    this.subscription.unsubscribe();
-    console.log('destroyed');
+    if(this.subscription != undefined){
+      this.subscription.unsubscribe();
+    }
   }
 }
