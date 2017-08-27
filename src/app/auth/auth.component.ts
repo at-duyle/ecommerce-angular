@@ -45,6 +45,8 @@ export class AuthComponent implements OnInit, AfterViewInit {
   }
 
   ngOnDestroy(){
-    this.subscription.unsubscribe();
+    if(this.subscription != undefined){
+      this.subscription.unsubscribe();
+    }
   }
 }

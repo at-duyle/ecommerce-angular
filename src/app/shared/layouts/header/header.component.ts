@@ -1,5 +1,6 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { SlimScroll } from 'angular-io-slimscroll';
+import { Subscription } from 'rxjs';
 
 import { User } from '../../models';
 import { UserService } from '../../services'
@@ -11,16 +12,17 @@ declare var $: any;
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   currentUser: User;
+  subcription: Subscription;
 
   constructor(
     private userService: UserService
     ) {}
 
   ngOnInit() {
-    this.userService.currentUser.subscribe(
+    this.subcription = this.userService.currentUser.subscribe(
       (userData) => {
         this.currentUser = userData;
       }
@@ -57,4 +59,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ngOnDestroy(){
+    if(this.subcription != undefined){
+      this.subcription.unsubscribe();
+    }
+  }
 }
