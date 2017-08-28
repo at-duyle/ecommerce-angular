@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from "rxjs/Rx";
 import { environment } from '../../environments/environment';
-import { NotificationService } from './services';
+import { NotificationService } from '../shared/services';
 
 @Component({
   selector: 'app-home',

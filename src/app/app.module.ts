@@ -4,15 +4,27 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
+// Import Components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/layouts/header/header.component';
 import { FooterComponent } from './shared/layouts/footer/footer.component';
-
-// Import your library
-import { SlimScroll } from 'angular-io-slimscroll';
-import { HomeComponent } from './shared/home.component';
+import { HomeComponent } from './home/home.component';
 import { AuthComponent } from './auth/auth.component';
 import { RegisterComponent } from './register/register.component';
+import { ErrorComponent } from './error/error.component';
+import { LogoutComponent } from './logout/logout.component';
+import { MenuBarComponent } from './shared/layouts/menu-bar/menu-bar.component';
+import { SliderComponent } from './slider/slider.component';
+import { ProductsByCategoryComponent } from './products-by-category/products-by-category.component';
+
+// Import your libraries
+import { SlimScroll } from 'angular-io-slimscroll';
+
+//Import Modules
+import { AuthModule } from './auth/auth.module';
+import { LogoutModule } from './logout/logout.module';
+import { RegisterModule } from './register/register.module';
+import { HomeModule } from './home/home.module';
 
 // Import services
 import {
@@ -25,23 +37,15 @@ import {
   CategoryService,
   ProductService
 } from './shared';
+
+//Import Directives
 import { ShowAuthedDirective } from './shared/directives/show-authed.directive';
-import { ErrorComponent } from './error/error.component';
-import { LogoutComponent } from './logout/logout.component';
-import { MenuBarComponent } from './shared/layouts/menu-bar/menu-bar.component';
-import { SliderComponent } from './slider/slider.component';
-import { ProductsByCategoryComponent } from './products-by-category/products-by-category.component';
 import { RouterLinkDirective } from './shared/directives/router-link.directive';
+
+// Import Pipes
 import { ImageProductPipe } from './shared/pipes/image-product.pipe';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, children: [
-        { path: 'categories/:id/:type/products', component: ProductsByCategoryComponent, outlet:'main'}
-    ] },
-  { path: 'login', component: AuthComponent, canActivate: [NoAuthGuardService] },
-  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuardService] },
-  { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuardService] },
   { path: 'error', component: ErrorComponent }
 ];
 
@@ -70,7 +74,11 @@ export const routing = RouterModule.forRoot(routes);
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    routing
+    routing,
+    AuthModule,
+    LogoutModule,
+    RegisterModule,
+    HomeModule
   ],
   providers: [
     ShowAuthedDirective,
