@@ -47,7 +47,6 @@ export class ProductsByCategoryComponent implements OnInit {
             });
           });
         }, (err: any) => {
-          console.log(err);
           if(Array.isArray(err)){
             for (let error of err) {
               this.notify.printErrorMessage(error);
@@ -63,10 +62,6 @@ export class ProductsByCategoryComponent implements OnInit {
     if(this.subscription != undefined){
       this.subscription.unsubscribe();
     }
-  }
-
-  zoom = () => {
-
   }
 
   view = (product: Product) => {
