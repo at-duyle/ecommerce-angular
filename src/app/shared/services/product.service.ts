@@ -16,9 +16,12 @@ export class ProductService {
   ) { }
 
   getProductByCategory(categorical: any): Observable<Array<Product>>{
-    console.log(categorical);
     return this.apiService.get('/categories/'+ categorical.slug + '/products_category?type=' + categorical.type)
            .map(data => data.products);
   }
 
+  getBestSeller(): Observable<Array<Product>>{
+    return this.apiService.get('/products_best_seller')
+           .map(data => data.products);
+  }
 }
