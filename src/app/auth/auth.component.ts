@@ -35,7 +35,6 @@ export class AuthComponent implements OnInit, AfterViewInit {
     .attemptAuth(credentials)
     .subscribe(
       (data: any) => {
-        console.log(data);
         this.router.navigateByUrl('/')
       },
       (err: any) => {
