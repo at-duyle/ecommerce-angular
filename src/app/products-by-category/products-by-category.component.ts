@@ -26,9 +26,6 @@ export class ProductsByCategoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    $("#product-quantity").TouchSpin({
-      verticalbuttons: true
-    });
     this.subscription = this.route.params.subscribe(params => {
       this.productService.getProductByCategory(params).subscribe(
         (data: any) => {
@@ -70,6 +67,11 @@ export class ProductsByCategoryComponent implements OnInit {
       $(".fancybox-fast-view").fancybox({
         href: '#product-pop-up'
       });
+      $(".product-quantity .form-control").TouchSpin({
+        verticalbuttons: true
+      });
+      $('.product-main-image').zoom({url: $('.product-main-image img')
+                              .attr('data-BigImgSrc')});
     });
   }
 }

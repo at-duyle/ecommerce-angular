@@ -1,3 +1,25 @@
+<div class="col-md-12 col-sm-8 margin-top-20">
+  <h2>New Arrivals</h2>
+  <ul class="row product-list">
+    <li *ngFor="let product of newProduct">
+      <div class="product-item">
+        <div class="pi-img-wrapper">
+          <img src="{{product.images[0] | imageProduct }}" class="img-responsive" alt="Berry Lace Dress">
+          <div>
+            <a href="{{product.images[0] | imageProduct }}" class="btn btn-default fancybox-button">Zoom</a>
+            <a (click)="view(product)" class="btn btn-default fancybox-fast-view">View
+            </a>
+          </div>
+        </div>
+        <h3><a href="shop-item.html">{{product.name}}</a></h3>
+        <div class="pi-price">$ {{product.price}}</div>
+        <a href="" class="btn btn-default add2cart">Add to cart</a>
+        <div class="sticker sticker-new"></div>
+      </div>
+    </li>
+  </ul>
+</div>
+
 <div class="col-md-12 col-sm-8">
   <h2>Best Seller</h2>
   <ul class="row product-list">
@@ -19,26 +41,6 @@
     </li>
   </ul>
 </div>
-<!-- <div class="col-md-12 col-sm-8 margin-top-20">
-  <h2>Best Seller</h2>
-  <ul class="row product-list">
-    <li *ngFor="let product of bestSeller">
-      <div class="product-item">
-        <div class="pi-img-wrapper">
-          <img src="{{product.images[0] | imageProduct }}" class="img-responsive" alt="Berry Lace Dress">
-          <div>
-            <a href="{{product.images[0] | imageProduct }}" class="btn btn-default fancybox-button">Zoom</a>
-            <a (click)="view(product)" class="btn btn-default fancybox-fast-view">View
-            </a>
-          </div>
-        </div>
-        <h3><a href="shop-item.html">{{product.name}}</a></h3>
-        <div class="pi-price">$ {{product.price}}</div>
-        <a href="" class="btn btn-default add2cart">Add to cart</a>
-      </div>
-    </li>
-  </ul>
-</div> -->
 <!-- END CONTENT -->
 
 <div id="product-pop-up" style="display: none; width: 700px;"

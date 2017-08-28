@@ -349,3 +349,48 @@ table .product-quantity {
 .btn-cart{
   background-color: #E6400C;
 }
+
+.product-quantity {
+  input.form-control {
+    border: none;
+    background: #edeff1 !important;
+    font: 300 23px 'Open Sans', sans-serif;
+    color: #647484;
+    height: 38px;
+    width: 50px;
+    text-align: center;
+    padding: 5px;
+    &:focus {
+      border: none;
+    }
+  }
+  .input-group-btn {
+    position: static;
+  }
+  .btn {
+    text-align: center;
+    height: 18px !important;
+    width: 18px;
+    padding: 0 2px 0 1px !important;
+    text-align: center;
+    background: #edeff1;
+    border-radius: 0 !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+    color: #616b76;
+    margin: 0 !important;
+    position: absolute;
+    right: 0;
+  }
+  .quantity-up {
+    top: 0;
+  }
+  .quantity-down {
+    bottom: 0;
+  }
+  .btn i {
+    position: relative;
+    top: -2px;
+    left: 1px;
+  }
+}
