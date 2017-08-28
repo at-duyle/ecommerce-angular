@@ -71,7 +71,33 @@ export class HomeComponent implements OnInit {
         }
       }
       );
-    
+
+    this.subscriptionNewProduct = this.productService.getNewProduct().subscribe(
+      (data: any) => {
+        this.newProduct = data;
+        $(document).ready(function() {
+          $(".fancybox-button").fancybox({
+            groupAttr: 'data-rel',
+            prevEffect: 'none',
+            nextEffect: 'none',
+            closeBtn: true,
+            helpers: {
+              title: {
+                type: 'inside'
+              }
+            }
+          });
+        });
+      }, (err: any) => {
+        if(Array.isArray(err)){
+          for (let error of err) {
+            this.notify.printErrorMessage(error);
+          }
+        } else {
+          this.notify.printErrorMessage(err.error);
+        }
+      }
+      );
   }
 
   view = (product: Product) => {
@@ -80,12 +106,23 @@ export class HomeComponent implements OnInit {
       $(".fancybox-fast-view").fancybox({
         href: '#product-pop-up'
       });
+      $(".product-quantity .form-control").TouchSpin({
+        verticalbuttons: true
+      });
+      $('.product-main-image').zoom({url: $('.product-main-image img')
+                              .attr('data-BigImgSrc')});
     });
   }
 
   ngOnDestroy(){
     if(this.subscription != undefined){
       this.subscription.unsubscribe();
+    }
+    if(this.subscriptionBestSeller != undefined){
+      this.subscriptionBestSeller.unsubscribe();
+    }
+    if(this.subscriptionNewProduct != undefined){
+      this.subscriptionNewProduct.unsubscribe();
     }
   }
 
