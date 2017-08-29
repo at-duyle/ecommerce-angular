@@ -39,6 +39,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
       },
       (err: any) => {
         this.errors = err.errors;
+        console.log(err);
       }
       );
   }
