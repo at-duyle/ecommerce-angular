@@ -25,6 +25,7 @@ import { SlimScroll } from 'angular-io-slimscroll';
 import { AuthModule } from './auth/auth.module';
 import { LogoutModule } from './logout/logout.module';
 import { RegisterModule } from './register/register.module';
+import { ProfileModule } from './profile/profile.module';
 import { MainModule } from './main/main.module';
 
 // Import services
@@ -45,6 +46,7 @@ import { RouterLinkDirective } from './shared/directives/router-link.directive';
 
 // Import Pipes
 import { ImageProductPipe } from './shared/pipes/image-product.pipe';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: 'error', component: ErrorComponent }
@@ -70,6 +72,7 @@ export const routing = RouterModule.forRoot(routes);
     MainComponent,
     RouterLinkDirective,
     ImageProductPipe,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +83,7 @@ export const routing = RouterModule.forRoot(routes);
     AuthModule,
     LogoutModule,
     RegisterModule,
+    ProfileModule,
     MainModule
   ],
   providers: [
