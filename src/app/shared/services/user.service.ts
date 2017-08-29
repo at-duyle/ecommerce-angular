@@ -30,11 +30,11 @@ export class UserService {
   populate() {
     // If JWT detected, attempt to get & store user's info
     if (this.jwtService.getToken()) {
-      this.apiService.get('/users/current')
+      this.apiService.get('/users')
       .subscribe(
         data => this.setAuth(data.user),
         err => this.purgeToken()
-        );
+      );
     } else {
       // Remove any potential remnants of previous auth states
       this.purgeToken();
@@ -67,7 +67,7 @@ export class UserService {
         this.setAuth(data.user);
         return data;
       }
-      );
+    );
   }
 
   purgeAuth(): Observable<User> {
@@ -77,7 +77,7 @@ export class UserService {
         this.purgeToken();
         return data;
       }
-      );
+    );
   }
 
   register(credentials): Observable<User> {
@@ -86,6 +86,19 @@ export class UserService {
       data => {
         return data;
       }
-      );
+    );
+  }
+
+  getCurrentUser(){
+    return this.currentUserSubject.getValue();
+  }
+
+  update(userProfile): Observable<User>{
+    return this.apiService.put('/users/1', {user: userProfile})
+    .map(
+      data => {
+        this.currentUserSubject.next(data.user);
+        return data;
+      });
   }
 }

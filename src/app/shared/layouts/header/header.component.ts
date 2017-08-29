@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       (userData) => {
         this.currentUser = userData;
       }
-      )
+      );
   }
 
   ngAfterViewInit(){

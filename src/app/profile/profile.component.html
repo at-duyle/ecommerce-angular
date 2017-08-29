@@ -1,0 +1,119 @@
+<app-header></app-header>
+<div class="main">
+  <div class="container">
+    <div class="content">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="header">
+              <h4 class="title">Edit Profile</h4>
+            </div>
+            <div class="content">
+              <form [formGroup]="profileForm" novalidate (ngSubmit)="updateProfile(profileForm.value)">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Username</label>
+                      <input type="text" class="form-control" formControlName="username" placeholder="Username">
+                      <span [hidden]="profileForm.controls.username.valid || (profileForm.controls.username.pristine && !profileForm.submitted)" class="text-error">
+                        This field is required !
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                      <span [hidden]="profileForm.controls.email.valid || (profileForm.controls.email.pristine && !profileForm.submitted)" class="text-error">
+                        This field is required !
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Full name</label>
+                      <input type="text" class="form-control" formControlName="name" placeholder="Your name">
+                      <span [hidden]="profileForm.controls.name.valid || (profileForm.controls.name.pristine && !profileForm.submitted)" class="text-error">
+                        This field is required !
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-1">
+                    <div class="form-group">
+                      <label>Gender</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <input type="radio" class="radio-item" formControlName="gender" name="gender" value="male"> Male
+                      <input type="radio" class="radio-item" formControlName="gender" name="gender" value="female" > Female
+                      <input type="radio" class="radio-item" formControlName="gender" name="gender" value="other"> Other
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Address</label>
+                      <input type="text" class="form-control" formControlName="address" placeholder="Home Address">
+                      <span [hidden]="profileForm.controls.address.valid || (profileForm.controls.address.pristine && !profileForm.submitted)" class="text-error">
+                        Don't over 200 words !
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>About Me</label>
+                      <textarea rows="5" class="form-control" style="resize: none" formControlName="description" placeholder="Here can be your description" value="Mike"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <input type="hidden" formControlName="avatar">
+
+                <button type="submit" [disabled]="!profileForm.valid" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                <div class="clearfix"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-user">
+            <div class="image">
+              <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
+            </div>
+            <div class="content">
+              <div class="author">
+                <a href="#">
+                  <img class="avatar border-gray" src="{{currentUser.avatar}}" alt="..."/>
+                  <h4 class="title">{{currentUser.name}}<br />
+                    <small>{{currentUser.username}}</small>
+                  </h4>
+                </a>
+              </div>
+              <p class="description text-center">
+                {{currentUser.description}}
+              </p>
+              <div class="text-center">
+                <input type="button" class="btn btn-primary" value="Reset password">
+              </div>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

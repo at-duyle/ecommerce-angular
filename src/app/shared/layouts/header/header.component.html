@@ -26,7 +26,7 @@
         <ul *showAuthed="true" class="list-unstyled list-inline pull-right">
           <li><a [routerLink]="['/logout']">Logout</a></li>
           <li>
-            <a>
+            <a [routerLink]="['/profile']">
               <!-- <img [src]="currentUser.avatar" *ngIf="currentUser.avatar" class="user-pic" /> -->
               {{ currentUser.username }}
             </a>
