@@ -8,47 +8,43 @@
   <div class="col-md-10 col-sm-10">
     <div class="pull-right">
       <label class="control-label">Sort&nbsp;By:</label>
-      <select class="form-control input-sm">
-        <option value="#?sort=p.sort_order&amp;order=ASC" selected="selected">Default</option>
-        <option value="#?sort=pd.name&amp;order=ASC">Name (A - Z)</option>
-        <option value="#?sort=pd.name&amp;order=DESC">Name (Z - A)</option>
-        <option value="#?sort=p.price&amp;order=ASC">Price (Low &gt; High)</option>
-        <option value="#?sort=p.price&amp;order=DESC">Price (High &gt; Low)</option>
-        <option value="#?sort=rating&amp;order=DESC">Rating (Highest)</option>
-        <option value="#?sort=rating&amp;order=ASC">Rating (Lowest)</option>
-        <option value="#?sort=p.model&amp;order=ASC">Model (A - Z)</option>
-        <option value="#?sort=p.model&amp;order=DESC">Model (Z - A)</option>
-      </select>
-    </div>
+      <select class="form-control input-sm" [(ngModel)]="selectedOrder">
+        <option *ngFor="let order of orders" [ngValue]="order">
+        {{order}}
+      </option>
+    </select>
   </div>
 </div>
+</div>
 <!-- BEGIN PRODUCT LIST -->
-<ul class="row product-list">
-  <!-- PRODUCT ITEM START -->
-  <li *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p }">
-    <div class="product-item">
-      <div class="pi-img-wrapper">
-        <img src="{{product.images[0] | imageProduct }}" class="img-responsive" alt="Berry Lace Dress">
-        <div>
-          <a href="{{product.images[0] | imageProduct }}" class="btn btn-default fancybox-button">Zoom</a>
-          <a (click)="view(product)" class="btn btn-default fancybox-fast-view">View
-          </a>
+<div>
+  <ul class="row product-list">
+    <!-- PRODUCT ITEM START -->
+    <li *ngFor="let product of products | orderByProducts: selectedOrder | paginate: { itemsPerPage: 12, currentPage: p }">
+      <div class="product-item">
+        <div class="pi-img-wrapper">
+          <img src="{{product.images[0] | imageProduct }}" class="img-responsive" alt="Berry Lace Dress">
+          <div>
+            <a href="{{product.images[0] | imageProduct }}" class="btn btn-default fancybox-button">Zoom</a>
+            <a (click)="view(product)" class="btn btn-default fancybox-fast-view">View
+            </a>
+          </div>
         </div>
+        <h3><a href="shop-item.html" title="{{product.name}}">{{product.name}}</a></h3>
+        <div class="pi-price">$ {{product.price}}</div>
+        <a href="" class="btn btn-default add2cart">Add to cart</a>
       </div>
-      <h3><a href="shop-item.html" title="{{product.name}}">{{product.name}}</a></h3>
-      <div class="pi-price">$ {{product.price}}</div>
-      <a href="" class="btn btn-default add2cart">Add to cart</a>
-    </div>
-  </li>
-</ul>
+    </li>
+  </ul>
+</div>
 <!-- END PRODUCT LIST -->
 <!-- BEGIN PAGINATOR -->
 <div class="row margin-top-10 margin-bottom-40">
   <div class="col-md-4 col-sm-4 items-info"></div>
   <div class="col-md-8 col-sm-8">
-     <pagination-controls (pageChange)="p = $event"></pagination-controls>
-  </div>
-  <!-- END PAGINATOR -->
+   <pagination-controls (pageChange)="p = $event"></pagination-controls>
+ </div>
+ <!-- END PAGINATOR -->
 </div>
 <!-- END CONTENT -->
 

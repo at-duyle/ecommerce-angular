@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // Import Components
 import { AppComponent } from './app.component';
@@ -48,6 +48,7 @@ import { RouterLinkDirective } from './shared/directives/router-link.directive';
 // Import Pipes
 import { ImageProductPipe } from './shared/pipes/image-product.pipe';
 import { ProfileComponent } from './profile/profile.component';
+import { OrderByProductsPipe } from './shared/pipes/order-by-products.pipe';
 
 const routes: Routes = [
   { path: 'error', component: ErrorComponent }
@@ -74,6 +75,7 @@ export const routing = RouterModule.forRoot(routes);
     RouterLinkDirective,
     ImageProductPipe,
     ProfileComponent,
+    OrderByProductsPipe,
   ],
   imports: [
     BrowserModule,
