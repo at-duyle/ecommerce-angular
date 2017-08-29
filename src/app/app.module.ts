@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 // Import Components
 import { AppComponent } from './app.component';
@@ -76,6 +77,7 @@ export const routing = RouterModule.forRoot(routes);
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     routing,
     AuthModule,
     LogoutModule,
