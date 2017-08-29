@@ -20,4 +20,13 @@ export class ProductService {
            .map(data => data.products);
   }
 
+  getBestSeller(): Observable<Array<Product>>{
+    return this.apiService.get('/products_best_seller')
+           .map(data => data.products);
+  }
+
+  getNewProduct(): Observable<Array<Product>>{
+    return this.apiService.get('/products_newest')
+           .map(data => data.products);
+  }
 }

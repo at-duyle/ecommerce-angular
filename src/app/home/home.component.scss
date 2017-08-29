@@ -1,0 +1,19 @@
+@import '../products-by-category/products-by-category.component.scss';
+
+h2{
+  margin-left: 3%;
+}
+
+.sticker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 63px;
+  height: 63px;
+}
+
+.sticker-new {
+  background: url(../../assets/pages/img/new.png) no-repeat;
+  left: auto;
+  right: 0;
+}

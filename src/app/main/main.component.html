@@ -1,0 +1,15 @@
+<app-header></app-header>
+<app-slider *ngIf="hiddenSlider"></app-slider>
+<div class="main">
+  <div class="container">
+    <div class="row margin-bottom-40 ">
+      <div class="col-left clearfix">
+        <app-menu-bar></app-menu-bar>
+      </div>
+      <div class="col-main clearfix">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

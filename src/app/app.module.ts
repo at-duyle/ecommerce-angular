@@ -16,6 +16,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { MenuBarComponent } from './shared/layouts/menu-bar/menu-bar.component';
 import { SliderComponent } from './slider/slider.component';
 import { ProductsByCategoryComponent } from './products-by-category/products-by-category.component';
+import { MainComponent } from './main/main.component';
 
 // Import your libraries
 import { SlimScroll } from 'angular-io-slimscroll';
@@ -24,8 +25,8 @@ import { SlimScroll } from 'angular-io-slimscroll';
 import { AuthModule } from './auth/auth.module';
 import { LogoutModule } from './logout/logout.module';
 import { RegisterModule } from './register/register.module';
-import { HomeModule } from './home/home.module';
 import { ProfileModule } from './profile/profile.module';
+import { MainModule } from './main/main.module';
 
 // Import services
 import {
@@ -68,6 +69,7 @@ export const routing = RouterModule.forRoot(routes);
     MenuBarComponent,
     SliderComponent,
     ProductsByCategoryComponent,
+    MainComponent,
     RouterLinkDirective,
     ImageProductPipe,
     ProfileComponent,
@@ -81,8 +83,8 @@ export const routing = RouterModule.forRoot(routes);
     AuthModule,
     LogoutModule,
     RegisterModule,
-    HomeModule,
-    ProfileModule
+    ProfileModule,
+    MainModule
   ],
   providers: [
     ShowAuthedDirective,

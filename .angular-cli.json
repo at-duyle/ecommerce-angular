@@ -34,6 +34,7 @@
         "../node_modules/fancybox/dist/js/jquery.fancybox.js",
         "../node_modules/fancybox/dist/js/jquery.fancybox.pack.js",
         "../node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js",
+        "../node_modules/jquery-zoom/jquery.zoom.min.js",
         "script.js"
       ],
       "environmentSource": "environments/environment.ts",

@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './home.component';
+import { MainComponent } from './main.component';
+import { HomeComponent } from '../home/home.component';
 import { ProductsByCategoryComponent } from '../products-by-category/products-by-category.component';
 
 import {
@@ -18,7 +19,8 @@ import {
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, children: [
+  { path: 'home', component: MainComponent, children: [
+    { path: '', component: HomeComponent },
     { path: 'categories/:slug/:type/products', component: ProductsByCategoryComponent }
   ] }
 ];
@@ -32,4 +34,4 @@ export const routing = RouterModule.forRoot(routes);
   ],
   declarations: []
 })
-export class HomeModule { }
+export class MainModule { }
