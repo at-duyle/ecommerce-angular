@@ -25,7 +25,7 @@
 <!-- BEGIN PRODUCT LIST -->
 <ul class="row product-list">
   <!-- PRODUCT ITEM START -->
-  <li *ngFor="let product of products">
+  <li *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p }">
     <div class="product-item">
       <div class="pi-img-wrapper">
         <img src="{{product.images[0] | imageProduct }}" class="img-responsive" alt="Berry Lace Dress">
@@ -44,17 +44,9 @@
 <!-- END PRODUCT LIST -->
 <!-- BEGIN PAGINATOR -->
 <div class="row margin-top-10 margin-bottom-40">
-  <div class="col-md-4 col-sm-4 items-info">Items 1 to 9 of 10 total</div>
+  <div class="col-md-4 col-sm-4 items-info"></div>
   <div class="col-md-8 col-sm-8">
-    <ul class="pagination pull-right">
-      <li><a href="">&laquo;</a></li>
-      <li><a href="">1</a></li>
-      <li><span>2</span></li>
-      <li><a href="">3</a></li>
-      <li><a href="">4</a></li>
-      <li><a href="">5</a></li>
-      <li><a href="">&raquo;</a></li>
-    </ul>
+     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
   <!-- END PAGINATOR -->
 </div>
