@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -9,33 +9,27 @@ import { Product } from '../shared/models/product';
 declare var $: any;
 
 @Component({
-  selector: 'app-products-by-category',
-  templateUrl: './products-by-category.component.html',
-  styleUrls: ['./products-by-category.component.scss'],
+  selector: 'app-product-detail',
+  templateUrl: './product-detail.component.html',
+  styleUrls: ['./product-detail.component.scss']
 })
-export class ProductsByCategoryComponent implements OnInit {
-  products: Array<Product>;
-  product: Product;
+export class ProductDetailComponent implements OnInit, OnDestroy {
+  product: any;
   subscription: Subscription;
-  orders: Array<any>;
-  selectedOrder: any;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private notify: NotificationService
-    ) { 
-    this.products = [];
-    this.orders = ['Default', 'Price (Low -> High)', 'Price (High -> Low)'];
-    this.selectedOrder = this.orders[0];
-  }
+    ) { }
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
-      this.productService.getProductByCategory(params).subscribe(
+      this.productService.getProductDetail(params).subscribe(
         (data: any) => {
-          this.products = data;
-          $(document).ready(function() {
+          console.log(data);
+          this.product = data;
+          $(document).ready(function(){
             $(".fancybox-button").fancybox({
               groupAttr: 'data-rel',
               prevEffect: 'none',
@@ -47,9 +41,11 @@ export class ProductsByCategoryComponent implements OnInit {
                 }
               }
             });
-            $(".fancybox-fast-view").fancybox({
-              href: '#product-pop-up'
+            $(".product-quantity .form-control").TouchSpin({
+              verticalbuttons: true
             });
+            $('.product-main-image').zoom({url: $('.product-main-image img')
+              .attr('data-BigImgSrc')});
           });
         }, (err: any) => {
           if(Array.isArray(err)){
@@ -64,19 +60,7 @@ export class ProductsByCategoryComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    if(this.subscription != undefined){
-      this.subscription.unsubscribe();
-    }
+    this.subscription.unsubscribe();
   }
 
-  view = (product: Product) => {
-    this.product = product;
-    $(document).ready(function() {
-      $(".product-quantity .form-control").TouchSpin({
-        verticalbuttons: true
-      });
-      $('.product-main-image').zoom({url: $('.product-main-image img')
-        .attr('data-BigImgSrc')});
-    });
-  }
 }

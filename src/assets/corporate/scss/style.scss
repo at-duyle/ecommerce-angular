@@ -41,6 +41,7 @@ a {
     text-decoration: none;
   }
   &:hover {
+    cursor: pointer;
     color: #E02222;
     text-decoration: underline;
   }
@@ -235,4 +236,8 @@ Misc tools
 
 .input-group-addon{
   border-radius: 0px;
+}
+
+.btn-cart{
+  background-color: #E6400C !important;
 }

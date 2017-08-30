@@ -49,6 +49,9 @@ import { RouterLinkDirective } from './shared/directives/router-link.directive';
 import { ImageProductPipe } from './shared/pipes/image-product.pipe';
 import { ProfileComponent } from './profile/profile.component';
 import { OrderByProductsPipe } from './shared/pipes/order-by-products.pipe';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { AvailableProductPipe } from './shared/pipes/available-product.pipe';
+import { RoundPricePipe } from './shared/pipes/round-price.pipe';
 
 const routes: Routes = [
   { path: 'error', component: ErrorComponent }
@@ -76,6 +79,9 @@ export const routing = RouterModule.forRoot(routes);
     ImageProductPipe,
     ProfileComponent,
     OrderByProductsPipe,
+    ProductDetailComponent,
+    AvailableProductPipe,
+    RoundPricePipe,
   ],
   imports: [
     BrowserModule,
