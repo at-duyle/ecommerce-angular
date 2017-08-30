@@ -17,12 +17,17 @@ export class ProductsByCategoryComponent implements OnInit {
   products: Array<Product>;
   product: Product;
   subscription: Subscription;
+  orders: Array<any>;
+  selectedOrder: any;
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private notify: NotificationService
     ) { 
     this.products = [];
+    this.orders = ['Default', 'Price (Low -> High)', 'Price (High -> Low)'];
+    this.selectedOrder = this.orders[0];
   }
 
   ngOnInit() {
