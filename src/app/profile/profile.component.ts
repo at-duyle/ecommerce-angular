@@ -8,6 +8,8 @@ import { User } from '../shared/models';
 import { UserService } from '../shared/services';
 import { NotificationService } from '../shared/services';
 
+declare var $: any;
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -17,10 +19,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   currentUser: User;
   profileForm: any;
+  passwordForm: any;
+  controlConfirmPass: any;
   controlEmail: any;
   controlFullname: any;
   errors: Error;
   subscription: Subscription;
+  subPass: Subscription;
 
   constructor(
     private userService: UserService,
@@ -33,10 +38,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
       email: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.maxLength(50)]),
       gender: new FormControl(),
-      avatar: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.maxLength(200)]),
       description: new FormControl()
-    })
+    });
+
+    this.passwordForm = this.formBuilder.group({
+      old_password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      password_confirmation: new FormControl('', [Validators.required])
+    });
   }
 
   ngOnInit() {
@@ -57,11 +67,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
       });
     this.controlFullname = this.profileForm.controls.name.valueChanges.subscribe(
       (valid: any) => {
-        let pattern = new RegExp(/^[a-zA-Z ]{1,30}$/);
+        let pattern = new RegExp(/^[a-zA-Z\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/);
         if(!pattern.test(valid)){
           this.profileForm.controls.name.setErrors({'Error': true});
         } else {
           this.profileForm.controls.name.setErrors(null);
+        }
+      });
+    this.controlConfirmPass = this.passwordForm.controls.password_confirmation.valueChanges.subscribe(
+      (val: any) => {
+        if(val != null){
+          let password = this.passwordForm.controls.password.value;
+          this.passwordForm.controls.password.setErrors({'Error': true});
+          if(password == null || password == ''){
+            this.passwordForm.controls.password_confirmation.reset();
+          } else{
+            this.passwordForm.controls.password.setErrors(null);
+            if(val !== password){
+              this.passwordForm.controls.password_confirmation.setErrors({'Error': true});
+            } else {
+              this.passwordForm.controls.password_confirmation.setErrors(null);
+            }
+          }
         }
       });
   }
@@ -70,7 +97,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.subscription = this.userService.update(user).subscribe(
       data => {
         this.router.navigateByUrl('/profile');
-        this.profileForm.patchValue(data); 
+        this.profileForm.patchValue(data);
+        this.notify.printSuccessMessage('Updated successful!');
       },
       err => {
         if(Array.isArray(err)){
@@ -78,18 +106,44 @@ export class ProfileComponent implements OnInit, OnDestroy {
             this.notify.printErrorMessage(error);
           }
         } else {
-          this.notify.printErrorMessage(err.error);
+          this.notify.printErrorMessage(err.errors);
+        }
+      }
+    );
+  }
+
+  updatePassword(passwords){
+    console.log(passwords);
+    this.subPass = this.userService.updatePassword(passwords).subscribe(
+      data => {
+        this.router.navigateByUrl('/profile');
+        this.notify.printSuccessMessage('Updated password successful!');
+      },
+      err => {
+        console.log(err);
+        if(Array.isArray(err)){
+          for (let error of err) {
+            this.notify.printErrorMessage(error);
+          }
+        } else {
+          this.notify.printErrorMessage(err.errors);
         }
       }
     );
   }
 
   ngOnDestroy() {
+    if(this.subscription != undefined){
+      this.subscription.unsubscribe();
+    }
     if(this.controlEmail != undefined){
       this.controlEmail.unsubscribe();
     }
     if(this.controlFullname != undefined){
       this.controlFullname.unsubscribe();
+    }
+    if(this.controlConfirmPass != undefined){
+      this.controlConfirmPass.unsubscribe();
     }
   }
 }

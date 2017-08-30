@@ -3,7 +3,6 @@ export class User {
   auth_token: string;
   username: string;
   id: string;
-  avatar: string;
   name: string;
   gender: string;
   address: string;
