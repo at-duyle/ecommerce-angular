@@ -99,6 +99,16 @@ export class UserService {
       data => {
         this.currentUserSubject.next(data.user);
         return data;
-      });
+      }
+    );
+  }
+
+  updatePassword(passwords): Observable<User> {
+    return this.apiService.put('/users/1/password', {user: passwords})
+    .map(
+      data => {
+        return data;
+      }
+    );
   }
 }

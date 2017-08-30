@@ -5,9 +5,7 @@
       <div class="row">
         <div class="col-md-8">
           <div class="card">
-            <div class="header">
-              <h4 class="title">Edit Profile</h4>
-            </div>
+            <h4 class="title">Edit Profile</h4>
             <div class="content">
               <form [formGroup]="profileForm" novalidate (ngSubmit)="updateProfile(profileForm.value)">
                 <div class="row">
@@ -79,8 +77,6 @@
                   </div>
                 </div>
 
-                <input type="hidden" formControlName="avatar">
-
                 <button type="submit" [disabled]="!profileForm.valid" class="btn btn-info btn-fill pull-right">Update Profile</button>
                 <div class="clearfix"></div>
               </form>
@@ -95,7 +91,7 @@
             <div class="content">
               <div class="author">
                 <a href="#">
-                  <img class="avatar border-gray" src="{{currentUser.avatar}}" alt="..."/>
+                  <img class="avatar border-gray" src="" alt="..."/>
                   <h4 class="title">{{currentUser.name}}<br />
                     <small>{{currentUser.username}}</small>
                   </h4>
@@ -105,7 +101,7 @@
                 {{currentUser.description}}
               </p>
               <div class="text-center">
-                <input type="button" class="btn btn-primary" value="Reset password">
+                <input type="button" class="btn btn-info btn-fill" data-toggle="modal" data-target="#update-password" (click)="showModal()" value="Reset password">
               </div>
             </div>
             <hr>
@@ -117,3 +113,57 @@
 </div>
 
 <app-footer></app-footer>
+
+<!-- BEGIN update password -->
+
+<div id="update-password" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width: 400px;">
+      <div class="modal-header">
+        <h4>Update Password</h4>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="passwordForm" novalidate (ngSubmit)="updatePassword(passwordForm.value)">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Old password</label>
+                <input type="text" class="form-control" formControlName="old_password" placeholder="Old password">
+                <span [hidden]="passwordForm.controls.old_password.valid || (passwordForm.controls.old_password.pristine && !passwordForm.submitted)" class="text-error">
+                  This field is required !
+                </span>
+              </div>
+            </div>
+            </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>New password</label>
+                <input type="text" class="form-control" formControlName="password" placeholder="New password">
+                <span [hidden]="passwordForm.controls.password.valid || (passwordForm.controls.password.pristine && !passwordForm.submitted)" class="text-error">
+                  This field is required !
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Password confirm</label>
+                <input type="text" class="form-control" formControlName="password_confirmation" placeholder="Password confirmation">
+                <span [hidden]="passwordForm.controls.password_confirmation.valid || (passwordForm.controls.password_confirmation.pristine && !passwordForm.submitted)" class="text-error">
+                  No match with new password !
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" [disabled]="!passwordForm.valid" class="btn btn-info btn-fill pull-right">Update Profile</button>
+          <div class="clearfix"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- END update password -->
