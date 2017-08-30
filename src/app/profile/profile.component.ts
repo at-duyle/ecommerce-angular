@@ -78,7 +78,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
             this.notify.printErrorMessage(error);
           }
         } else {
-          this.notify.printErrorMessage(err.error);
+          this.notify.printErrorMessage(err.errors);
         }
       }
     );

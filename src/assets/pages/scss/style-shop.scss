@@ -990,9 +990,7 @@ table .product-quantity {
     font-weight: 300;
   }
   .rateit {
-    margin-right: 27px;
     position: relative;
-    top: 2px;
   }
   .review a {
     color: #e6400c;
@@ -1165,4 +1163,10 @@ Shop Stype Buttons
 
 .btn {
   text-transform: uppercase;
+}
+
+.product-other-images, .product-main-image{
+  img{
+    background-color: #e2e3e5;
+  }
 }

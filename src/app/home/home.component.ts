@@ -48,26 +48,13 @@ export class HomeComponent implements OnInit {
     this.subscriptionBestSeller = this.productService.getBestSeller().subscribe(
       (data: any) => {
         this.bestSeller = data;
-        $(document).ready(function() {
-          $(".fancybox-button").fancybox({
-            groupAttr: 'data-rel',
-            prevEffect: 'none',
-            nextEffect: 'none',
-            closeBtn: true,
-            helpers: {
-              title: {
-                type: 'inside'
-              }
-            }
-          });
-        });
       }, (err: any) => {
         if(Array.isArray(err)){
           for (let error of err) {
             this.notify.printErrorMessage(error);
           }
         } else {
-          this.notify.printErrorMessage(err.error);
+          this.notify.printErrorMessage(err.errors);
         }
       }
       );
@@ -76,6 +63,9 @@ export class HomeComponent implements OnInit {
       (data: any) => {
         this.newProduct = data;
         $(document).ready(function() {
+          $(".fancybox-fast-view").fancybox({
+            href: '#product-pop-up'
+          });
           $(".fancybox-button").fancybox({
             groupAttr: 'data-rel',
             prevEffect: 'none',
@@ -94,7 +84,7 @@ export class HomeComponent implements OnInit {
             this.notify.printErrorMessage(error);
           }
         } else {
-          this.notify.printErrorMessage(err.error);
+          this.notify.printErrorMessage(err.errors);
         }
       }
       );
@@ -103,14 +93,11 @@ export class HomeComponent implements OnInit {
   view = (product: Product) => {
     this.product = product;
     $(document).ready(function() {
-      $(".fancybox-fast-view").fancybox({
-        href: '#product-pop-up'
-      });
       $(".product-quantity .form-control").TouchSpin({
         verticalbuttons: true
       });
       $('.product-main-image').zoom({url: $('.product-main-image img')
-                              .attr('data-BigImgSrc')});
+        .attr('data-BigImgSrc')});
     });
   }
 

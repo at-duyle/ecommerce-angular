@@ -25,13 +25,13 @@
         <div class="pi-img-wrapper">
           <img src="{{product.images[0] | imageProduct }}" class="img-responsive" alt="Berry Lace Dress">
           <div>
-            <a href="{{product.images[0] | imageProduct }}" class="btn btn-default fancybox-button">Zoom</a>
+            <a href="{{product.images[0] | imageProduct }}"  class="btn btn-default fancybox-button">Zoom</a>
             <a (click)="view(product)" class="btn btn-default fancybox-fast-view">View
             </a>
           </div>
         </div>
         <h3><a href="shop-item.html" title="{{product.name}}">{{product.name}}</a></h3>
-        <div class="pi-price">$ {{product.price}}</div>
+        <div class="pi-price">$ {{product.price * 0.8 | roundPrice}}</div>
         <a href="" class="btn btn-default add2cart">Add to cart</a>
       </div>
     </li>
@@ -69,11 +69,11 @@
         <h1>{{product.name}}</h1>
         <div class="price-availability-block clearfix">
           <div class="price">
-            <strong><span>$</span>{{product.price}}</strong>
-            <em>$<span>62.00</span></em>
+            <strong><span>$</span>{{product.price * 0.8 | roundPrice}}</strong>
+            <em>$<span>{{product.price}}</span></em>
           </div>
           <div class="availability">
-            Availability: <strong>In Stock</strong>
+            Availability: <strong>{{product.quantity | availableProduct}}</strong>
           </div>
         </div>
         <div class="description">
