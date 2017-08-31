@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ProductService } from '../shared/services';
@@ -23,7 +23,8 @@ export class ProductsByCategoryComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private router: Router,
     ) { 
     this.products = [];
     this.orders = ['Default', 'Price (Low -> High)', 'Price (High -> Low)'];
@@ -78,5 +79,9 @@ export class ProductsByCategoryComponent implements OnInit {
       $('.product-main-image').zoom({url: $('.product-main-image img')
         .attr('data-BigImgSrc')});
     });
+  }
+
+  detail = (slug: any) => {
+    this.router.navigateByUrl('/home/product/' + slug);
   }
 }
