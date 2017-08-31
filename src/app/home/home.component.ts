@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Subscription } from "rxjs/Rx";
 import { environment } from '../../environments/environment';
 import { NotificationService } from '../shared/services';
@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   newProduct: Array<Product>;
   product: Product;
   hiddenSlider: boolean;
+  previousUrl:string;
 
   constructor (
     private route: ActivatedRoute,
@@ -99,6 +100,10 @@ export class HomeComponent implements OnInit {
       $('.product-main-image').zoom({url: $('.product-main-image img')
         .attr('data-BigImgSrc')});
     });
+  }
+
+  detail = (slug: any) => {
+    this.router.navigateByUrl('/home/product/' + slug);
   }
 
   ngOnDestroy(){

@@ -27,7 +27,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.subscription = this.route.params.subscribe(params => {
       this.productService.getProductDetail(params).subscribe(
         (data: any) => {
-          console.log(data);
           this.product = data;
           $(document).ready(function(){
             $(".fancybox-button").fancybox({

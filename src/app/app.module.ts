@@ -43,7 +43,6 @@ import {
 
 //Import Directives
 import { ShowAuthedDirective } from './shared/directives/show-authed.directive';
-import { RouterLinkDirective } from './shared/directives/router-link.directive';
 
 // Import Pipes
 import { ImageProductPipe } from './shared/pipes/image-product.pipe';
@@ -75,7 +74,6 @@ export const routing = RouterModule.forRoot(routes);
     SliderComponent,
     ProductsByCategoryComponent,
     MainComponent,
-    RouterLinkDirective,
     ImageProductPipe,
     ProfileComponent,
     OrderByProductsPipe,
