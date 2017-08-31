@@ -83,3 +83,12 @@
 .text-error{
   color: red;
 }
+
+.nav-tabs > li.active > a {
+  background: #E6400C;
+  color: #fff;
+  &:hover, &:focus {
+    background: #E6400C;
+    color: #fff;
+  }
+}
