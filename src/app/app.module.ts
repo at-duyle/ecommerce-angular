@@ -38,7 +38,8 @@ import {
   AuthGuardService,
   NotificationService,
   CategoryService,
-  ProductService
+  ProductService,
+  OrderService
 } from './shared';
 
 //Import Directives
@@ -105,7 +106,8 @@ export const routing = RouterModule.forRoot(routes);
     AuthGuardService,
     NotificationService,
     CategoryService,
-    ProductService
+    ProductService,
+    OrderService
   ],
   bootstrap: [AppComponent],
 })

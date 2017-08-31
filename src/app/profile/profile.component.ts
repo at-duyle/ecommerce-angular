@@ -5,7 +5,9 @@ import { Subscription } from 'rxjs';
 
 import { Error } from '../shared/models/error';
 import { User } from '../shared/models';
+import { Order } from '../shared/models';
 import { UserService } from '../shared/services';
+import { OrderService } from '../shared/services';
 import { NotificationService } from '../shared/services';
 
 declare var $: any;
@@ -27,8 +29,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   subPass: Subscription;
 
+  orders: Array<Order>;
+  products_orders: Array<any>;
+
   constructor(
     private userService: UserService,
+    private orderService: OrderService,
     private formBuilder: FormBuilder,
     private notify: NotificationService,
     private router: Router) {
@@ -54,6 +60,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
       (userData) => {
         this.currentUser = userData;
         this.profileForm.patchValue(userData);
+      }
+      );
+    this.orderService.getOrdersOfUser().subscribe(
+      (data) => {
+        console.log(data);
+        this.orders = data;
       }
       );
     this.controlEmail = this.profileForm.controls.email.valueChanges.subscribe(
@@ -90,7 +102,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
             }
           }
         }
-      });
+      }
+      );
+  }
+
+  getOrderDetail(index){
+    this.products_orders = this.orders[index].products_delivery_orders;
   }
 
   updateProfile(user){
@@ -109,18 +126,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.notify.printErrorMessage(err.errors);
         }
       }
-    );
+      );
   }
 
   updatePassword(passwords){
-    console.log(passwords);
     this.subPass = this.userService.updatePassword(passwords).subscribe(
       data => {
         this.router.navigateByUrl('/profile');
         this.notify.printSuccessMessage('Updated password successful!');
       },
       err => {
-        console.log(err);
         if(Array.isArray(err)){
           for (let error of err) {
             this.notify.printErrorMessage(error);
@@ -129,12 +144,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.notify.printErrorMessage(err.errors);
         }
       }
-    );
+      );
   }
 
   ngOnDestroy() {
     if(this.subscription != undefined){
       this.subscription.unsubscribe();
+    }
+    if(this.subPass != undefined){
+      this.subPass.unsubscribe();
     }
     if(this.controlEmail != undefined){
       this.controlEmail.unsubscribe();

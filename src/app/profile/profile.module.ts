@@ -13,7 +13,7 @@ import {
 } from '../shared';
 
 const routes: Routes = [
-  { path: 'profile', component: ProfileComponent }
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] }
 ];
 
 export const routing = RouterModule.forRoot(routes);

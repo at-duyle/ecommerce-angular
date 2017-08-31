@@ -2,109 +2,143 @@
 <div class="main">
   <div class="container">
     <div class="content">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="card">
-            <h4 class="title">Edit Profile</h4>
-            <div class="content">
-              <form [formGroup]="profileForm" novalidate (ngSubmit)="updateProfile(profileForm.value)">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Username</label>
-                      <input type="text" class="form-control" formControlName="username" placeholder="Username">
-                      <span [hidden]="profileForm.controls.username.valid || (profileForm.controls.username.pristine && !profileForm.submitted)" class="text-error">
-                        This field is required !
-                      </span>
+      <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#profile" data-toggle="tab">Edit profile</a></li>
+        <li><a href="#Information" data-toggle="tab">Transaction History</a></li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="profile">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="content">
+                  <form [formGroup]="profileForm" novalidate (ngSubmit)="updateProfile(profileForm.value)">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Username</label>
+                          <input type="text" class="form-control" formControlName="username" placeholder="Username">
+                          <span [hidden]="profileForm.controls.username.valid || (profileForm.controls.username.pristine && !profileForm.submitted)" class="text-error">
+                            This field is required !
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                          <span [hidden]="profileForm.controls.email.valid || (profileForm.controls.email.pristine && !profileForm.submitted)" class="text-error">
+                            Email is invalid !
+                          </span>
+                        </div>
+                      </div>
                     </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Full name</label>
+                          <input type="text" class="form-control" formControlName="name" placeholder="Your name">
+                          <span [hidden]="profileForm.controls.name.valid || (profileForm.controls.name.pristine && !profileForm.submitted)" class="text-error">
+                            Full name don't have special characters!
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-1">
+                        <div class="form-group">
+                          <label>Gender</label>
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="form-group">
+                          <input type="radio" class="radio-item" formControlName="gender" name="gender" value="male"> Male
+                          <input type="radio" class="radio-item" formControlName="gender" name="gender" value="female" > Female
+                          <input type="radio" class="radio-item" formControlName="gender" name="gender" value="other"> Other
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Address</label>
+                          <input type="text" class="form-control" formControlName="address" placeholder="Home Address">
+                          <span [hidden]="profileForm.controls.address.valid || (profileForm.controls.address.pristine && !profileForm.submitted)" class="text-error">
+                            Don't over 200 words !
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>About Me</label>
+                          <textarea rows="5" class="form-control" style="resize: none" formControlName="description" placeholder="Here can be your description" value="Mike"></textarea>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button type="submit" [disabled]="!profileForm.valid" class="btn btn-info btn-fill pull-right btn-cart">Update Profile</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-user">
+                <div class="image">
+                  <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
+                </div>
+                <div class="content">
+                  <div class="author">
+                    <a href="#">
+                      <img class="avatar border-gray" src="http://www.serial-zone.ru/inc/pub/2010/Oct/05/small/pub_1865.gif" alt="..."/>
+                      <h4 class="title">{{currentUser.name}}<br />
+                        <small>{{currentUser.username}}</small>
+                      </h4>
+                    </a>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" formControlName="email" placeholder="Email">
-                      <span [hidden]="profileForm.controls.email.valid || (profileForm.controls.email.pristine && !profileForm.submitted)" class="text-error">
-                        This field is required !
-                      </span>
-                    </div>
+                  <p class="description text-center">
+                    {{currentUser.description}}
+                  </p>
+                  <div class="text-center">
+                    <input type="button" class="btn btn-info btn-fill btn-cart" data-toggle="modal" data-target="#update-password" value="Reset password">
                   </div>
                 </div>
-
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label>Full name</label>
-                      <input type="text" class="form-control" formControlName="name" placeholder="Your name">
-                      <span [hidden]="profileForm.controls.name.valid || (profileForm.controls.name.pristine && !profileForm.submitted)" class="text-error">
-                        This field is required !
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-1">
-                    <div class="form-group">
-                      <label>Gender</label>
-                    </div>
-                  </div>
-                  <div class="col-md-8">
-                    <div class="form-group">
-                      <input type="radio" class="radio-item" formControlName="gender" name="gender" value="male"> Male
-                      <input type="radio" class="radio-item" formControlName="gender" name="gender" value="female" > Female
-                      <input type="radio" class="radio-item" formControlName="gender" name="gender" value="other"> Other
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label>Address</label>
-                      <input type="text" class="form-control" formControlName="address" placeholder="Home Address">
-                      <span [hidden]="profileForm.controls.address.valid || (profileForm.controls.address.pristine && !profileForm.submitted)" class="text-error">
-                        Don't over 200 words !
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label>About Me</label>
-                      <textarea rows="5" class="form-control" style="resize: none" formControlName="description" placeholder="Here can be your description" value="Mike"></textarea>
-                    </div>
-                  </div>
-                </div>
-
-                <button type="submit" [disabled]="!profileForm.valid" class="btn btn-info btn-fill pull-right">Update Profile</button>
-                <div class="clearfix"></div>
-              </form>
+                <hr>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card card-user">
-            <div class="image">
-              <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
+        <div class="tab-pane fade" id="Information">
+          <div class="card card-plain">
+            <div *ngIf="!orders">
+              <h4><a href="./home">Start buying</a></h4>
             </div>
-            <div class="content">
-              <div class="author">
-                <a href="#">
-                  <img class="avatar border-gray" src="http://www.serial-zone.ru/inc/pub/2010/Oct/05/small/pub_1865.gif" alt="..."/>
-                  <h4 class="title">{{currentUser.name}}<br />
-                    <small>{{currentUser.username}}</small>
-                  </h4>
-                </a>
-              </div>
-              <p class="description text-center">
-                {{currentUser.description}}
-              </p>
-              <div class="text-center">
-                <input type="button" class="btn btn-info btn-fill" data-toggle="modal" data-target="#update-password" (click)="showModal()" value="Reset password">
-              </div>
+            <div *ngIf="orders" class="content table-responsive table-full-width">
+              <table class="table table-hover">
+                <thead>
+                  <th>ID</th>
+                  <th>Status</th>
+                  <th>Quantity</th>
+                  <th>Cost of order</th>
+                  <th>Ordered at</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let order of orders; let i = index ">
+                    <td><a href="" data-toggle="modal" data-target="#order-detail" (click)="getOrderDetail(i)" >{{order.id}}</a></td>
+                    <td>{{order.status}}</td>
+                    <td>{{order.total_quantity}}</td>
+                    <td>{{order.cost_of_order}}</td>
+                    <td>{{order.created_at}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <hr>
           </div>
         </div>
       </div>
@@ -115,7 +149,6 @@
 <app-footer></app-footer>
 
 <!-- BEGIN update password -->
-
 <div id="update-password" class="modal fade" role="dialog">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -134,7 +167,7 @@
                 </span>
               </div>
             </div>
-            </div>
+          </div>
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
@@ -159,11 +192,43 @@
             </div>
           </div>
 
-          <button type="submit" [disabled]="!passwordForm.valid" class="btn btn-info btn-fill pull-right">Update Profile</button>
+          <button type="submit" [disabled]="!passwordForm.valid" class="btn btn-info btn-fill pull-right btn-cart">Update Profile</button>
           <div class="clearfix"></div>
         </form>
       </div>
     </div>
   </div>
 </div>
-    <!-- END update password -->
+<!-- END update password -->
+
+<!-- BEGIN Order detail-->
+<div id="order-detail" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Order detail</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+          <thead>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Producer</th>
+            <th>Price</th>
+            <th>Quantity</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of products_orders; let i = index ">
+              <td><img src="" alt="product's image"></td>
+              <td>{{item.product.name}}</td>
+              <td>{{item.product.producer}}</td>
+              <td>{{item.product.price}}</td>
+              <td>{{item.quantity}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END update password -->
