@@ -32,6 +32,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   orders: Array<Order>;
   products_orders: Array<any>;
 
+  isDesc: boolean = false;
+  direction: number;
+
   constructor(
     private userService: UserService,
     private orderService: OrderService,
@@ -105,6 +108,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
       );
   }
+
+  sort(){
+    this.isDesc = !this.isDesc; //change the direction    
+    this.direction = this.isDesc ? 1 : -1;
+};
 
   getOrderDetail(index){
     this.products_orders = this.orders[index].products_delivery_orders;
