@@ -125,17 +125,19 @@
                 <thead>
                   <th>ID</th>
                   <th>Status</th>
-                  <th>Quantity</th>
-                  <th>Cost of order</th>
-                  <th>Ordered at</th>
+                  <th>Total price</th>
+                  <th class="pointer" (click)="sort()">Ordered at <i class="fa" [ngClass]="{'fa-sort': column != 'created_at', 
+                                                          'fa-sort-asc': (column == 'created_at' && !isDesc), 
+                                                          'fa-sort-desc': (column == 'created_at' && isDesc) }"
+                                                aria-hidden="true"> </i>
+                  </th>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let order of orders; let i = index ">
+                  <tr *ngFor="let order of orders | orderByTime: {direction: direction}; let i = index ">
                     <td><a href="" data-toggle="modal" data-target="#order-detail" (click)="getOrderDetail(i)" >{{order.id}}</a></td>
                     <td>{{order.status}}</td>
-                    <td>{{order.total_quantity}}</td>
-                    <td>{{order.cost_of_order}}</td>
-                    <td>{{i}}</td>
+                    <td>{{order.total_price}}$</td>
+                    <td>{{order.created_at}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -212,15 +214,15 @@
       <div class="modal-body">
         <table class="table table-hover">
           <thead>
-            <th>Image</th>
-            <th>Name</th>
+            <th></th>
+            <th>Product's Name</th>
             <th>Producer</th>
             <th>Price</th>
             <th>Quantity</th>
           </thead>
           <tbody>
             <tr *ngFor="let item of products_orders; let i = index ">
-              <td><img src="" alt="product's image"></td>
+              <td><img class="img-responsive" src="{{item.product.image.url}}" alt="product's image" width="75" height="90"></td>
               <td>{{item.product.name}}</td>
               <td>{{item.product.producer}}</td>
               <td>{{item.product.price}}</td>

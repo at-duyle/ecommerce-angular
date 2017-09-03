@@ -52,6 +52,7 @@ import { OrderByProductsPipe } from './shared/pipes/order-by-products.pipe';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { AvailableProductPipe } from './shared/pipes/available-product.pipe';
 import { RoundPricePipe } from './shared/pipes/round-price.pipe';
+import { OrderByTimePipe } from './shared/pipes/order-by-time.pipe';
 
 const routes: Routes = [
   { path: 'error', component: ErrorComponent }
@@ -81,6 +82,7 @@ export const routing = RouterModule.forRoot(routes);
     ProductDetailComponent,
     AvailableProductPipe,
     RoundPricePipe,
+    OrderByTimePipe,
   ],
   imports: [
     BrowserModule,
