@@ -39,7 +39,8 @@ import {
   NotificationService,
   CategoryService,
   ProductService,
-  OrderService
+  OrderService,
+  ShopService
 } from './shared';
 
 //Import Directives
@@ -54,6 +55,7 @@ import { AvailableProductPipe } from './shared/pipes/available-product.pipe';
 import { RoundPricePipe } from './shared/pipes/round-price.pipe';
 import { SearchComponent } from './search/search.component';
 import { OrderByTimePipe } from './shared/pipes/order-by-time.pipe';
+import { CarouselPipe } from './shared/pipes/carousel.pipe';
 
 
 const routes: Routes = [
@@ -86,6 +88,7 @@ export const routing = RouterModule.forRoot(routes);
     RoundPricePipe,
     SearchComponent,
     OrderByTimePipe,
+    CarouselPipe,
   ],
   imports: [
     BrowserModule,
@@ -110,7 +113,8 @@ export const routing = RouterModule.forRoot(routes);
     NotificationService,
     CategoryService,
     ProductService,
-    OrderService
+    OrderService,
+    ShopService
   ],
   bootstrap: [AppComponent],
 })
