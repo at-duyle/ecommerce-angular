@@ -234,6 +234,33 @@ Header and header elements
   }
 }
 
+.caption {
+  bottom: .3rem;
+  h4{
+    color: #e84d1c !important;
+    font-weight: bold;
+  }
+}
+
+.thumbnail {
+  border: 0 none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+.shop-logo {
+  width: 245px;
+  height: 245px;
+  margin-top: 5px;
+  background-color: #e2e3e5;
+}
+
+.caption h4 {
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
 /* dropdown menu */
 @media (min-width: 1025px) {
   .header-navigation > ul > li:hover > .dropdown-menu {

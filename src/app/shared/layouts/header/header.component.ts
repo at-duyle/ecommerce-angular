@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 
 import { User } from '../../models';
 import { UserService } from '../../services'
+import { Shop } from '../../models';
+import { ShopService } from '../../services'
 
 declare var $: any;
 
@@ -15,40 +17,49 @@ declare var $: any;
 export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   currentUser: User;
-  subcription: Subscription;
+  shops: Array<Shop>;
+  subcriptionUser: Subscription;
+  subcriptionShop: Subscription;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private shopService: ShopService
     ) {}
 
   ngOnInit() {
-    this.subcription = this.userService.currentUser.subscribe(
+    this.subcriptionUser = this.userService.currentUser.subscribe(
       (userData) => {
         this.currentUser = userData;
+      }
+      );
+    this.subcriptionShop = this.shopService.getShops().subscribe(
+      (data) => {
+        this.shops = data;
+        $(document).ready(function(){
+          $('.carousel-showmanymoveone .item').each(function(){
+            var itemToClone = $(this);
+
+            for (var i=1;i<4;i++) {
+              itemToClone = itemToClone.next();
+
+              // wrap around if at end of item collection
+              if (!itemToClone.length) {
+                itemToClone = $(this).siblings(':first');
+              }
+
+              // grab item, clone, add marker class, add to collection
+              itemToClone.children(':first-child').clone()
+              .addClass("cloneditem-"+(i))
+              .appendTo($(this));
+            }
+          });
+        });
       }
       );
   }
 
   ngAfterViewInit(){
-    $(document).ready(function(){
-      $('.carousel-showmanymoveone .item').each(function(){
-        var itemToClone = $(this);
 
-        for (var i=1;i<4;i++) {
-          itemToClone = itemToClone.next();
-
-          // wrap around if at end of item collection
-          if (!itemToClone.length) {
-            itemToClone = $(this).siblings(':first');
-          }
-
-          // grab item, clone, add marker class, add to collection
-          itemToClone.children(':first-child').clone()
-          .addClass("cloneditem-"+(i))
-          .appendTo($(this));
-        }
-      });
-    });
   }
 
   onClick = (id :any) => {
@@ -60,8 +71,11 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    if(this.subcription != undefined){
-      this.subcription.unsubscribe();
+    if(this.subcriptionUser != undefined){
+      this.subcriptionUser.unsubscribe();
+    }
+    if(this.subcriptionShop != undefined){
+      this.subcriptionShop.unsubscribe();
     }
   }
 }

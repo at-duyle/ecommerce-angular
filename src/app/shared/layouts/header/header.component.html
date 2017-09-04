@@ -138,29 +138,15 @@
               <div class="col-md-12">
                 <div class="carousel carousel-showmanymoveone slide" id="myCarousel" data-ride="carousel" data-type="multi" data-interval="3600">
                   <div class="carousel-inner">
-                    <div class="item active">
-                      <div class="col-xs-12 col-sm-6 col-md-3"><a href=""><img src="http://placehold.it/500/0054A6/fff/&amp;text=1" class="img-responsive"></a></div>
-                    </div>
-                    <div class="item">
-                      <div class="col-xs-12 col-sm-6 col-md-3"><a href=""><img src="http://placehold.it/500/002d5a/fff/&amp;text=2" class="img-responsive"></a></div>
-                    </div>
-                    <div class="item">
-                      <div class="col-xs-12 col-sm-6 col-md-3"><a href=""><img src="http://placehold.it/500/d6d6d6/333&amp;text=3" class="img-responsive"></a></div>
-                    </div>          
-                    <div class="item">
-                      <div class="col-xs-12 col-sm-6 col-md-3"><a href=""><img src="http://placehold.it/500/002040/eeeeee&amp;text=4" class="img-responsive"></a></div>
-                    </div>
-                    <div class="item">
-                      <div class="col-xs-12 col-sm-6 col-md-3"><a href=""><img src="http://placehold.it/500/0054A6/fff/&amp;text=5" class="img-responsive"></a></div>
-                    </div>
-                    <div class="item">
-                      <div class="col-xs-12 col-sm-6 col-md-3"><a href=""><img src="http://placehold.it/500/002d5a/fff/&amp;text=6" class="img-responsive"></a></div>
-                    </div>
-                    <div class="item">
-                      <div class="col-xs-12 col-sm-6 col-md-3"><a href=""><img src="http://placehold.it/500/eeeeee&amp;text=7" class="img-responsive"></a></div>
-                    </div>
-                    <div class="item">
-                      <div class="col-xs-12 col-sm-6 col-md-3"><a href=""><img src="http://placehold.it/500/40a1ff/002040&amp;text=8" class="img-responsive"></a></div>
+                    <div *ngFor=" let shop of shops, let id = index " class="{{id | carousel}}">
+                      <div class="col-xs-12 col-sm-6 col-md-3">
+                        <a href="">
+                        <img src="http://pigment.github.io/fake-logos/logos/medium/color/{{id + 1}}.png" class="img-responsive shop-logo">
+                        </a>
+                        <div class="caption">
+                          <h4>{{shop.name}}</h4>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <a class="left carousel-control" (click)="onClick('#myCarousel-prev')" appCarousel><i class="glyphicon glyphicon-chevron-left"></i></a>
