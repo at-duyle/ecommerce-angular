@@ -34,4 +34,9 @@ export class ProductService {
     return this.apiService.get('/products/' + slug.slug)
     .map(data => data.product);
   }
+
+  searchKeyword(keyword: string): Observable<Array<Product>>{
+    return this.apiService.get('/search?q=' + keyword)
+    .map(data => data.products);
+  }
 }
