@@ -1,0 +1,79 @@
+<!-- BEGIN CONTENT -->
+<h4 *ngIf="error">{{error}}</h4>
+<!-- BEGIN PRODUCT LIST -->
+<div *ngIf="products">
+  <h4>{{message}}</h4>
+  <ul class="row product-list">
+    <!-- PRODUCT ITEM START -->
+    <li *ngFor="let product of products| paginate: { itemsPerPage: 12, currentPage: p }">
+      <div class="product-item">
+        <div class="pi-img-wrapper">
+          <img src="{{product.images[0] | imageProduct }}" class="img-responsive" alt="Berry Lace Dress">
+          <div>
+            <a href="{{product.images[0] | imageProduct }}"  class="btn btn-default fancybox-button">Zoom</a>
+            <a (click)="view(product)" class="btn btn-default fancybox-fast-view">View
+            </a>
+          </div>
+        </div>
+        <h3><a [routerLink]="['/home/product/', product.slug]" title="{{product.name}}">{{product.name}}</a></h3>
+        <div class="pi-price">$ {{product.price * 0.8 | roundPrice}}</div>
+        <a href="" class="btn btn-default add2cart">Add to cart</a>
+      </div>
+    </li>
+  </ul>
+</div>
+<!-- END PRODUCT LIST -->
+<!-- BEGIN PAGINATOR -->
+<div class="row margin-top-10 margin-bottom-40">
+  <div class="col-md-4 col-sm-4 items-info"></div>
+  <div class="col-md-8 col-sm-8">
+   <pagination-controls (pageChange)="p = $event"></pagination-controls>
+ </div>
+ <!-- END PAGINATOR -->
+</div>
+<!-- END CONTENT -->
+
+<!-- BEGIN fast view of a product -->
+
+<div id="product-pop-up" style="display: none; width: 700px;"
+*ngIf="product != null || product != undefined">
+<div class="product-page product-pop-up">
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-3">
+      <div class="product-main-image">
+        <img src="{{product.images[0] | imageProduct }}" alt="Cool green dress with red bell" class="img-responsive">
+      </div>
+      <div class="product-other-images">
+        <a href="javascript:;" class="active"><img alt="Berry Lace Dress" 
+          src="assets/pages/img/products/model7.jpg"></a>
+          <a href="javascript:;"><img alt="Berry Lace Dress" src="assets/pages/img/products/model4.jpg"></a>
+          <a href="javascript:;"><img alt="Berry Lace Dress" src="assets/pages/img/products/model5.jpg"></a>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-9">
+        <h1>{{product.name}}</h1>
+        <div class="price-availability-block clearfix">
+          <div class="price">
+            <strong><span>$</span>{{product.price * 0.8 | roundPrice}}</strong>
+            <em>$<span>{{product.price}}</span></em>
+          </div>
+          <div class="availability">
+            Availability: <strong>{{product.quantity | availableProduct}}</strong>
+          </div>
+        </div>
+        <div class="description">
+          <p>{{product.description}}</p>
+        </div>
+        <div class="product-page-cart">
+          <div class="product-quantity">
+            <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
+          </div>
+          <button class="btn btn-primary btn-cart" type="submit">Add to cart</button>
+          <a href="javascript:parent.$.fancybox.close();" (click)="detail(product.slug)" class="btn btn-default">More details</a>
+        </div>
+      </div>
+      <div class="sticker sticker-sale"></div>
+    </div>
+  </div>
+</div>
+    <!-- END fast view of a product -->
