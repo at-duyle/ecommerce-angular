@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ProductService } from '../shared/services';
 import { NotificationService } from '../shared/services';
 import { Product } from '../shared/models/product';
+import { CartService } from '../shared';
 
 declare var $: any;
 
@@ -25,6 +26,7 @@ export class ProductsByCategoryComponent implements OnInit {
     private productService: ProductService,
     private notify: NotificationService,
     private router: Router,
+    private cartService: CartService
     ) { 
     this.products = [];
     this.orders = ['Default', 'Price (Low -> High)', 'Price (High -> Low)'];
@@ -49,7 +51,10 @@ export class ProductsByCategoryComponent implements OnInit {
               }
             });
             $(".fancybox-fast-view").fancybox({
-              href: '#product-pop-up'
+              href: '#product-pop-up',
+              'beforeLoad': function() {
+                $(".product-main-image img:nth-child(2)").remove();
+              } 
             });
           });
         }, (err: any) => {
@@ -68,6 +73,16 @@ export class ProductsByCategoryComponent implements OnInit {
     if(this.subscription != undefined){
       this.subscription.unsubscribe();
     }
+  }
+
+  addCart(product: any, quantity: number){
+    quantity === 0 ? quantity = $('#product-quantity').val() : quantity;
+    if(quantity <= product.quantity){
+      this.cartService.addCart(product, (Number(quantity)));
+    } else {
+      this.notify.printWarningMessage( product.name + ' are out of stock!');
+    }
+    $('#product-quantity').val(1);
   }
 
   view = (product: Product) => {

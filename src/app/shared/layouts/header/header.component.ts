@@ -6,6 +6,7 @@ import { User } from '../../models';
 import { UserService } from '../../services'
 import { Shop } from '../../models';
 import { ShopService } from '../../services'
+import { CartService } from '../../services'
 
 declare var $: any;
 
@@ -14,21 +15,29 @@ declare var $: any;
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   currentUser: User;
   shops: Array<Shop>;
   subcriptionUser: Subscription;
   subcriptionShop: Subscription;
+  subcriptionQuantity: Subscription;
+  subcriptionTotalPrice: Subscription;
+  quantity: number;
+  totalPrice:number;
 
   constructor(
     private userService: UserService,
-    private shopService: ShopService
-    ) {}
+    private shopService: ShopService,
+    private cartService: CartService
+    ) {
+    this.quantity = 0;
+    this.totalPrice = 0;
+  }
 
   ngOnInit() {
     this.subcriptionUser = this.userService.currentUser.subscribe(
-      (userData) => {
+      (userData: any) => {
         this.currentUser = userData;
       }
       );
@@ -56,10 +65,16 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       }
       );
-  }
-
-  ngAfterViewInit(){
-
+    this.subcriptionQuantity = this.cartService.quantity.subscribe(
+      (data: any) => {
+        this.quantity = data;
+      }
+      );
+    this.subcriptionTotalPrice = this.cartService.totalPrice.subscribe(
+      (data: any) => {
+        this.totalPrice = data;
+      }
+      )
   }
 
   onClick = (id :any) => {
@@ -76,6 +91,12 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     if(this.subcriptionShop != undefined){
       this.subcriptionShop.unsubscribe();
+    }
+    if(this.subcriptionQuantity != undefined){
+      this.subcriptionQuantity.unsubscribe();
+    }
+    if(this.subcriptionTotalPrice != undefined){
+      this.subcriptionTotalPrice.unsubscribe();
     }
   }
 }

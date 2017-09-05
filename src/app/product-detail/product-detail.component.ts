@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ProductService } from '../shared/services';
 import { NotificationService } from '../shared/services';
 import { Product } from '../shared/models/product';
+import { CartService } from '../shared';
 
 declare var $: any;
 
@@ -20,7 +21,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private cartService: CartService
     ) { }
 
   ngOnInit() {
@@ -56,6 +58,16 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           }
         })
     });
+  }
+
+  addCart(product: any){
+    let quantity = Number($('#product-quantity').val());
+    if(quantity <= product.quantity){
+      this.cartService.addCart(product, quantity);
+    } else {
+      this.notify.printWarningMessage( product.name + ' are out of stock!');
+    }
+    $('#product-quantity').val(1);
   }
 
   ngOnDestroy(){
