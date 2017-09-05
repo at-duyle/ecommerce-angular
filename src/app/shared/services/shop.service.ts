@@ -20,4 +20,9 @@ export class ShopService {
     .map(data => data.shops);
   }
 
+  getDetailShop(slug: any): Observable<Shop>{
+    return this.apiService.get('/shops/' + slug)
+    .map(data => data.shop);
+  }
+
 }
