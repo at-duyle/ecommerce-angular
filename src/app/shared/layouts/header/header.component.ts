@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { SlimScroll } from 'angular-io-slimscroll';
 import { Subscription } from 'rxjs';
-
+import { Router } from '@angular/router';
 import { User } from '../../models';
 import { UserService } from '../../services'
 import { Shop } from '../../models';
@@ -23,7 +23,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private userService: UserService,
-    private shopService: ShopService
+    private shopService: ShopService,
+    private router: Router
     ) {}
 
   ngOnInit() {

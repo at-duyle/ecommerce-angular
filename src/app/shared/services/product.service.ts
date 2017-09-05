@@ -39,4 +39,9 @@ export class ProductService {
     return this.apiService.get('/search?q=' + keyword)
     .map(data => data.products);
   }
+
+  getProductByShop(slug: any): Observable<Array<Product>>{
+    return this.apiService.get('/shops/'+ slug + '/products_shop')
+    .map(data => data.products);
+  }
 }
