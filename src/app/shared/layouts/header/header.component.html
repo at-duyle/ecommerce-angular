@@ -49,8 +49,8 @@
     <!-- BEGIN CART -->
     <div class="top-cart-block">
       <div class="top-cart-info">
-        <a  class="top-cart-info-count">3 items</a>
-        <a  class="top-cart-info-value">$1260</a>
+        <a  class="top-cart-info-count">{{quantity}} items</a>
+        <a  class="top-cart-info-value">${{totalPrice}}</a>
       </div>
       <i class="fa fa-shopping-cart"></i>
       
@@ -163,7 +163,8 @@
           <div class="form-search">
             <form action="">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" name="q" [(ngModel)]='keyword'>
+                <input type="text" class="form-control" placeholder="Search" name="q" 
+                [(ngModel)]='keyword'>
                 <div class="input-group-btn">
                   <button class="btn btn-default" [routerLink]="['search']" [queryParams]="{q:keyword}"><i class="glyphicon glyphicon-search"></i></button>
                 </div>

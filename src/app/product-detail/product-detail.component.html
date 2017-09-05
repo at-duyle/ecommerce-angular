@@ -26,101 +26,104 @@
           <div class="product-quantity">
             <input id="product-quantity" type="text" value="1" readonly class="form-control input-sm">
           </div>
-          <button class="btn btn-primary btn-cart" type="submit">Add to cart</button>
-        </div>
-        <div class="review">
-          <p>Ships from and sold by <a><strong>{{product.shop.name}}</strong></a> shop.</p>
-        </div>
-        <div class="review">
-          <div class="rateit rating">
-            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-          </div>&nbsp;&nbsp;|&nbsp;&nbsp;
-          <a href="">{{product.comments.length}} reviews</a>
-        </div>
-        <ul class="social-icons">
-          <li><a class="facebook" data-original-title="facebook" href=""></a></li>
-          <li><a class="twitter" data-original-title="twitter" href=""></a></li>
-          <li><a class="googleplus" data-original-title="googleplus" href=""></a></li>
-          <li><a class="evernote" data-original-title="evernote" href=""></a></li>
-          <li><a class="tumblr" data-original-title="tumblr" href=""></a></li>
-        </ul>
+          <button class="btn btn-primary btn-cart" type="button" 
+          href="javascript:parent.$.fancybox.close();" (click)="addCart(product)">
+          Add to cart
+          </button>
       </div>
+      <div class="review">
+        <p>Ships from and sold by <a><strong>{{product.shop.name}}</strong></a> shop.</p>
+      </div>
+      <div class="review">
+        <div class="rateit rating">
+          <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+        </div>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="">{{product.comments.length}} reviews</a>
+      </div>
+      <ul class="social-icons">
+        <li><a class="facebook" data-original-title="facebook" href=""></a></li>
+        <li><a class="twitter" data-original-title="twitter" href=""></a></li>
+        <li><a class="googleplus" data-original-title="googleplus" href=""></a></li>
+        <li><a class="evernote" data-original-title="evernote" href=""></a></li>
+        <li><a class="tumblr" data-original-title="tumblr" href=""></a></li>
+      </ul>
+    </div>
 
-      <div class="product-page-content">
-        <ul id="myTab" class="nav nav-tabs">
-          <li class="active"><a href="#Reviews" data-toggle="tab">Reviews ({{product.comments.length}})</a></li>
-          <li><a href="#Information" data-toggle="tab">Information</a></li>
-        </ul>
-        <div id="myTabContent" class="tab-content">
-          <div class="tab-pane fade" id="Information">
-            <table class="datasheet">
-              <tr>
-                <td class="datasheet-features-type">Producer</td>
-                <td>{{product.producer}}</td>
-              </tr>
-              <tr>
-                <td class="datasheet-features-type">Price</td>
-                <td>${{product.price}}</td>
-              </tr>
-              <tr>
-                <td class="datasheet-features-type">Sale off</td>
-                <td>20%</td>
-              </tr>
-              <tr>
-                <td class="datasheet-features-type">Quantity (in stock)</td>
-                <td>{{product.quantity}}</td>
-              </tr>
-              <tr>
-                <td class="datasheet-features-type">Supplier</td>
-                <td><a>{{product.shop.name}}</a></td>
-              </tr>
-            </table>
+    <div class="product-page-content">
+      <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#Reviews" data-toggle="tab">Reviews ({{product.comments.length}})</a></li>
+        <li><a href="#Information" data-toggle="tab">Information</a></li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade" id="Information">
+          <table class="datasheet">
+            <tr>
+              <td class="datasheet-features-type">Producer</td>
+              <td>{{product.producer}}</td>
+            </tr>
+            <tr>
+              <td class="datasheet-features-type">Price</td>
+              <td>${{product.price}}</td>
+            </tr>
+            <tr>
+              <td class="datasheet-features-type">Sale off</td>
+              <td>20%</td>
+            </tr>
+            <tr>
+              <td class="datasheet-features-type">Quantity (in stock)</td>
+              <td>{{product.quantity}}</td>
+            </tr>
+            <tr>
+              <td class="datasheet-features-type">Supplier</td>
+              <td><a>{{product.shop.name}}</a></td>
+            </tr>
+          </table>
+        </div>
+        <div class="tab-pane fade in active" id="Reviews">
+          <div *ngIf=" product.comments.length > 0 ">
+            <div class="review-item clearfix" *ngFor=" let review of product.comments | paginate: { itemsPerPage: 5, currentPage: p }">
+              <div class="review-item-submitted">
+                <strong>{{review.user.username}}</strong>
+                <em>{{review.user.created_at | date:"yMMMdjms"}}</em>
+              </div>                                              
+              <div class="review-item-content">
+                <p>{{review.content}}</p>
+              </div>
+            </div>
           </div>
-          <div class="tab-pane fade in active" id="Reviews">
-            <div *ngIf=" product.comments.length > 0 ">
-              <div class="review-item clearfix" *ngFor=" let review of product.comments | paginate: { itemsPerPage: 1, currentPage: p }">
-                <div class="review-item-submitted">
-                  <strong>{{review.user.username}}</strong>
-                  <em>{{review.user.created_at | date:"yMMMdjms"}}</em>
-                </div>                                              
-                <div class="review-item-content">
-                  <p>{{review.content}}</p>
-                </div>
+          <div align="center">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+          <div *ngIf=" product.comments.length === 0 ">
+            <div class="review-item clearfix">
+              <div class="review-item-submitted">
+                <strong>There are no comments yet!</strong>
               </div>
             </div>
-            <div align="center">
-              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+          <form action="#" class="reviews-form" role="form" *showAuthed="true">
+            <h2>Write a review</h2>
+            <div class="form-group">
+              <label for="name">Name <span class="require">*</span></label>
+              <input type="text" class="form-control" id="name">
             </div>
-            <div *ngIf=" product.comments.length === 0 ">
-              <div class="review-item clearfix">
-                <div class="review-item-submitted">
-                  <strong>There are no comments yet!</strong>
-                </div>
-              </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control" id="email">
             </div>
-            <form action="#" class="reviews-form" role="form" *showAuthed="true">
-              <h2>Write a review</h2>
-              <div class="form-group">
-                <label for="name">Name <span class="require">*</span></label>
-                <input type="text" class="form-control" id="name">
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" id="email">
-              </div>
-              <div class="form-group">
-                <label for="review">Review <span class="require">*</span></label>
-                <textarea class="form-control" rows="8" id="review"></textarea>
-              </div>
-              <div class="padding-top-20">                  
-                <button type="submit" class="btn btn-primary btn-cart">Send</button>
-              </div>
-            </form>
-            <div class="reviews-form" *showAuthed="false">
-              <p><strong>Login to reviews the product.</strong> <a [routerLink]="['/login']">Login now!</a></p>
+            <div class="form-group">
+              <label for="review">Review <span class="require">*</span></label>
+              <textarea class="form-control" rows="8" id="review"></textarea>
             </div>
+            <div class="padding-top-20">                  
+              <button type="submit" class="btn btn-primary btn-cart">Send</button>
+            </div>
+          </form>
+          <div class="reviews-form" *showAuthed="false">
+            <p><strong>Login to reviews the product.</strong> <a [routerLink]="['/login']">Login now!</a></p>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

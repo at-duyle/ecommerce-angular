@@ -10,11 +10,11 @@
       <label class="control-label">Sort&nbsp;By:</label>
       <select class="form-control input-sm" [(ngModel)]="selectedOrder">
         <option *ngFor="let order of orders" [ngValue]="order">
-        {{order}}
-      </option>
-    </select>
+          {{order}}
+        </option>
+      </select>
+    </div>
   </div>
-</div>
 </div>
 <!-- BEGIN PRODUCT LIST -->
 <div>
@@ -32,7 +32,7 @@
         </div>
         <h3><a [routerLink]="['/home/product/', product.slug]" title="{{product.name}}">{{product.name}}</a></h3>
         <div class="pi-price">$ {{product.price * 0.8 | roundPrice}}</div>
-        <a href="" class="btn btn-default add2cart">Add to cart</a>
+        <a class="btn btn-default add2cart" (click)="addCart(product, 1)">Add to cart</a>
       </div>
     </li>
   </ul>
@@ -83,7 +83,7 @@
           <div class="product-quantity">
             <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
           </div>
-          <button class="btn btn-primary btn-cart" type="submit">Add to cart</button>
+          <a class="btn btn-primary btn-cart" type="button" href="javascript:parent.$.fancybox.close();" (click)="addCart(product, 0)">Add to cart</a>
           <a href="javascript:parent.$.fancybox.close();" (click)="detail(product.slug)" class="btn btn-default">More details</a>
         </div>
       </div>

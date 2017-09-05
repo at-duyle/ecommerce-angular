@@ -42,7 +42,8 @@ import {
   CategoryService,
   ProductService,
   OrderService,
-  ShopService
+  ShopService,
+  CartService
 } from './shared';
 
 //Import Directives
@@ -122,7 +123,8 @@ export const routing = RouterModule.forRoot(routes);
     CategoryService,
     ProductService,
     OrderService,
-    ShopService
+    ShopService,
+    CartService
   ],
   bootstrap: [AppComponent],
 })
