@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { NotificationService } from '../shared/services';
 import { ProductService } from '../shared';
 import { Product } from '../shared/models';
+import { CartService } from '../shared';
 
 declare var $: any;
 
@@ -29,7 +30,8 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute,
     private notify: NotificationService,
     private router: Router,
-    private productService: ProductService
+    private productService: ProductService,
+    private cartService: CartService
     ) {
     this.subscription = route.queryParams.subscribe(
       (queryParam: any) => {
@@ -65,7 +67,10 @@ export class HomeComponent implements OnInit {
         this.newProduct = data;
         $(document).ready(function() {
           $(".fancybox-fast-view").fancybox({
-            href: '#product-pop-up'
+            href: '#product-pop-up',
+            'beforeLoad': function() {
+              $(".product-main-image img:nth-child(2)").remove();
+            } 
           });
           $(".fancybox-button").fancybox({
             groupAttr: 'data-rel',
@@ -95,7 +100,7 @@ export class HomeComponent implements OnInit {
     this.product = product;
     $(document).ready(function() {
       $(".product-quantity .form-control").TouchSpin({
-        verticalbuttons: true
+        verticalbuttons: true,
       });
       $('.product-main-image').zoom({url: $('.product-main-image img')
         .attr('data-BigImgSrc')});
@@ -104,6 +109,16 @@ export class HomeComponent implements OnInit {
 
   detail = (slug: any) => {
     this.router.navigateByUrl('/home/product/' + slug);
+  }
+
+  addCart(product: any, quantity: number){
+    quantity === 0 ? quantity = $('#product-quantity').val() : quantity;
+    if(quantity <= product.quantity){
+      this.cartService.addCart(product, (Number(quantity)));
+    } else {
+      this.notify.printWarningMessage( product.name + ' are out of stock!');
+    }
+    $('#product-quantity').val(1);
   }
 
   ngOnDestroy(){
