@@ -60,6 +60,7 @@ import { SearchComponent } from './search/search.component';
 import { OrderByTimePipe } from './shared/pipes/order-by-time.pipe';
 import { CarouselPipe } from './shared/pipes/carousel.pipe';
 import { ShopDetailComponent } from './shop-detail/shop-detail.component';
+import { RegisterConfirmComponent } from './register-confirm/register-confirm.component';
 
 
 const routes: Routes = [
@@ -94,6 +95,7 @@ export const routing = RouterModule.forRoot(routes);
     OrderByTimePipe,
     CarouselPipe,
     ShopDetailComponent,
+    RegisterConfirmComponent,
   ],
   imports: [
     BrowserModule,
