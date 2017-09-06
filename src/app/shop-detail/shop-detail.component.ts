@@ -19,9 +19,6 @@ export class ShopDetailComponent implements OnInit, OnDestroy {
   products: Array<Product>;
   product: Product;
   subscription: Subscription;
-  lat: number = 51.678418;
-  lng: number = 7.809007;
-  // url: 'https://www.google.com/maps/embed/v1/place?key=AIzaSyDl4ke_hk6XW_K6BtvtUZQQBpcDQlrW6tM&q=';
 
   constructor( private shopService: ShopService,
     private productService: ProductService,

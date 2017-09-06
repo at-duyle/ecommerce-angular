@@ -72,6 +72,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     .register(credentials)
     .subscribe(
       (data: any) => {
+        window.open('http://localhost:4200/register/confirm', '_blank');
         this.router.navigateByUrl('/');
       },
       (err: any) => {
