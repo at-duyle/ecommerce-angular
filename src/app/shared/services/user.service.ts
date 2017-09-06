@@ -120,4 +120,11 @@ export class UserService {
       }
     );
   }
+
+  updateNewConfirmToken(userId): any{
+    return this.apiService.put('/users/'+ userId +'/confirm_token')
+    .map(data => {
+      return data;
+    });
+  }
 }
