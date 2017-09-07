@@ -16,6 +16,7 @@ export class RegisterConfirmComponent implements OnInit, OnDestroy {
   userId: any;
   message: string;
   subscription: Subscription;
+  newTokenSub: Subscription;
 
   constructor(
     private notify: NotificationService,
@@ -31,10 +32,9 @@ export class RegisterConfirmComponent implements OnInit, OnDestroy {
         this.userService.registerConfirm(this.userId, this.confirmToken).subscribe(
           (data: any) => {
             this.message = data.message;
-            console.log(this.message);
           },
           (err: any) => {
-            this.notify.printErrorMessage(err.errors);
+            console.log(err.errors);
           }
         );
       }
@@ -42,6 +42,11 @@ export class RegisterConfirmComponent implements OnInit, OnDestroy {
   }
 
   newToken() {
+    this.newTokenSub = this.userService.updateNewConfirmToken(this.userId).subscribe(
+      (data: any) => {
+        console.log(data);
+      }
+    );
     this.router.navigateByUrl('/register/confirm');
   }
 
