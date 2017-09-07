@@ -25,6 +25,7 @@ import { SlimScroll } from 'angular-io-slimscroll';
 
 //Import Modules
 import { AuthModule } from './auth/auth.module';
+import { ResetPasswordConfirmModule } from './reset-password-confirm/reset-password-confirm.module';
 import { LogoutModule } from './logout/logout.module';
 import { RegisterModule } from './register/register.module';
 import { ProfileModule } from './profile/profile.module';
@@ -61,6 +62,7 @@ import { OrderByTimePipe } from './shared/pipes/order-by-time.pipe';
 import { CarouselPipe } from './shared/pipes/carousel.pipe';
 import { ShopDetailComponent } from './shop-detail/shop-detail.component';
 import { RegisterConfirmComponent } from './register-confirm/register-confirm.component';
+import { ResetPasswordConfirmComponent } from './reset-password-confirm/reset-password-confirm.component';
 
 
 const routes: Routes = [
@@ -96,6 +98,7 @@ export const routing = RouterModule.forRoot(routes);
     CarouselPipe,
     ShopDetailComponent,
     RegisterConfirmComponent,
+    ResetPasswordConfirmComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,6 +111,7 @@ export const routing = RouterModule.forRoot(routes);
     }),
     routing,
     AuthModule,
+    ResetPasswordConfirmModule,
     LogoutModule,
     RegisterModule,
     ProfileModule,
