@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationService } from '../shared/services';
 import { Subscription } from 'rxjs';
 
 import * as $ from 'jquery';
@@ -19,10 +20,12 @@ export class AuthComponent implements OnInit, AfterViewInit {
   subscription: Subscription;
   constructor(
     private userService: UserService,
+    private router: Router,
+    private notify: NotificationService
+    ) { }
     private cartService: CartService,
     private router: Router
     ) {
-    this.errors = new Error();
   }
 
   ngOnInit() {
@@ -59,8 +62,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
         this.router.navigateByUrl('/');
       },
       (err: any) => {
-        this.errors = err.errors;
-        console.log(err);
+        this.notify.printErrorMessage(err.errors);
       }
       );
   }

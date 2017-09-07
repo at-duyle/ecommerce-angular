@@ -129,4 +129,21 @@ export class UserService {
       return data;
     });
   }
+
+  sendEmailResetPassword(email): any {
+    return this.apiService.post('/reset_password', {user: email})
+    .map(
+      data => {
+        return data;
+      }
+    );
+  }
+
+  resetPassword(resetToken, password, passwordConfirmation): any {
+    return this.apiService
+    .put('/reset_password/1', {user: {id: resetToken, password: password, password_confirmation: passwordConfirmation}})
+    .map(data => {
+      return data;
+    })
+  }
 }
