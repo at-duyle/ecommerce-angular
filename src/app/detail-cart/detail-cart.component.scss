@@ -1,0 +1,27 @@
+@import '../../assets/corporate/scss/style.scss';
+@import '../../assets/corporate/scss/style-responsive.scss';
+@import '../../assets/pages/scss/style-shop.scss';
+@import '../../assets/pages/scss/animate.scss';
+
+.btn{
+  outline:none;
+}
+
+/* .del-goods, .add-goods in pages/scss/style-shop */
+.del-goods {
+  background: #d7dde3 url(../../assets/pages/img/icons/del-goods.png) no-repeat 50% 50%;
+  &:hover {
+    background: #E94D1C url(../../assets/pages/img/icons/del-goods.png) no-repeat 50% 50%;
+  }
+}
+
+.goods-page-description{
+  h4{
+    color: #e84d1c;
+  }
+}
+
+.no-cart{
+  margin-top: 10px;
+  text-align: center;
+}

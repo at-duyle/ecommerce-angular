@@ -7,6 +7,7 @@ import { HomeComponent } from '../home/home.component';
 import { ProductsByCategoryComponent } from '../products-by-category/products-by-category.component';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
 import { SearchComponent } from '../search/search.component';
+import { DetailCartComponent } from '../detail-cart/detail-cart.component'
 
 import {
   ApiService,
@@ -25,7 +26,8 @@ const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'categories/:slug/:type/products', component: ProductsByCategoryComponent },
     { path: 'product/:slug', component: ProductDetailComponent },
-    { path: 'search', component: SearchComponent }
+    { path: 'search', component: SearchComponent },
+    { path: 'cart', component: DetailCartComponent }
   ] }
 ];
 

@@ -9,6 +9,7 @@ import 'rxjs/add/operator/catch';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import { User } from '../models/user';
+import { CartService } from './cart.service';
 
 @Injectable()
 export class UserService {
@@ -34,7 +35,7 @@ export class UserService {
       .subscribe(
         data => this.setAuth(data.user),
         err => this.purgeToken()
-      );
+        );
     } else {
       // Remove any potential remnants of previous auth states
       this.purgeToken();
@@ -67,7 +68,7 @@ export class UserService {
         this.setAuth(data.user);
         return data;
       }
-    );
+      );
   }
 
   purgeAuth(): Observable<User> {
@@ -75,9 +76,10 @@ export class UserService {
     .map(
       data => {
         this.purgeToken();
+        window.localStorage.removeItem('cart');
         return data;
       }
-    );
+      );
   }
 
   register(credentials): Observable<User> {
@@ -86,7 +88,7 @@ export class UserService {
       data => {
         return data;
       }
-    );
+      );
   }
 
   getCurrentUser(){
@@ -100,7 +102,7 @@ export class UserService {
         this.currentUserSubject.next(data.user);
         return data;
       }
-    );
+      );
   }
 
   updatePassword(passwords): Observable<User> {
@@ -109,7 +111,7 @@ export class UserService {
       data => {
         return data;
       }
-    );
+      );
   }
 
   registerConfirm(userId, confirmToken): any{

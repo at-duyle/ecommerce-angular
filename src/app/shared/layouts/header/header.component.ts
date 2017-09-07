@@ -23,8 +23,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   subcriptionShop: Subscription;
   subcriptionQuantity: Subscription;
   subcriptionTotalPrice: Subscription;
+  subcriptionCart: Subscription;
   quantity: number;
   totalPrice:number;
+  cart: Array<any>;
 
   constructor(
     private userService: UserService,
@@ -75,7 +77,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       (data: any) => {
         this.totalPrice = data;
       }
-      )
+      );
+    this.subcriptionCart = this.cartService.cart.subscribe(
+      (data: any) => {
+        this.cart = data;
+      }
+      );
   }
 
   onClick = (id :any) => {
@@ -84,6 +91,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     } else{
       $('#myCarousel').carousel('next');
     }
+  }
+
+  deleteCart(product){
+    this.cartService.deleteCart(product);
   }
 
   ngOnDestroy(){
@@ -98,6 +109,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
     if(this.subcriptionTotalPrice != undefined){
       this.subcriptionTotalPrice.unsubscribe();
+    }
+    if(this.subcriptionCart != undefined){
+      this.subcriptionCart.unsubscribe();
     }
   }
 }
