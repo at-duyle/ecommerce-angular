@@ -1,0 +1,29 @@
+<div id="back">
+  <div class="backRight"></div>
+</div>
+
+<div id="slideBox">
+  <div class="topLayer">
+    <div class="right">
+      <div class="col-md-4 col-sm-4 col-sm-offset-4 logo">
+        <img src="../../../../assets/corporate/img/logos/logo.png" class="img-responsive center-block" alt="Rounded Image">
+      </div>
+      <div *ngIf="!confirmToken" class="message-text">
+        <span>Thank you for joined us!</span><br>
+        <span><i>Please check your email to confirm account and enjoind power of <strong>SuperShop</strong></i></span>
+        <div class="back-1">
+          <i class="fa fa-long-arrow-left" aria-hidden="true"></i> 
+          <a [routerLink]="['/home']">Back to homepage</a>
+        </div>
+      </div>
+      <div *ngIf="confirmToken" class="message-text">
+        <span>Thank you for joined us!</span><br>
+        <span>{{message}}</span>
+        <div class="back-1">
+          <a *ngIf="message !== 'The confirm token is overdue. Please get a new token!'" [routerLink]="['/login']"><strong>Login now!</strong></a>
+          <a *ngIf="message === 'The confirm token is overdue. Please get a new token!'" (click)="newToken()"><strong>Get new token!</strong></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

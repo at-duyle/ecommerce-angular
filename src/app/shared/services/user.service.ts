@@ -113,4 +113,20 @@ export class UserService {
       }
       );
   }
+
+  registerConfirm(userId, confirmToken): any{
+    return this.apiService.put('/register_confirm/1', {user: {id: userId, confirm_token: confirmToken}})
+    .map(
+      data => {
+        return data;
+      }
+    );
+  }
+
+  updateNewConfirmToken(userId): any{
+    return this.apiService.put('/users/'+ userId +'/confirm_token')
+    .map(data => {
+      return data;
+    });
+  }
 }

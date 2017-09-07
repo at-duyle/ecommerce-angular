@@ -1,0 +1,52 @@
+@import '../auth/auth.component.scss';
+
+.text-error{
+  color: #fffa05;
+}
+
+.backRight {
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: #e84d1c;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+#slideBox {
+  width: 50%;
+  max-height: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0 25%;
+  position: absolute;
+}
+
+.content {
+  h2 {
+    color: #fff;
+    font-weight: 300;
+    font-size: 35px;
+    margin-bottom: 5%;
+  }
+}
+
+.message-text {
+  top: 40%;
+  position: absolute;
+  left: 20%;
+  span {
+    color: #fff;
+    font-weight: 300;
+    font-size: 20px;
+    margin-bottom: 15%;
+  }
+}
+
+.back-1{
+  margin-top: 5%;
+  a{
+    color: #fff;
+  }
+}

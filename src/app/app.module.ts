@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AgmCoreModule } from '@agm/core';
 
 // Import Components
 import { AppComponent } from './app.component';
@@ -27,6 +28,7 @@ import { AuthModule } from './auth/auth.module';
 import { LogoutModule } from './logout/logout.module';
 import { RegisterModule } from './register/register.module';
 import { ProfileModule } from './profile/profile.module';
+import { ShopDetailModule } from './shop-detail/shop-detail.module';
 import { MainModule } from './main/main.module';
 import { CheckoutModule } from './checkout/checkout.module';
 
@@ -62,6 +64,8 @@ import { CarouselPipe } from './shared/pipes/carousel.pipe';
 import { ImageCartPipe } from './shared/pipes/image-cart.pipe';
 import { DetailCartComponent } from './detail-cart/detail-cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ShopDetailComponent } from './shop-detail/shop-detail.component';
+import { RegisterConfirmComponent } from './register-confirm/register-confirm.component';
 
 
 const routes: Routes = [
@@ -98,6 +102,8 @@ export const routing = RouterModule.forRoot(routes);
     ImageCartPipe,
     DetailCartComponent,
     CheckoutComponent,
+    ShopDetailComponent,
+    RegisterConfirmComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,13 +111,17 @@ export const routing = RouterModule.forRoot(routes);
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBvYzBYOmXgVn8H6jCwr-M_djo3wK3ZDFE'
+    }),
     routing,
     AuthModule,
     LogoutModule,
     RegisterModule,
     ProfileModule,
-    MainModule,
-    CheckoutModule
+    CheckoutModule,
+    ShopDetailModule,
+    MainModule
   ],
   providers: [
     ShowAuthedDirective,
