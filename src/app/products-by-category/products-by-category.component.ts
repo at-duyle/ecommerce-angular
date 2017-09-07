@@ -18,6 +18,7 @@ export class ProductsByCategoryComponent implements OnInit {
   products: Array<Product>;
   product: Product;
   subscription: Subscription;
+  subscriptionCheckQuantity: Subscription;
   orders: Array<any>;
   selectedOrder: any;
 
@@ -69,19 +70,26 @@ export class ProductsByCategoryComponent implements OnInit {
     });
   }
 
-  ngOnDestroy(){
-    if(this.subscription != undefined){
-      this.subscription.unsubscribe();
-    }
-  }
-
   addCart(product: any, quantity: number){
+    let quantityTemp = 0;
     quantity === 0 ? quantity = $('#product-quantity').val() : quantity;
-    if(quantity <= product.quantity){
-      this.cartService.addCart(product, (Number(quantity)));
-    } else {
-      this.notify.printWarningMessage( product.name + ' are out of stock!');
-    }
+    quantityTemp = (Number(quantity));
+    let productTemp = this.cartService.searchProduct(product);
+    productTemp !== undefined ? quantity = (Number(productTemp.quantity)) + (Number(quantity)) : (Number(quantity));
+    this.subscriptionCheckQuantity = this.cartService.checkQuantity(product.slug, quantity).subscribe(
+      (data: any) => {
+        if(data.message === 'Available'){
+          this.cartService.addCart(product, quantityTemp);
+        } else {
+          if(data.quantity === 0){
+            this.cartService.deleteCart(product);
+            this.notify.printErrorMessage('"<strong>' + product.name + '</strong>"' + ' is out of stock!');
+          } else {
+            this.notify.printErrorMessage('"<strong>' + product.name 
+              + '</strong>"' + ' has only '+ '<strong>' +data.quantity + '</strong>' + ' product(s)!');
+          }
+        }
+      });
     $('#product-quantity').val(1);
   }
 
@@ -98,5 +106,14 @@ export class ProductsByCategoryComponent implements OnInit {
 
   detail = (slug: any) => {
     this.router.navigateByUrl('/home/product/' + slug);
+  }
+
+  ngOnDestroy(){
+    if(this.subscription != undefined){
+      this.subscription.unsubscribe();
+    }
+    if(this.subscriptionCheckQuantity != undefined){
+      this.subscriptionCheckQuantity.unsubscribe();
+    }
   }
 }

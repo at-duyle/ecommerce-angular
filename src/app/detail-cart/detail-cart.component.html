@@ -1,0 +1,71 @@
+<div class="row margin-bottom-40 margin-top-20">
+  <!-- BEGIN CONTENT -->
+  <div class="col-md-12 col-sm-12">
+    <h1>Shopping cart</h1>
+    <div *ngIf="cart.length === 0" class="no-cart">
+      <img src="../assets/corporate/img/Image_from_Skype.png" alt="">
+      <h4>No product! <a href="./home"> Start buying</a></h4>
+    </div>
+    <div class="goods-page" *ngIf="cart.length > 0">
+      <div class="goods-data clearfix">
+        <div class="table-wrapper-responsive">
+          <table summary="Shopping cart">
+            <tr>
+              <th class="goods-page-image">Image</th>
+              <th class="goods-page-description">Description</th>
+              <th class="goods-page-quantity">Quantity</th>
+              <th class="goods-page-price">Unit price</th>
+              <th class="goods-page-total" colspan="2">Total</th>
+            </tr>
+            <tr *ngFor=" let c of cart, let id = index ">
+              <td class="goods-page-image">
+                <a href="javascript:;"><img src="{{c.image | imageCart}}" alt="Berry Lace Dress"></a>
+              </td>
+              <td class="goods-page-description">
+                <h4><strong>{{c.name}}</strong></h4>
+                <p><strong>Product by</strong></p>
+                <em>Quantity</em>
+              </td>
+              <td class="goods-page-quantity">
+                <div class="product-quantity">
+                  <input id="product-quantity" type="text" value="{{c.quantity}}" readonly class="form-control input-sm">
+                  <span>
+                    <button class="btn quantity-up" type="button" (click)="increaseQuantity(id)">
+                      <i class="fa fa-angle-up"></i>
+                    </button>
+                  </span>
+                  <span>
+                    <button class="btn quantity-down"  type="button" (click)="descreaseQuantity(id)">
+                      <i class="fa fa-angle-down"></i>
+                    </button>
+                  </span>
+                </div>
+              </td>
+              <td class="goods-page-price">
+                <strong><span>$</span>{{c.price | number : '1.2'}}</strong>
+              </td>
+              <td class="goods-page-total">
+                <strong><span>$</span>{{c.price * c.quantity | number : '1.2' }}</strong>
+              </td>
+              <td class="del-goods-col">
+                <a class="del-goods" (click)="deleteCart(c)">&nbsp;</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="shopping-total">
+          <ul>
+            <li class="shopping-total-price">
+              <em>Total</em>
+              <strong class="price"><span>$</span>{{totalPrice | number : '1.2'}}</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <button class="btn btn-default" type="button">Continue shopping <i class="fa fa-shopping-cart"></i></button>
+      <button class="btn btn-primary btn-cart" type="button" (click)="checkout()">Checkout <i class="fa fa-check"></i></button>
+    </div>
+  </div>
+  <!-- END CONTENT -->
+</div>

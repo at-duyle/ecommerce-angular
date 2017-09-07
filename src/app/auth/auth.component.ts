@@ -6,7 +6,9 @@ import { Subscription } from 'rxjs';
 
 import * as $ from 'jquery';
 
-import { UserService } from '../shared/services/user.service';
+import { Error } from '../shared/models/error';
+import { UserService } from '../shared/services';
+import { CartService } from '../shared/services';
 
 @Component({
   selector: 'app-auth',
@@ -21,6 +23,10 @@ export class AuthComponent implements OnInit, AfterViewInit {
     private router: Router,
     private notify: NotificationService
     ) { }
+    private cartService: CartService,
+    private router: Router
+    ) {
+  }
 
   ngOnInit() {
   }
@@ -34,7 +40,26 @@ export class AuthComponent implements OnInit, AfterViewInit {
     .attemptAuth(credentials)
     .subscribe(
       (data: any) => {
-        this.router.navigateByUrl('/')
+        let cart = data.user.cart;
+        if(cart !== null){
+          let cartTemp = this.cartService.getToken();
+          if(cartTemp !== undefined){
+            cartTemp = JSON.parse(cartTemp);
+            for(let c of JSON.parse(cart['cart'])){
+              let index = cartTemp.findIndex(x => x.slug === c.slug);
+              if(index == -1){
+                cartTemp.push(c);
+              } else {
+                cartTemp[index].quantity = (Number(cartTemp[index].quantity)) + (Number(c.quantity));
+              }
+            }
+            this.cartService.destroyToken();
+            this.cartService.updateCart(cartTemp, 'sync');
+          } else {
+            this.cartService.updateCart(JSON.parse(cart['cart']), 'sync');
+          }
+        }
+        this.router.navigateByUrl('/');
       },
       (err: any) => {
         this.notify.printErrorMessage(err.errors);

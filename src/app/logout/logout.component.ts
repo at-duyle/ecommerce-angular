@@ -16,7 +16,7 @@ export class LogoutComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router
-  ) {
+    ) {
     this.errors = new Error()
   }
 
@@ -26,6 +26,7 @@ export class LogoutComponent implements OnInit {
     .subscribe(
       (data: any) => {
         this.router.navigateByUrl('/')
+        // window.location.reload();
       },
       (err: any) => {
         this.errors = err.errors;
