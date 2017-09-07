@@ -28,6 +28,7 @@ import { LogoutModule } from './logout/logout.module';
 import { RegisterModule } from './register/register.module';
 import { ProfileModule } from './profile/profile.module';
 import { MainModule } from './main/main.module';
+import { CheckoutModule } from './checkout/checkout.module';
 
 // Import services
 import {
@@ -41,7 +42,8 @@ import {
   ProductService,
   OrderService,
   ShopService,
-  CartService
+  CartService,
+  UserCartService
 } from './shared';
 
 //Import Directives
@@ -57,6 +59,9 @@ import { RoundPricePipe } from './shared/pipes/round-price.pipe';
 import { SearchComponent } from './search/search.component';
 import { OrderByTimePipe } from './shared/pipes/order-by-time.pipe';
 import { CarouselPipe } from './shared/pipes/carousel.pipe';
+import { ImageCartPipe } from './shared/pipes/image-cart.pipe';
+import { DetailCartComponent } from './detail-cart/detail-cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 
 const routes: Routes = [
@@ -90,6 +95,9 @@ export const routing = RouterModule.forRoot(routes);
     SearchComponent,
     OrderByTimePipe,
     CarouselPipe,
+    ImageCartPipe,
+    DetailCartComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,7 +110,8 @@ export const routing = RouterModule.forRoot(routes);
     LogoutModule,
     RegisterModule,
     ProfileModule,
-    MainModule
+    MainModule,
+    CheckoutModule
   ],
   providers: [
     ShowAuthedDirective,
@@ -116,7 +125,8 @@ export const routing = RouterModule.forRoot(routes);
     ProductService,
     OrderService,
     ShopService,
-    CartService
+    CartService,
+    UserCartService
   ],
   bootstrap: [AppComponent],
 })

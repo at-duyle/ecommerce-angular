@@ -1,0 +1,291 @@
+{
+  "cities": [
+    {
+      "CityId": 18,
+      "CityName": "Hà Nội"
+    },
+    {
+      "CityId": 52,
+      "CityName": "TP.Hồ Chí Minh"
+    },
+    {
+      "CityId": 56,
+      "CityName": "An Giang"
+    },
+    {
+      "CityId": 54,
+      "CityName": "Bà Rịa -  Vũng Tàu"
+    },
+    {
+      "CityId": 19,
+      "CityName": "Bắc Giang"
+    },
+    {
+      "CityId": 6,
+      "CityName": "Bắc Kạn"
+    },
+    {
+      "CityId": 65,
+      "CityName": "Bạc Liêu"
+    },
+    {
+      "CityId": 2,
+      "CityName": "Bắc Ninh"
+    },
+    {
+      "CityId": 60,
+      "CityName": "Bến Tre"
+    },
+    {
+      "CityId": 49,
+      "CityName": "Bình Dương"
+    },
+    {
+      "CityId": 39,
+      "CityName": "Bình Định "
+    },
+    {
+      "CityId": 45,
+      "CityName": "Bình Phước "
+    },
+    {
+      "CityId": 51,
+      "CityName": "Bình Thuận"
+    },
+    {
+      "CityId": 68,
+      "CityName": "Cà Mau"
+    },
+    {
+      "CityId": 59,
+      "CityName": "Cần Thơ"
+    },
+    {
+      "CityId": 1,
+      "CityName": "Cao Bằng"
+    },
+    {
+      "CityId": 35,
+      "CityName": "Đà Nẵng"
+    },
+    {
+      "CityId": 42,
+      "CityName": "Đăk Lăk "
+    },
+    {
+      "CityId": 44,
+      "CityName": "Đăk Nông"
+    },
+    {
+      "CityId": 10,
+      "CityName": "Điện Biên"
+    },
+    {
+      "CityId": 50,
+      "CityName": "Đồng Nai"
+    },
+    {
+      "CityId": 57,
+      "CityName": "Đồng Tháp"
+    },
+    {
+      "CityId": 40,
+      "CityName": "Gia Lai"
+    },
+    {
+      "CityId": 3,
+      "CityName": "Hà Giang"
+    },
+    {
+      "CityId": 25,
+      "CityName": "Hà Nam"
+    },
+    {
+      "CityId": 31,
+      "CityName": "Hà Tĩnh"
+    },
+    {
+      "CityId": 22,
+      "CityName": "Hải Dương"
+    },
+    {
+      "CityId": 24,
+      "CityName": "Hải Phòng"
+    },
+    {
+      "CityId": 63,
+      "CityName": "Hậu Giang"
+    },
+    {
+      "CityId": 23,
+      "CityName": "Hòa Bình"
+    },
+    {
+      "CityId": 8,
+      "CityName": "Hưng Yên"
+    },
+    {
+      "CityId": 43,
+      "CityName": "Khánh Hòa"
+    },
+    {
+      "CityId": 62,
+      "CityName": "Kiên Giang"
+    },
+    {
+      "CityId": 38,
+      "CityName": "Kon Tum"
+    },
+    {
+      "CityId": 4,
+      "CityName": "Lai Châu"
+    },
+    {
+      "CityId": 46,
+      "CityName": "Lâm Đồng"
+    },
+    {
+      "CityId": 14,
+      "CityName": "Lạng Sơn"
+    },
+    {
+      "CityId": 5,
+      "CityName": "Lào Cai"
+    },
+    {
+      "CityId": 53,
+      "CityName": "Long An "
+    },
+    {
+      "CityId": 28,
+      "CityName": "Nam Định"
+    },
+    {
+      "CityId": 30,
+      "CityName": "Nghệ An"
+    },
+    {
+      "CityId": 27,
+      "CityName": "Ninh Bình"
+    },
+    {
+      "CityId": 47,
+      "CityName": "Ninh Thuận"
+    },
+    {
+      "CityId": 17,
+      "CityName": "Phú Thọ"
+    },
+    {
+      "CityId": 9,
+      "CityName": "Phú Yên"
+    },
+    {
+      "CityId": 32,
+      "CityName": "Quảng Bình"
+    },
+    {
+      "CityId": 36,
+      "CityName": "Quảng Nam "
+    },
+    {
+      "CityId": 37,
+      "CityName": "Quảng Ngãi"
+    },
+    {
+      "CityId": 20,
+      "CityName": "Quảng Ninh"
+    },
+    {
+      "CityId": 33,
+      "CityName": "Quảng Trị"
+    },
+    {
+      "CityId": 13,
+      "CityName": "Sóc Trăng"
+    },
+    {
+      "CityId": 16,
+      "CityName": "Sơn La"
+    },
+    {
+      "CityId": 48,
+      "CityName": "Tây Ninh"
+    },
+    {
+      "CityId": 26,
+      "CityName": "Thái Bình"
+    },
+    {
+      "CityId": 12,
+      "CityName": "Thái Nguyên"
+    },
+    {
+      "CityId": 29,
+      "CityName": "Thanh Hóa"
+    },
+    {
+      "CityId": 34,
+      "CityName": "Thừa Thiên Huế"
+    },
+    {
+      "CityId": 58,
+      "CityName": "Tiền Giang"
+    },
+    {
+      "CityId": 64,
+      "CityName": "Trà Vinh"
+    },
+    {
+      "CityId": 7,
+      "CityName": "Tuyên Quang"
+    },
+    {
+      "CityId": 61,
+      "CityName": "Vĩnh Long"
+    },
+    {
+      "CityId": 15,
+      "CityName": "Vĩnh Phúc"
+    },
+    {
+      "CityId": 11,
+      "CityName": "Yên Bái"
+    },
+    {
+      "ProvinceId": 688,
+      "ProvinceName": "Thành Phố Bạc Liêu",
+      "Remote": 1
+    },
+    {
+      "ProvinceId": 690,
+      "ProvinceName": "Huyện Vĩnh Lợi",
+      "Remote": 1
+    },
+    {
+      "ProvinceId": 685,
+      "ProvinceName": "Huyện Phước Long",
+      "Remote": 1
+    },
+    {
+      "ProvinceId": 691,
+      "ProvinceName": "Huyện Hồng Dân",
+      "Remote": 1
+    },
+    {
+      "ProvinceId": 686,
+      "ProvinceName": "Huyện Hòa Bình",
+      "Remote": 1
+    },
+    {
+      "ProvinceId": 689,
+      "ProvinceName": "Huyện Giá Rai",
+      "Remote": 1
+    },
+    {
+      "ProvinceId": 687,
+      "ProvinceName": "Huyện Đông Hải",
+      "Remote": 1
+    }
+  ]
+}

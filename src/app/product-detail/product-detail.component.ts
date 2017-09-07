@@ -17,6 +17,7 @@ declare var $: any;
 export class ProductDetailComponent implements OnInit, OnDestroy {
   product: any;
   subscription: Subscription;
+  subscriptionCheckQuantity: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -60,18 +61,36 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  addCart(product: any){
-    let quantity = Number($('#product-quantity').val());
-    if(quantity <= product.quantity){
-      this.cartService.addCart(product, quantity);
-    } else {
-      this.notify.printWarningMessage( product.name + ' are out of stock!');
-    }
+  addCart(product: any, quantity: number){
+    let quantityTemp = 0;
+    quantity === 0 ? quantity = $('#product-quantity').val() : quantity;
+    quantityTemp = (Number(quantity));
+    let productTemp = this.cartService.searchProduct(product);
+    productTemp !== undefined ? quantity = (Number(productTemp.quantity)) + (Number(quantity)) : (Number(quantity));
+    this.subscriptionCheckQuantity = this.cartService.checkQuantity(product.slug, quantity).subscribe(
+      (data: any) => {
+        if(data.message === 'Available'){
+          this.cartService.addCart(product, quantityTemp);
+        } else {
+          if(data.quantity === 0){
+            this.cartService.deleteCart(product);
+            this.notify.printErrorMessage('"<strong>' + product.name + '</strong>"' + ' is out of stock!');
+          } else {
+            this.notify.printErrorMessage('"<strong>' + product.name 
+              + '</strong>"' + ' has only '+ '<strong>' +data.quantity + '</strong>' + ' product(s)!');
+          }
+        }
+      });
     $('#product-quantity').val(1);
   }
 
   ngOnDestroy(){
-    this.subscription.unsubscribe();
+    if(this.subscription != undefined){
+      this.subscription.unsubscribe();
+    }
+    if(this.subscriptionCheckQuantity != undefined){
+      this.subscriptionCheckQuantity.unsubscribe();
+    }
   }
 
 }

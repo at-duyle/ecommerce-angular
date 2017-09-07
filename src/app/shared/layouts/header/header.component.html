@@ -55,71 +55,29 @@
       <i class="fa fa-shopping-cart"></i>
       
       <div class="top-cart-content-wrapper">
-        <div class="top-cart-content">
-          <ul class="scroller" slimScroll height="200px" position="right">
-            <li>
-              <a href="shop-item.html">
-                <img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34">
+        <div class="top-cart-content" *ngIf="cart.length > 0">
+          <ul class="scroller" slimScroll height="auto" position="right" >
+            <li *ngFor="let c of cart">
+              <a>
+                <img src="{{c.image | imageCart}}" alt="Rolex Classic Watch" width="37" height="34">
               </a>
-              <span class="cart-content-count">x 1</span>
-              <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
-              <em>$1230</em>
-              <a  class="del-goods">&nbsp;</a>
-            </li>
-            <li>
-              <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
-              <span class="cart-content-count">x 1</span>
-              <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
-              <em>$1230</em>
-              <a  class="del-goods">&nbsp;</a>
-            </li>
-            <li>
-              <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
-              <span class="cart-content-count">x 1</span>
-              <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
-              <em>$1230</em>
-              <a  class="del-goods">&nbsp;</a>
-            </li>
-            <li>
-              <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
-              <span class="cart-content-count">x 1</span>
-              <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
-              <em>$1230</em>
-              <a  class="del-goods">&nbsp;</a>
-            </li>
-            <li>
-              <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
-              <span class="cart-content-count">x 1</span>
-              <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
-              <em>$1230</em>
-              <a  class="del-goods">&nbsp;</a>
-            </li>
-            <li>
-              <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
-              <span class="cart-content-count">x 1</span>
-              <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
-              <em>$1230</em>
-              <a  class="del-goods">&nbsp;</a>
-            </li>
-            <li>
-              <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
-              <span class="cart-content-count">x 1</span>
-              <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
-              <em>$1230</em>
-              <a  class="del-goods">&nbsp;</a>
-            </li>
-            <li>
-              <a href="shop-item.html"><img src="assets/pages/img/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
-              <span class="cart-content-count">x 1</span>
-              <strong><a href="shop-item.html">Rolex Classic Watch</a></strong>
-              <em>$1230</em>
-              <a  class="del-goods">&nbsp;</a>
+              <span class="cart-content-count">x {{c.quantity}}</span>
+              <strong><a [routerLink]="['/home/product/', c.slug]">{{c.name}}</a></strong>
+              <em>${{c.price * c.quantity}}</em>
+              <a class="del-goods" (click)="deleteCart(c)">&nbsp;</a>
             </li>
           </ul>
           <div class="text-right">
-            <a href="shop-shopping-cart.html" class="btn btn-default">View Cart</a>
+            <a [routerLink]="['/home/cart']" class="btn btn-default">View Cart</a>
             <a href="shop-checkout.html" class="btn btn-primary">Checkout</a>
           </div>
+        </div>
+        <div class="top-cart-content" *ngIf="cart.length === 0">
+          <ul class="scroller" slimScroll height="auto" position="right" *ngIf="cart.length === 0">
+            <li>
+              No product!
+            </li>
+          </ul>
         </div>
       </div>            
     </div>
@@ -141,7 +99,7 @@
                     <div *ngFor=" let shop of shops, let id = index " class="{{id | carousel}}">
                       <div class="col-xs-12 col-sm-6 col-md-3">
                         <a href="">
-                        <img src="http://pigment.github.io/fake-logos/logos/medium/color/{{id + 1}}.png" class="img-responsive shop-logo">
+                          <img src="http://pigment.github.io/fake-logos/logos/medium/color/{{id + 1}}.png" class="img-responsive shop-logo">
                         </a>
                         <div class="caption">
                           <h4>{{shop.name}}</h4>
