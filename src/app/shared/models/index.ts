@@ -6,3 +6,4 @@ export * from './product';
 export * from './order';
 export * from './shop';
 export * from './cart';
+export * from './comment';
