@@ -101,20 +101,24 @@
               </div>
             </div>
           </div>
-          <form class="reviews-form" role="form" *showAuthed="true" (ngSubmit)="addReview()" [formGroup]="reviewForm">
-            <h2>Write a review</h2>
-            <div class="form-group">
-              <label for="review">Review</label>
-              <textarea class="form-control" formControlName="content" rows="8" id="review"></textarea>
+          <div *showAuthed="true">
+            <form class="reviews-form" role="form" *ngIf="permission" (ngSubmit)="addReview()" [formGroup]="reviewForm">
+              <h2>Write a review</h2>
+              <div class="form-group">
+                <label for="review">Review</label>
+                <textarea class="form-control" formControlName="content" rows="8" id="review"></textarea>
+              </div>
+              <div class="padding-top-20">                  
+                <button type="submit" [disabled]="!reviewForm.valid" class="btn btn-primary btn-cart">Send</button>
+              </div>
+            </form>
+            <div *ngIf="!permission">
+              <p><strong>Buy it to review</strong></p>
             </div>
-            <div class="padding-top-20">                  
-              <button type="submit" [disabled]="!reviewForm.valid" class="btn btn-primary btn-cart">Send</button>
-            </div>
-          </form>
+          </div>
           <div class="reviews-form" *showAuthed="false">
             <p><strong>Login to reviews the product.</strong> <a [routerLink]="['/login']">Login now!</a></p>
           </div>
-
         </div>
       </div>
     </div>
