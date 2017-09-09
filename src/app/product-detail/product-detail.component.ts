@@ -27,6 +27,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   reviewForm: any;
   subReview: Subscription;
   newComment: any;
+  subCheckPermission: Subscription;
+  permission: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,6 +49,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         (data: any) => {
           this.product = data;
           this.fetchData();
+          this.checkPermission();
           $(document).ready(function(){
             $(".fancybox-button").fancybox({
               groupAttr: 'data-rel',
@@ -82,6 +85,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       (data: any) => {
         this.comments = data;
         this.totalReview = this.comments.length;
+      }
+    );
+  }
+
+  checkPermission() {
+    this.subCheckPermission = this.productService.checkPermissionReview(this.product.slug).subscribe(
+      (data: any) => {
+        this.permission = data;
       }
     );
   }
@@ -132,6 +143,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
     if(this.subReview != undefined){
       this.subReview.unsubscribe();
+    }
+    if(this.subCheckPermission != undefined){
+      this.subCheckPermission.unsubscribe();
     }
   }
 

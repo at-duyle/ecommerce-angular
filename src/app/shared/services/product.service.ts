@@ -53,4 +53,15 @@ export class ProductService {
       }
     );
   }
+
+  checkPermissionReview(slug): any {
+    return this.apiService.get('/products/'+ slug +'/check_permission')
+    .map(data => {
+      if(data.message === 'ok') {
+        return true;
+      } else {
+        return false;
+      }
+    })
+  }
 }
