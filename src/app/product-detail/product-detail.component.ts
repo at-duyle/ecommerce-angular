@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 import { ProductService } from '../shared/services';
 import { NotificationService } from '../shared/services';
 import { Product } from '../shared/models/product';
 import { CartService } from '../shared';
+import { CommentService } from '../shared/services';
 
 declare var $: any;
 
@@ -18,19 +20,33 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   product: any;
   subscription: Subscription;
   subscriptionCheckQuantity: Subscription;
+  productId: string;
+  subComments: Subscription;
+  comments: Array<any>;
+  totalReview: number;
+  reviewForm: any;
+  subReview: Subscription;
+  newComment: any;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private notify: NotificationService,
-    private cartService: CartService
-    ) { }
+    private cartService: CartService,
+    private commentService: CommentService,
+    private formBuilder: FormBuilder
+    ) {
+    this.reviewForm = this.formBuilder.group({
+      content: new FormControl('', [Validators.required])
+    });
+  }
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
       this.productService.getProductDetail(params).subscribe(
         (data: any) => {
           this.product = data;
+          this.fetchData();
           $(document).ready(function(){
             $(".fancybox-button").fancybox({
               groupAttr: 'data-rel',
@@ -61,6 +77,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  fetchData() {
+    this.subComments = this.commentService.getCommentsOfProduct(this.product.id).subscribe(
+      (data: any) => {
+        this.comments = data;
+        this.totalReview = this.comments.length;
+      }
+    );
+  }
+
   addCart(product: any, quantity: number){
     let quantityTemp = 0;
     quantity === 0 ? quantity = $('#product-quantity').val() : quantity;
@@ -84,12 +109,29 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     $('#product-quantity').val(1);
   }
 
+  addReview(){
+    let content = this.reviewForm.value;
+    this.subReview = this.productService.addReview(this.product.slug, content).subscribe(
+      (data: any) => {
+        this.newComment = data.comment;
+        this.fetchData();
+        this.reviewForm.controls.content.patchValue('');
+      }
+    );
+  }
+
   ngOnDestroy(){
     if(this.subscription != undefined){
       this.subscription.unsubscribe();
     }
     if(this.subscriptionCheckQuantity != undefined){
       this.subscriptionCheckQuantity.unsubscribe();
+    }
+    if(this.subComments != undefined){
+      this.subComments.unsubscribe();
+    }
+    if(this.subReview != undefined){
+      this.subReview.unsubscribe();
     }
   }
 

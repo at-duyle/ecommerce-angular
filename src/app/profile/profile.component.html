@@ -137,7 +137,7 @@
                     <td><a href="" data-toggle="modal" data-target="#order-detail" (click)="getOrderDetail(i)" >{{order.id}}</a></td>
                     <td>{{order.status}}</td>
                     <td>{{order.total_price}}$</td>
-                    <td>{{order.created_at}}</td>
+                    <td>{{order.created_at | date:"yMMMdjms"}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -222,7 +222,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of products_orders; let i = index ">
-              <td><img class="img-responsive" src="{{item.product.image.url}}" alt="product's image" width="75" height="90"></td>
+              <td><img class="img-responsive" src="{{item.product.image | imageOrder}}" alt="product's image" width="75" height="90"></td>
               <td>{{item.product.name}}</td>
               <td>{{item.product.producer}}</td>
               <td>{{item.product.price}}</td>

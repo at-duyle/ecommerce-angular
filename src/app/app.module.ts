@@ -46,7 +46,8 @@ import {
   OrderService,
   ShopService,
   CartService,
-  UserCartService
+  UserCartService,
+  CommentService
 } from './shared';
 
 //Import Directives
@@ -68,7 +69,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ShopDetailComponent } from './shop-detail/shop-detail.component';
 import { RegisterConfirmComponent } from './register-confirm/register-confirm.component';
 import { ResetPasswordConfirmComponent } from './reset-password-confirm/reset-password-confirm.component';
-
+import { ShowReviewComponent } from './product-detail/show-review/show-review.component';
+import { AddReviewComponent } from './product-detail/add-review/add-review.component';
+import { ImageOrderPipe } from './shared/pipes/image-order.pipe';
 
 const routes: Routes = [
   { path: 'error', component: ErrorComponent }
@@ -107,6 +110,9 @@ export const routing = RouterModule.forRoot(routes);
     ShopDetailComponent,
     RegisterConfirmComponent,
     ResetPasswordConfirmComponent,
+    ShowReviewComponent,
+    AddReviewComponent,
+    ImageOrderPipe,
   ],
   imports: [
     BrowserModule,
@@ -140,7 +146,8 @@ export const routing = RouterModule.forRoot(routes);
     OrderService,
     ShopService,
     CartService,
-    UserCartService
+    UserCartService,
+    CommentService
   ],
   bootstrap: [AppComponent],
 })

@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  // api_url: 'https://at-supershop.herokuapp.com',
-  api_url: 'http://0.0.0.0:3000',
+  api_url: 'https://at-supershop.herokuapp.com',
+  // api_url: 'http://0.0.0.0:3000',
   // api_url: 'http://172.17.19.139:3000',
   errors: [{code: 'ms1',message: 'You are logged in!'}, 
             {code: 'ms2', message: 'You must login!'}]

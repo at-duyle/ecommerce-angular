@@ -21,12 +21,9 @@ export class AuthComponent implements OnInit, AfterViewInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private notify: NotificationService
-    ) { }
-    private cartService: CartService,
-    private router: Router
-    ) {
-  }
+    private notify: NotificationService,
+    private cartService: CartService
+    ) {}
 
   ngOnInit() {
   }
