@@ -18,14 +18,18 @@ import { CartService } from '../shared/services';
 export class AuthComponent implements OnInit, AfterViewInit {
   errors: Error;
   subscription: Subscription;
+  returnUrl: string;
   constructor(
     private userService: UserService,
-    private router: Router,
-    private notify: NotificationService,
-    private cartService: CartService
-    ) {}
+    private cartService: CartService,
+    private route: ActivatedRoute,
+    private router: Router
+    ) {
+    this.errors = new Error();
+  }
 
   ngOnInit() {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
   }
 
   ngAfterViewInit(){
@@ -56,7 +60,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
             this.cartService.updateCart(JSON.parse(cart['cart']), 'sync');
           }
         }
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl(this.returnUrl);
       },
       (err: any) => {
         this.notify.printErrorMessage(err.errors);

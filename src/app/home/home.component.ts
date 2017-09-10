@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from "rxjs/Rx";
 import { environment } from '../../environments/environment';
 import { NotificationService } from '../shared/services';
@@ -109,7 +109,7 @@ export class HomeComponent implements OnInit {
   }
 
   detail = (slug: any) => {
-    this.router.navigateByUrl('/home/product/' + slug);
+    this.router.navigateByUrl('');
   }
 
   addCart(product: any, quantity: number){

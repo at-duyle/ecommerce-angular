@@ -9,18 +9,20 @@ import {
   UserService,
   NoAuthGuardService,
   AuthGuardService,
+  CheckoutGuard,
   NotificationService,
 } from '../shared';
 
 const routes: Routes = [
-  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuardService] }
+  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuardService, CheckoutGuard] }
 ];
 
 export const routing = RouterModule.forRoot(routes);
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    routing
   ],
   declarations: []
 })

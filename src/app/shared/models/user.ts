@@ -8,6 +8,9 @@ export class User {
   address: string;
   description: string;
   password: string;
+  city: string;
+  district: string;
+  ward: string;
   confirmation_password: string;
   slug: string;
 }

@@ -47,7 +47,13 @@ import {
   ShopService,
   CartService,
   UserCartService,
+  MerchantApiService,
   CommentService
+} from './shared';
+
+// Import Guards
+import {
+  CheckoutGuard
 } from './shared';
 
 //Import Directives
@@ -68,13 +74,18 @@ import { DetailCartComponent } from './detail-cart/detail-cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ShopDetailComponent } from './shop-detail/shop-detail.component';
 import { RegisterConfirmComponent } from './register-confirm/register-confirm.component';
+import { CityPipe } from './shared/pipes/city.pipe';
+import { DistrictPipe } from './shared/pipes/district.pipe';
+import { WardPipe } from './shared/pipes/ward.pipe';
+import { ErrorCheckoutComponent } from './error-checkout/error-checkout.component';
 import { ResetPasswordConfirmComponent } from './reset-password-confirm/reset-password-confirm.component';
 import { ShowReviewComponent } from './product-detail/show-review/show-review.component';
 import { AddReviewComponent } from './product-detail/add-review/add-review.component';
 import { ImageOrderPipe } from './shared/pipes/image-order.pipe';
 
 const routes: Routes = [
-  { path: 'error', component: ErrorComponent }
+  { path: 'error', component: ErrorComponent },
+  { path: 'error-checkout', component: ErrorCheckoutComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);
@@ -109,6 +120,10 @@ export const routing = RouterModule.forRoot(routes);
     CheckoutComponent,
     ShopDetailComponent,
     RegisterConfirmComponent,
+    CityPipe,
+    DistrictPipe,
+    WardPipe,
+    ErrorCheckoutComponent,
     ResetPasswordConfirmComponent,
     ShowReviewComponent,
     AddReviewComponent,
@@ -147,6 +162,8 @@ export const routing = RouterModule.forRoot(routes);
     ShopService,
     CartService,
     UserCartService,
+    MerchantApiService,
+    CheckoutGuard
     CommentService
   ],
   bootstrap: [AppComponent],

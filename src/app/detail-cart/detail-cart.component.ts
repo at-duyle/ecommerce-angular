@@ -36,7 +36,6 @@ export class DetailCartComponent implements OnInit {
         this.cart = data;
       }
       );
-    this.cartService.getToken();
   }
 
   increaseQuantity(index: number){
@@ -53,10 +52,6 @@ export class DetailCartComponent implements OnInit {
 
   deleteCart(product){
     this.cartService.deleteCart(product);
-  }
-
-  checkout(){
-    // window.open('http://localhost:4200/register', '_blank');  
   }
 
   ngOnDestroy(){

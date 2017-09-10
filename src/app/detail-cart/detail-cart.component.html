@@ -63,8 +63,8 @@
           </ul>
         </div>
       </div>
-      <button class="btn btn-default" type="button">Continue shopping <i class="fa fa-shopping-cart"></i></button>
-      <button class="btn btn-primary btn-cart" type="button" (click)="checkout()">Checkout <i class="fa fa-check"></i></button>
+      <button class="btn btn-default" type="button" [routerLink]="['']">Continue shopping <i class="fa fa-shopping-cart"></i></button>
+      <button class="btn btn-primary btn-cart" type="button" [routerLink]="['/checkout']">Checkout <i class="fa fa-check"></i></button>
     </div>
   </div>
   <!-- END CONTENT -->

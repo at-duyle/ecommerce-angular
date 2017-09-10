@@ -69,7 +69,7 @@
           </ul>
           <div class="text-right">
             <a [routerLink]="['/home/cart']" class="btn btn-default">View Cart</a>
-            <a href="shop-checkout.html" class="btn btn-primary">Checkout</a>
+            <a [routerLink]="['/checkout']" class="btn btn-primary">Checkout</a>
           </div>
         </div>
         <div class="top-cart-content" *ngIf="cart.length === 0">

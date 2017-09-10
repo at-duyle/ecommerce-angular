@@ -180,8 +180,14 @@ export class CartService {
     }
   }
 
-  createOrder(product: any){
-    
+  createOrder(deliveryAddress: any){
+    return this.apiService.post('/users/1/delivery_orders', {cart: deliveryAddress})
+    .map(
+      data => {
+        this.destroyToken();
+        return data;
+      }
+      );
   }
 
 }

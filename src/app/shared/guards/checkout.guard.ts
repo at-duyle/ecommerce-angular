@@ -1,0 +1,28 @@
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { CartService } from '../../shared';
+
+@Injectable()
+export class CheckoutGuard implements CanActivate {
+  constructor(
+    private cartService: CartService,
+    private router: Router
+    ){
+
+  }
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    let status = true;
+    this.cartService.quantity.subscribe(
+      (data: any) => {
+        if(data === 0){
+          status = false;
+          this.router.navigate(['/error-checkout']);
+        }
+      }
+      )
+    return status;
+  }
+}
