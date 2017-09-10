@@ -25,6 +25,7 @@ import { SlimScroll } from 'angular-io-slimscroll';
 
 //Import Modules
 import { AuthModule } from './auth/auth.module';
+import { ResetPasswordConfirmModule } from './reset-password-confirm/reset-password-confirm.module';
 import { LogoutModule } from './logout/logout.module';
 import { RegisterModule } from './register/register.module';
 import { ProfileModule } from './profile/profile.module';
@@ -46,7 +47,8 @@ import {
   ShopService,
   CartService,
   UserCartService,
-  MerchantApiService
+  MerchantApiService,
+  CommentService
 } from './shared';
 
 // Import Guards
@@ -76,7 +78,10 @@ import { CityPipe } from './shared/pipes/city.pipe';
 import { DistrictPipe } from './shared/pipes/district.pipe';
 import { WardPipe } from './shared/pipes/ward.pipe';
 import { ErrorCheckoutComponent } from './error-checkout/error-checkout.component';
-
+import { ResetPasswordConfirmComponent } from './reset-password-confirm/reset-password-confirm.component';
+import { ShowReviewComponent } from './product-detail/show-review/show-review.component';
+import { AddReviewComponent } from './product-detail/add-review/add-review.component';
+import { ImageOrderPipe } from './shared/pipes/image-order.pipe';
 
 const routes: Routes = [
   { path: 'error', component: ErrorComponent },
@@ -119,6 +124,10 @@ export const routing = RouterModule.forRoot(routes);
     DistrictPipe,
     WardPipe,
     ErrorCheckoutComponent,
+    ResetPasswordConfirmComponent,
+    ShowReviewComponent,
+    AddReviewComponent,
+    ImageOrderPipe,
   ],
   imports: [
     BrowserModule,
@@ -131,6 +140,7 @@ export const routing = RouterModule.forRoot(routes);
     }),
     routing,
     AuthModule,
+    ResetPasswordConfirmModule,
     LogoutModule,
     RegisterModule,
     ProfileModule,
@@ -154,6 +164,7 @@ export const routing = RouterModule.forRoot(routes);
     UserCartService,
     MerchantApiService,
     CheckoutGuard
+    CommentService
   ],
   bootstrap: [AppComponent],
 })

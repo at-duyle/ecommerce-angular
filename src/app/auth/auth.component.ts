@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationService } from '../shared/services';
 import { Subscription } from 'rxjs';
 
 import * as $ from 'jquery';
@@ -62,8 +63,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
         this.router.navigateByUrl(this.returnUrl);
       },
       (err: any) => {
-        this.errors = err.errors;
-        console.log(err);
+        this.notify.printErrorMessage(err.errors);
       }
       );
   }

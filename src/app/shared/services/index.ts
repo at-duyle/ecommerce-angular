@@ -11,3 +11,4 @@ export * from './shop.service';
 export * from './cart.service';
 export * from './user-cart.service';
 export * from './merchant-api.service';
+export * from './comment.service';

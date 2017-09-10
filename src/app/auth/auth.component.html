@@ -35,7 +35,7 @@
             <div class="input-group form-input">
               <input type="password" name="password" placeholder="Password..." 
               class="form-password form-control" ngModel>
-              <span class="input-group-addon" id="basic-addon2"><a>Forgot?</a></span>
+              <span class="input-group-addon" id="basic-addon2"><a [routerLink]="['/reset_password']" target="_blank">Forgot?</a></span>
             </div>
           </div>
           <button type="submit" class="btn btn-primary form-button">Sign in!</button>

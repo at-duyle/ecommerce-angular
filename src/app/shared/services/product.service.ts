@@ -44,4 +44,24 @@ export class ProductService {
     return this.apiService.get('/shops/'+ slug + '/products_shop')
     .map(data => data.products);
   }
+
+  addReview(slug, content): any {
+    return this.apiService.post('/products/'+ slug +'/comments', {comment: content})
+    .map(
+      data => {
+        return data;
+      }
+    );
+  }
+
+  checkPermissionReview(slug): any {
+    return this.apiService.get('/products/'+ slug +'/check_permission')
+    .map(data => {
+      if(data.message === 'ok') {
+        return true;
+      } else {
+        return false;
+      }
+    })
+  }
 }
