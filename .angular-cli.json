@@ -26,6 +26,8 @@
         "../node_modules/alertifyjs/build/css/themes/default.min.css",
         "../node_modules/fancybox/dist/css/jquery.fancybox.css",
         "../node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css",
+        "../node_modules/slick-carousel/slick/slick.scss",
+        "../node_modules/slick-carousel/slick/slick-theme.scss",
         "styles.scss"
       ],
       "scripts": [
@@ -36,6 +38,7 @@
         "../node_modules/fancybox/dist/js/jquery.fancybox.pack.js",
         "../node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js",
         "../node_modules/jquery-zoom/jquery.zoom.min.js",
+        "../node_modules/slick-carousel/slick/slick.min.js",
         "script.js"
       ],
       "environmentSource": "environments/environment.ts",

@@ -52,6 +52,16 @@ export class HomeComponent implements OnInit {
     this.subscriptionBestSeller = this.productService.getBestSeller().subscribe(
       (data: any) => {
         this.bestSeller = data;
+        $(document).ready(function(){
+          $('.best-seller').slick({
+            infinite: true,
+            dots: true,
+            slidesToShow: 4,
+            slidesToScroll: 2,
+            autoplay: true,
+            autoplaySpeed: 3000
+          });
+        });
       }, (err: any) => {
         if(Array.isArray(err)){
           for (let error of err) {
@@ -83,6 +93,14 @@ export class HomeComponent implements OnInit {
                 type: 'inside'
               }
             }
+          });
+          $('.new-product').slick({
+            infinite: true,
+            dots: true,
+            slidesToShow: 4,
+            slidesToScroll: 2,
+            autoplay: true,
+            autoplaySpeed: 3000
           });
         });
       }, (err: any) => {
