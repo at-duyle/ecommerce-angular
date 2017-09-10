@@ -60,9 +60,48 @@
                         </div>
                       </div>
                     </div>
+                    
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>City</label>
+                          <select class="form-control" formControlName="city" id="city-dd">
+                            <option *ngFor="let city of cities"
+                            value="{{ city | city }}">{{city.CityName}}</option>
+                          </select>
+                          <span [hidden]="profileForm.controls.address.valid || (profileForm.controls.address.pristine && !profileForm.submitted)" class="text-error">
+                            Don't over 200 words !
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>District</label>
+                          <select class="form-control" formControlName="district" id="district-dd">
+                            <option *ngFor="let district of districts" 
+                            value="{{district | district}}">{{district.ProvinceName}}</option>
+                          </select>
+                          <span [hidden]="profileForm.controls.address.valid || (profileForm.controls.address.pristine && !profileForm.submitted)" class="text-error">
+                            Don't over 200 words !
+                          </span>
+                        </div>
+                      </div>
+                    </div>
 
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Ward</label>
+                          <select class="form-control" id="ward-dd" formControlName="ward">
+                            <option *ngFor="let ward of wards" 
+                            value="{{ ward | ward }}">{{ward.WardName}}</option>
+                          </select>
+                          <span [hidden]="profileForm.controls.address.valid || (profileForm.controls.address.pristine && !profileForm.submitted)" class="text-error">
+                            Don't over 200 words !
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label>Address</label>
                           <input type="text" class="form-control" formControlName="address" placeholder="Home Address">
@@ -124,17 +163,21 @@
               <table class="table table-hover">
                 <thead>
                   <th>ID</th>
+                  <th>Receiver</th>
+                  <th>Phone</th>
                   <th>Status</th>
                   <th>Total price</th>
                   <th class="pointer" (click)="sort()">Ordered at <i class="fa" [ngClass]="{'fa-sort': column != 'created_at', 
-                                                          'fa-sort-asc': (column == 'created_at' && !isDesc), 
-                                                          'fa-sort-desc': (column == 'created_at' && isDesc) }"
-                                                aria-hidden="true"> </i>
+                    'fa-sort-asc': (column == 'created_at' && !isDesc), 
+                    'fa-sort-desc': (column == 'created_at' && isDesc) }"
+                    aria-hidden="true"> </i>
                   </th>
                 </thead>
                 <tbody>
                   <tr *ngFor="let order of orders | orderByTime: {direction: direction}; let i = index ">
                     <td><a href="" data-toggle="modal" data-target="#order-detail" (click)="getOrderDetail(i)" >{{order.id}}</a></td>
+                    <td>{{order.name | receiverDeliveryOrder: currentUser.name }}</td>
+                    <td>{{order.phone}}</td>
                     <td>{{order.status}}</td>
                     <td>{{order.total_price}}$</td>
                     <td>{{order.created_at | date:"yMMMdjms"}}</td>
