@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { Error } from '../shared/models/error';
 import { User } from '../shared/models';
 import { Order } from '../shared/models';
-import { UserService } from '../shared/services';
+import { MerchantApiService, UserService } from '../shared/services';
 import { OrderService } from '../shared/services';
 import { NotificationService } from '../shared/services';
 
@@ -35,11 +35,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
   isDesc: boolean = false;
   direction: number;
 
+  cities: Array<any>;
+  districts: Array<any>;
+  wards: Array<any>;
+  citySubcription: Subscription;
+  cityApiSubcription: Subscription;
+  districtSubcription: Subscription;
+  districtApiSubcription: Subscription;
+  wardApiSubcription: Subscription;
+
   constructor(
     private userService: UserService,
     private orderService: OrderService,
     private formBuilder: FormBuilder,
     private notify: NotificationService,
+    private merchantApiService: MerchantApiService,
     private router: Router) {
 
     this.profileForm = this.formBuilder.group({
@@ -47,6 +57,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
       email: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.maxLength(50)]),
       gender: new FormControl(),
+      city: new FormControl('', [Validators.required]),
+      district: new FormControl('', [Validators.required]),
+      ward: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.maxLength(200)]),
       description: new FormControl()
     });
@@ -56,6 +69,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       password: new FormControl('', [Validators.required]),
       password_confirmation: new FormControl('', [Validators.required])
     });
+
+    this.cities = [{CityId:'', CityName: '--- Please Select ---'}];
+    this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
+    this.wards = [{WardId:'', WardName: '--- Please Select ---'}];
   }
 
   ngOnInit() {
@@ -65,10 +82,57 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileForm.patchValue(userData);
       }
       );
+    this.cityApiSubcription = this.merchantApiService.getCity().subscribe(
+      (data: any) => {
+        this.cities = this.cities.concat(data.data);
+        this.profileForm
+              .controls
+              .city
+              .patchValue(this.currentUser.city);
+      }
+      );
+    this.citySubcription = this.profileForm.controls.city.valueChanges.subscribe(
+      (val: any) => {
+        var cityId = val.split('-', 1)[0];
+        if(cityId != ''){
+          this.districtApiSubcription = this.merchantApiService.getDistrict(cityId).subscribe(
+            (data: any) => {
+              this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
+              this.districts = this.districts.concat(data.data);
+              this.profileForm
+              .controls
+              .district
+              .patchValue(this.currentUser.district);
+            }
+            );
+        } else {
+          this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
+          this.profileForm.controls.district.patchValue('');
+        }
+      });
+    this.districtSubcription = this.profileForm.controls.district.valueChanges.subscribe(
+      (val: any) => {
+        var districtId = val.split('-', 1)[0];
+        if(districtId != ''){
+          this.merchantApiService.getWard(districtId).subscribe(
+            (data: any) => {
+              this.wards = [{WardId:'', WardName: '--- Please Select ---'}];
+              this.wards = this.wards.concat(data.data);
+              this.profileForm
+              .controls
+              .ward
+              .patchValue(this.currentUser.ward);
+            }
+            );
+        } else {
+          this.wards = [{WardId:'', WardName: '--- Please Select ---'}];
+          this.profileForm.controls.ward.patchValue('');
+        }
+      });
     this.orderService.getOrdersOfUser().subscribe(
       (data) => {
-        console.log(data);
         this.orders = data;
+        console.log(data);
       }
       );
     this.controlEmail = this.profileForm.controls.email.valueChanges.subscribe(
@@ -112,7 +176,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   sort(){
     this.isDesc = !this.isDesc; //change the direction    
     this.direction = this.isDesc ? 1 : -1;
-};
+  };
 
   getOrderDetail(index){
     this.products_orders = this.orders[index].products_delivery_orders;
@@ -170,6 +234,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
     if(this.controlConfirmPass != undefined){
       this.controlConfirmPass.unsubscribe();
+    }
+    if(this.citySubcription != undefined){
+      this.citySubcription.unsubscribe();
+    }
+    if(this.cityApiSubcription != undefined){
+      this.cityApiSubcription.unsubscribe();
+    }
+    if(this.districtSubcription != undefined){
+      this.districtSubcription.unsubscribe();
+    }
+    if(this.districtApiSubcription != undefined){
+      this.districtApiSubcription.unsubscribe();
+    }
+    if(this.wardApiSubcription != undefined){
+      this.wardApiSubcription.unsubscribe();
     }
   }
 }

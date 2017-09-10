@@ -80,6 +80,7 @@ import { WardPipe } from './shared/pipes/ward.pipe';
 import { ErrorCheckoutComponent } from './error-checkout/error-checkout.component';
 import { ResetPasswordConfirmComponent } from './reset-password-confirm/reset-password-confirm.component';
 import { ImageOrderPipe } from './shared/pipes/image-order.pipe';
+import { ReceiverDeliveryOrderPipe } from './shared/pipes/receiver-delivery-order.pipe';
 
 const routes: Routes = [
   { path: 'error', component: ErrorComponent },
@@ -124,6 +125,7 @@ export const routing = RouterModule.forRoot(routes);
     ErrorCheckoutComponent,
     ResetPasswordConfirmComponent,
     ImageOrderPipe,
+    ReceiverDeliveryOrderPipe,
   ],
   imports: [
     BrowserModule,
@@ -142,7 +144,7 @@ export const routing = RouterModule.forRoot(routes);
     ProfileModule,
     CheckoutModule,
     ShopDetailModule,
-    MainModule
+    MainModule,
   ],
   providers: [
     ShowAuthedDirective,
