@@ -79,8 +79,6 @@ import { DistrictPipe } from './shared/pipes/district.pipe';
 import { WardPipe } from './shared/pipes/ward.pipe';
 import { ErrorCheckoutComponent } from './error-checkout/error-checkout.component';
 import { ResetPasswordConfirmComponent } from './reset-password-confirm/reset-password-confirm.component';
-import { ShowReviewComponent } from './product-detail/show-review/show-review.component';
-import { AddReviewComponent } from './product-detail/add-review/add-review.component';
 import { ImageOrderPipe } from './shared/pipes/image-order.pipe';
 
 const routes: Routes = [
@@ -125,8 +123,6 @@ export const routing = RouterModule.forRoot(routes);
     WardPipe,
     ErrorCheckoutComponent,
     ResetPasswordConfirmComponent,
-    ShowReviewComponent,
-    AddReviewComponent,
     ImageOrderPipe,
   ],
   imports: [
@@ -163,7 +159,7 @@ export const routing = RouterModule.forRoot(routes);
     CartService,
     UserCartService,
     MerchantApiService,
-    CheckoutGuard
+    CheckoutGuard,
     CommentService
   ],
   bootstrap: [AppComponent],

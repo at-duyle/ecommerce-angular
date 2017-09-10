@@ -20,6 +20,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
   subscription: Subscription;
   returnUrl: string;
   constructor(
+    private notify: NotificationService,
     private userService: UserService,
     private cartService: CartService,
     private route: ActivatedRoute,
