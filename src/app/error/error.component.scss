@@ -1,0 +1,27 @@
+/* ===================================================== */
+/* 9. 404 PAGE                                 */
+/* ===================================================== */
+
+.page_404 {
+  position: relative;
+  text-align: center;
+  > {
+    h1 {
+      font-size: 250px;
+      font-weight: 600;
+      line-height: 250px;
+      position: relative;
+    }
+    p {
+      font-family: Pt Sans,Helvetica, Arial, sans-serif;
+      font-size: 30px;
+      font-weight: bold;
+      line-height: 30px;
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.btn-cart{
+  background-color: #E6400C !important;
+}

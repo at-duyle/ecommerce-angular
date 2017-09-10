@@ -1,3 +1,237 @@
-<p>
-  checkout works!
-</p>
+<app-header></app-header>
+<!-- BEGIN SIDEBAR & CONTENT -->
+<div class="main">
+  <div class="container">
+    <div class="row margin-bottom-40">
+      <!-- BEGIN CONTENT -->
+      <div class="col-md-12 col-sm-12">
+        <h1>Checkout</h1>
+        <!-- BEGIN CHECKOUT PAGE -->
+        <div class="panel-group checkout-page accordion scrollable" id="checkout-page">
+
+          <!-- BEGIN CHECKOUT -->
+          <div id="checkout" class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#checkout-page" href="#checkout-content" class="accordion-toggle">
+                  Step 1: Login
+                </a>
+              </h2>
+            </div>
+            <div id="checkout-content" class="panel-collapse collapse in">
+              <div class="panel-body row">
+                <div class="col-md-6 col-sm-6">
+                  <p>You have already logged in! </p>
+                  <button class="btn btn-primary btn-cart" type="submit" data-toggle="collapse" data-parent="#checkout-page" data-target="#payment-address-content">Continue</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END CHECKOUT -->
+
+          <!-- BEGIN PAYMENT ADDRESS -->
+          <div id="payment-address" class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#checkout-page" href="#payment-address-content" class="accordion-toggle">
+                  Step 2: Delivery Address
+                </a>
+              </h2>
+            </div>
+            <div id="payment-address-content" class="panel-collapse collapse">
+              <form [formGroup]="addressForm" (ngSubmit)="addAddress()">
+                <div class="panel-body row">
+                  <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">
+                    <div class="form-group">
+                      <div class="material-switch pull-right">
+                        <p>Use profile</p> 
+                        <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox" formControlName="select"/>
+                        <label for="someSwitchOptionPrimary" class="label-primary"></label>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="name-dd">Full Name <span class="require">*</span></label>
+                      <input type="text" formControlName="name" id="name-dd" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label for="phone-dd">Phone <span class="require">*</span></label>
+                      <input type="text" formControlName="phone" id="phone-dd" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label for="city-dd">Province/City <span class="require">*</span></label>
+                      <select class="form-control input-sm" formControlName="city" id="city-dd">
+                        <option *ngFor="let city of cities"
+                        value="{{ city | city }}">{{city.CityName}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="district-dd">District <span class="require">*</span></label>
+                      <select class="form-control input-sm" formControlName="district" id="district-dd">
+                        <option *ngFor="let district of districts" 
+                        value="{{district | district}}">{{district.ProvinceName}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="ward-dd">Ward <span class="require">*</span></label>
+                      <select class="form-control input-sm" id="ward-dd" formControlName="ward">
+                        <option *ngFor="let ward of wards" 
+                        value="{{ ward | ward }}">{{ward.WardName}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="address-dd">Address <span class="require">*</span></label>
+                      <textarea name="address" class="form-control" formControlName="address" 
+                      id="address-dd" rows=2>
+                    </textarea>
+                  </div>
+                </div>
+                <hr>
+                <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">                      
+                  <button class="btn btn-primary btn-cart pull-right" type="submit" data-toggle="collapse" data-parent="#checkout-page" data-target="#shipping-address-content" id="button-payment-address" [disabled]="!addressForm.valid" >Continue</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- END PAYMENT ADDRESS -->
+
+        <!-- BEGIN SHIPPING ADDRESS -->
+        <div id="shipping-address" class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">
+              <a data-toggle="collapse" data-parent="#checkout-page" href="#shipping-address-content" class="accordion-toggle">
+                Step 3: Confirm Order
+              </a>
+            </h2>
+          </div>
+          <div id="shipping-address-content" class="panel-collapse collapse">
+            <div class="panel-body row">
+              <div class="col-md-8 clearfix">
+                <div class="table-wrapper-responsive">
+                  <table>
+                    <caption>List Products</caption>
+                    <tr>
+                      <th class="checkout-image">Image</th>
+                      <th class="checkout-description">Description</th>
+                      <th class="checkout-quantity">Quantity</th>
+                      <th class="checkout-price">Price</th>
+                      <th class="checkout-total">Total</th>
+                    </tr>
+                    <tr *ngFor=" let c of cart, let id = index ">
+                      <td class="goods-page-image">
+                        <a href="javascript:;"><img src="{{c.image | imageCart}}" alt="Berry Lace Dress"></a>
+                      </td>
+                      <td class="goods-page-description">
+                        <h4><strong>{{c.name}}</strong></h4>
+                      </td>
+                      <td>
+                        {{c.quantity}}
+                      </td>
+                      <td>
+                        {{c.price}}
+                      </td>
+                      <td>
+                        {{c.quantity * c.price}}
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="checkout-total-block">
+                  <ul>
+                    <li>
+                      <em>Shipping cost</em>
+                      <strong class="price">Free ship</strong>
+                    </li>
+                    <li class="checkout-total-price">
+                      <em>Total</em>
+                      <strong class="price"><span>$</span>{{totalPrice}}</strong>
+                    </li>
+                  </ul>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-md-4 clearfix">
+                <div class="table-wrapper-responsive">
+                  <table *ngIf="deliveryAddress !== undefined">
+                    <caption>Delivery Address</caption>
+                    <tr>
+                      <th class="checkout-image">#</th>
+                      <th class="checkout-description">Detail</th>
+                    </tr>
+                    <tr>
+                      <td>Name</td>
+                      <td>{{deliveryAddress.name}}</td>
+                    </tr>
+                    <tr>
+                      <td>Phone</td>
+                      <td>{{deliveryAddress.phone}}</td>
+                    </tr>
+                    <tr>
+                      <td>Province/City</td>
+                      <td>{{deliveryAddress.city}}</td>
+                    </tr>
+                    <tr>
+                      <td>District</td>
+                      <td>{{deliveryAddress.district}}</td>
+                    </tr>
+                    <tr>
+                      <td>Ward</td>
+                      <td>{{deliveryAddress.ward}}</td>
+                    </tr>
+                    <tr>
+                      <td>Address</td>
+                      <td>{{deliveryAddress.address}}</td>
+                    </tr>
+                  </table>
+                  <table *ngIf="deliveryAddress === undefined">
+                    <caption>Delivery Address</caption>
+                    <tr>
+                      <th class="checkout-image">#</th>
+                      <th class="checkout-description">Detail</th>
+                    </tr>
+                    <tr>
+                      <td>Name</td>
+                      <td>Empty</td>
+                    </tr>
+                    <tr>
+                      <td>Phone</td>
+                      <td>Empty</td>
+                    </tr>
+                    <tr>
+                      <td>Province/City</td>
+                      <td>Empty</td>
+                    </tr>
+                    <tr>
+                      <td>District</td>
+                      <td>Empty</td>
+                    </tr>
+                    <tr>
+                      <td>Ward</td>
+                      <td>Empty</td>
+                    </tr>
+                    <tr>
+                      <td>Address</td>
+                      <td>Empty</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="color:#e80909;"><strong>Please fill out delivery detail form before comfirm!</strong></td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="checkout-total-block"></div>
+                <div class="clearfix"></div>
+                <button class="btn btn-primary btn-cart pull-right" type="submit" id="button-confirm"
+                [disabled]="!addressForm.valid" (click)="confirmOrder()">Confirm Order</button>
+                <button type="button" class="btn btn-default pull-right margin-right-20" [routerLink]="['']">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END SHIPPING ADDRESS -->
+      </div>
+      <!-- END CHECKOUT PAGE -->
+    </div>
+  </div>
+</div>
+</div>
+<app-footer></app-footer>
