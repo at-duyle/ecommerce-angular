@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   quantity: number;
   totalPrice:number;
   cart: Array<any>;
+  keyword: any;
 
   constructor(
     private userService: UserService,
@@ -95,6 +96,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   deleteCart(product){
     this.cartService.deleteCart(product);
+  }
+
+  search(){
+    this.router.navigate(['/home/search'], { queryParams: { q: this.keyword } });
+    this.keyword = null;
   }
 
   ngOnDestroy(){
