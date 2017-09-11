@@ -48,7 +48,7 @@ import {
   CartService,
   UserCartService,
   MerchantApiService,
-  CommentService
+  CommentService,
 } from './shared';
 
 // Import Guards
@@ -162,7 +162,7 @@ export const routing = RouterModule.forRoot(routes);
     UserCartService,
     MerchantApiService,
     CheckoutGuard,
-    CommentService
+    CommentService,
   ],
   bootstrap: [AppComponent],
 })

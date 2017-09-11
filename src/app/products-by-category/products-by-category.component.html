@@ -39,7 +39,7 @@
 </div>
 <!-- END PRODUCT LIST -->
 <!-- BEGIN PAGINATOR -->
-<div class="row margin-top-10 margin-bottom-40">
+<div class="row margin-top-10 margin-bottom-40" [hidden]="products.length / 12 < 1">
   <div class="col-md-4 col-sm-4 items-info"></div>
   <div class="col-md-8 col-sm-8">
    <pagination-controls (pageChange)="p = $event"></pagination-controls>

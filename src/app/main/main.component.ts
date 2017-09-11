@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -7,15 +8,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
   hiddenSlider: boolean;
+  hiddenBanner: boolean; 
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    ) { 
+    this.hiddenSlider = false;
+    this.hiddenBanner = true;
+  }
 
   ngOnInit() {
-    // if (this.router.url === '/' || this.router.url === '/home') { 
-    //   this.hiddenSlider = true;
-    // } else {
-    //   this.hiddenSlider = false;
-    // }
+    this.router.events.filter(event => event instanceof NavigationEnd)
+                      .subscribe((url:any) => {
+                        if (url.urlAfterRedirects === '/' || url.urlAfterRedirects === '/home') { 
+                          this.hiddenSlider = false;
+                          this.hiddenBanner = true;
+                        } else {
+                          if(url.urlAfterRedirects.indexOf('categories') >= 0 
+                            || url.urlAfterRedirects.indexOf('search') >= 0){
+                            this.hiddenBanner = false;
+                          } else {
+                            this.hiddenBanner = true;
+                          }
+                          this.hiddenSlider = true;
+                        }
+    });
   }
 
 }
