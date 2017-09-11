@@ -41,7 +41,7 @@ export class DetailCartComponent implements OnInit {
   increaseQuantity(index: number){
     let quantityTemp = this.cart[index].quantity + 1;
     if(quantityTemp > 10){
-      this.notify.printErrorMessage('The maximum number can buy 10 product');
+      this.notify.printErrorMessage('You can only buy 10 products!');
     } else{
       this.cart[index].quantity = quantityTemp;
       this.cartService.updateCart(this.cart, 'update');

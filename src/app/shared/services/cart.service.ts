@@ -121,7 +121,7 @@ export class CartService {
       } else {
         let quantityTotal = (Number(cartTemp[index].quantity)) + (Number(quantity));
         if(quantityTotal > 10){
-          this.notify.printErrorMessage('The maximum number can buy 10 product');
+          this.notify.printErrorMessage('You can only buy 10 products!');
         } else {
           let quantityTemp = (Number(this.quantitySubject.getValue())) + (Number(quantity));
           this.quantitySubject.next(quantityTemp);
