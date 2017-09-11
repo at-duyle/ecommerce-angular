@@ -99,7 +99,7 @@
                     <div *ngFor=" let shop of shops, let id = index " class="{{id | carousel}}">
                       <div class="col-xs-12 col-sm-6 col-md-3">
                         <a href="/shop/{{shop.slug}}">
-                        <img src="http://pigment.github.io/fake-logos/logos/medium/color/{{id + 1}}.png" class="img-responsive shop-logo">
+                        <img src="{{shop.logo}}" class="img-responsive shop-logo">
                         </a>
                         <div class="caption">
                           <h4>{{shop.name}}</h4>

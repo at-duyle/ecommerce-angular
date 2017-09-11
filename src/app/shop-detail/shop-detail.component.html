@@ -4,7 +4,7 @@
     <div class="content">
       <div class="row margin-bottom-40" *ngIf="shop != undefined || shop != null">
         <div class="col-md-3 col-sm-3">
-          <img src="http://pigment.github.io/fake-logos/logos/medium/color/6.png" alt="Cool green dress with red bell" class="img-responsive margin-bottom-40">
+          <img src="{{shop.logo}}" alt="Cool green dress with red bell" class="img-responsive margin-bottom-40">
           <h2>{{shop.name}}</h2>
           <address>
             Add: {{shop.address}}<br>
