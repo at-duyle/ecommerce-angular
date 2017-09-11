@@ -39,8 +39,13 @@ export class DetailCartComponent implements OnInit {
   }
 
   increaseQuantity(index: number){
-    this.cart[index].quantity += 1;
-    this.cartService.updateCart(this.cart, 'update');
+    let quantityTemp = this.cart[index].quantity + 1;
+    if(quantityTemp > 10){
+      this.notify.printErrorMessage('You can only buy 10 products!');
+    } else{
+      this.cart[index].quantity = quantityTemp;
+      this.cartService.updateCart(this.cart, 'update');
+    }
   }
 
   descreaseQuantity(index: number){

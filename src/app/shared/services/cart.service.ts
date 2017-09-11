@@ -55,33 +55,17 @@ export class CartService {
     this.userService.isAuthenticated.subscribe(
       (isAuthenticate: any) => {
         window.localStorage['cart'] = JSON.stringify(cartTemp);
-        // if(status === 'sync'){
-          //   console.log();
-          // }
-          // else if(status === 'delete'){
-            //   this.notify.printSuccessMessage('Delete product sucessfully!');
-            // } else{
-              //   this.notify.printSuccessMessage('Add product sucessfully!');
-              // }
-              this.cartSubject.next(cartTemp);
-              if(isAuthenticate === true){
-                this.userCartService.saveCart(JSON.stringify(cartTemp)).subscribe(
-                  (data) => {
-                    // if(status === 'sync'){
-                      //   console.log();
-                      // }
-                      // else if(status === 'delete'){
-                        //   this.notify.printSuccessMessage('Delete product sucessfully!');
-                        // } else{
-                          //   this.notify.printSuccessMessage('Add product sucessfully!');
-                          // }
-                        },
-                        (err) => {
-                          console.log(err);
-                        }
-                        );
-              }
-            });
+        this.cartSubject.next(cartTemp);
+        if(isAuthenticate === true){
+          this.userCartService.saveCart(JSON.stringify(cartTemp)).subscribe(
+            (data) => {
+            },
+            (err) => {
+              console.log(err);
+            }
+            );
+        }
+      });
   }
 
   destroyToken() {
@@ -110,10 +94,6 @@ export class CartService {
   }
 
   addCart(product: any, quantity: number){
-    let quantityTemp = (Number(this.quantitySubject.getValue())) + (Number(quantity));
-    this.quantitySubject.next(quantityTemp);
-    let totalPriceTemp = this.totalPriceSubject.getValue() + quantity * Math.round(product.price * 0.8 );
-    this.totalPriceSubject.next(totalPriceTemp);
     let cartTemp = this.getToken();
     let image = '';
     product.images.length > 0 ? image = product.images[0].url : '';
@@ -123,6 +103,10 @@ export class CartService {
       cartTemp.push(new Cart(
         product.slug, Math.round(product.price * 0.8 ), product.name, image, quantity
         ));
+      let quantityTemp = (Number(this.quantitySubject.getValue())) + (Number(quantity));
+      this.quantitySubject.next(quantityTemp);
+      let totalPriceTemp = this.totalPriceSubject.getValue() + quantity * Math.round(product.price * 0.8 );
+      this.totalPriceSubject.next(totalPriceTemp);
     } else {
       cartTemp = JSON.parse(cartTemp);
       let index = cartTemp.findIndex(x => x.slug == product.slug);
@@ -130,8 +114,21 @@ export class CartService {
         cartTemp.push(new Cart(
           product.slug, Math.round(product.price * 0.8 ), product.name, image, quantity
           ));
+        let quantityTemp = (Number(this.quantitySubject.getValue())) + (Number(quantity));
+        this.quantitySubject.next(quantityTemp);
+        let totalPriceTemp = this.totalPriceSubject.getValue() + quantity * Math.round(product.price * 0.8 );
+        this.totalPriceSubject.next(totalPriceTemp);
       } else {
-        cartTemp[index].quantity = (Number(cartTemp[index].quantity)) + (Number(quantity));
+        let quantityTotal = (Number(cartTemp[index].quantity)) + (Number(quantity));
+        if(quantityTotal > 10){
+          this.notify.printErrorMessage('You can only buy 10 products!');
+        } else {
+          let quantityTemp = (Number(this.quantitySubject.getValue())) + (Number(quantity));
+          this.quantitySubject.next(quantityTemp);
+          let totalPriceTemp = this.totalPriceSubject.getValue() + quantity * Math.round(product.price * 0.8 );
+          this.totalPriceSubject.next(totalPriceTemp);
+          cartTemp[index].quantity = quantityTotal;
+        }
       }
     }
     this.saveToken(cartTemp, 'add');
@@ -149,45 +146,44 @@ export class CartService {
     //   this.saveToken(cartTemp, 'update');
     // }
 
-  updateCart(cart: any, status: any){
-    let quantityTemp = 0;
-    let totalPriceTemp = 0;
-    for(let c of cart){
-      quantityTemp += c.quantity;
-      totalPriceTemp += (c.quantity * c.price);
+    updateCart(cart: any, status: any){
+      let quantityTemp = 0;
+      let totalPriceTemp = 0;
+      for(let c of cart){
+        quantityTemp += c.quantity;
+        totalPriceTemp += (c.quantity * c.price);
+      }
+      this.saveToken(cart, status);
+      this.quantitySubject.next(quantityTemp);
+      this.totalPriceSubject.next(totalPriceTemp);
+      this.cartSubject.next(JSON.parse(this.getToken()));
     }
-    console.log(status);
-    this.saveToken(cart, status);
-    this.quantitySubject.next(quantityTemp);
-    this.totalPriceSubject.next(totalPriceTemp);
-    this.cartSubject.next(JSON.parse(this.getToken()));
-  }
 
-  deleteCart(product: any){
-    let cartTemp = this.getToken();
-    if(cartTemp !== undefined){
-      cartTemp = JSON.parse(cartTemp);
-      let index = cartTemp.findIndex(x => x.slug == product.slug);
-      if(index > -1 ){
-        let quantityTemp = (Number(this.quantitySubject.getValue())) - (Number(cartTemp[index].quantity));
-        this.quantitySubject.next(quantityTemp);
-        let totalPriceTemp = this.totalPriceSubject.getValue() - (Number(cartTemp[index].quantity)) * (Number(cartTemp[index].price));
-        this.totalPriceSubject.next(totalPriceTemp);
-        cartTemp.splice(index, 1);
-        this.saveToken(cartTemp, 'delete');
-        this.cartSubject.next(JSON.parse(this.getToken()));
+    deleteCart(product: any){
+      let cartTemp = this.getToken();
+      if(cartTemp !== undefined){
+        cartTemp = JSON.parse(cartTemp);
+        let index = cartTemp.findIndex(x => x.slug == product.slug);
+        if(index > -1 ){
+          let quantityTemp = (Number(this.quantitySubject.getValue())) - (Number(cartTemp[index].quantity));
+          this.quantitySubject.next(quantityTemp);
+          let totalPriceTemp = this.totalPriceSubject.getValue() - (Number(cartTemp[index].quantity)) * (Number(cartTemp[index].price));
+          this.totalPriceSubject.next(totalPriceTemp);
+          cartTemp.splice(index, 1);
+          this.saveToken(cartTemp, 'delete');
+          this.cartSubject.next(JSON.parse(this.getToken()));
+        }
       }
     }
-  }
 
-  createOrder(deliveryAddress: any){
-    return this.apiService.post('/users/1/delivery_orders', {cart: deliveryAddress})
-    .map(
-      data => {
-        this.destroyToken();
-        return data;
-      }
-      );
-  }
+    createOrder(deliveryAddress: any){
+      return this.apiService.post('/users/1/delivery_orders', {cart: deliveryAddress})
+      .map(
+        data => {
+          this.destroyToken();
+          return data;
+        }
+        );
+    }
 
-}
+  }
