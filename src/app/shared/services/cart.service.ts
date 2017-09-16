@@ -51,14 +51,14 @@ export class CartService {
     return window.localStorage['cart'];
   }
 
-  saveToken(cartTemp: any, status: any) {
+  saveToken(cartTemp: any) {
     this.userService.isAuthenticated.subscribe(
       (isAuthenticate: any) => {
-        window.localStorage['cart'] = JSON.stringify(cartTemp);
-        this.cartSubject.next(cartTemp);
         if(isAuthenticate === true){
           this.userCartService.saveCart(JSON.stringify(cartTemp)).subscribe(
             (data) => {
+              window.localStorage['cart'] = JSON.stringify(cartTemp);
+              this.cartSubject.next(cartTemp);
             },
             (err) => {
               console.log(err);
@@ -131,59 +131,45 @@ export class CartService {
         }
       }
     }
-    this.saveToken(cartTemp, 'add');
+    this.saveToken(cartTemp);
   }
 
-  // updateProductOfCart(product){
-    //   let cartTemp = this.getToken();
-    //   cartTemp = JSON.parse(cartTemp);
-    //   let index = cartTemp.findIndex(x => x.slug == product.slug);
-    //   let quantityTemp = (Number(this.quantitySubject.getValue())) - (cartTemp[index].quantity - (Number(product.quantity)));
-    //   this.quantitySubject.next(quantityTemp);
-    //   let totalPriceTemp = this.totalPriceSubject.getValue() - (cartTemp[index].quantity - (Number(product.quantity))) * (Number(product.price));
-    //   this.totalPriceSubject.next(totalPriceTemp);
-    //   cartTemp[index].quantity = product.quantity;
-    //   this.saveToken(cartTemp, 'update');
-    // }
-
-    updateCart(cart: any, status: any){
-      let quantityTemp = 0;
-      let totalPriceTemp = 0;
-      for(let c of cart){
-        quantityTemp += c.quantity;
-        totalPriceTemp += (c.quantity * c.price);
-      }
-      this.saveToken(cart, status);
-      this.quantitySubject.next(quantityTemp);
-      this.totalPriceSubject.next(totalPriceTemp);
-      this.cartSubject.next(JSON.parse(this.getToken()));
+  updateCart(cart: any, status: any){
+    let quantityTemp = 0;
+    let totalPriceTemp = 0;
+    for(let c of cart){
+      quantityTemp += c.quantity;
+      totalPriceTemp += (c.quantity * c.price);
     }
-
-    deleteCart(product: any){
-      let cartTemp = this.getToken();
-      if(cartTemp !== undefined){
-        cartTemp = JSON.parse(cartTemp);
-        let index = cartTemp.findIndex(x => x.slug == product.slug);
-        if(index > -1 ){
-          let quantityTemp = (Number(this.quantitySubject.getValue())) - (Number(cartTemp[index].quantity));
-          this.quantitySubject.next(quantityTemp);
-          let totalPriceTemp = this.totalPriceSubject.getValue() - (Number(cartTemp[index].quantity)) * (Number(cartTemp[index].price));
-          this.totalPriceSubject.next(totalPriceTemp);
-          cartTemp.splice(index, 1);
-          this.saveToken(cartTemp, 'delete');
-          this.cartSubject.next(JSON.parse(this.getToken()));
-        }
-      }
-    }
-
-    createOrder(deliveryAddress: any){
-      return this.apiService.post('/users/1/delivery_orders', {cart: deliveryAddress})
-      .map(
-        data => {
-          this.destroyToken();
-          return data;
-        }
-        );
-    }
-
+    this.saveToken(cart);
+    this.quantitySubject.next(quantityTemp);
+    this.totalPriceSubject.next(totalPriceTemp);
   }
+
+  deleteCart(product: any){
+    let cartTemp = this.getToken();
+    if(cartTemp !== undefined){
+      cartTemp = JSON.parse(cartTemp);
+      let index = cartTemp.findIndex(x => x.slug == product.slug);
+      if(index > -1 ){
+        let quantityTemp = (Number(this.quantitySubject.getValue())) - (Number(cartTemp[index].quantity));
+        this.quantitySubject.next(quantityTemp);
+        let totalPriceTemp = this.totalPriceSubject.getValue() - (Number(cartTemp[index].quantity)) * (Number(cartTemp[index].price));
+        this.totalPriceSubject.next(totalPriceTemp);
+        cartTemp.splice(index, 1);
+        this.saveToken(cartTemp);
+      }
+    }
+  }
+
+  createOrder(deliveryAddress: any){
+    return this.apiService.post('/users/1/delivery_orders', {cart: deliveryAddress})
+    .map(
+      data => {
+        this.destroyToken();
+        return data;
+      }
+      );
+  }
+
+}
