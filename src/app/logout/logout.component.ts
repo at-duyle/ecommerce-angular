@@ -29,6 +29,7 @@ export class LogoutComponent implements OnInit {
     .subscribe(
       (data: any) => {
         this.cartService.destroyToken();
+        console.log(this.cartService.getToken());
         this.router.navigateByUrl('/');
       },
       (err: any) => {

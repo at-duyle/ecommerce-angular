@@ -43,11 +43,14 @@ export class AuthComponent implements OnInit, AfterViewInit {
     .subscribe(
       (data: any) => {
         let cart = data.user.cart;
-        if(cart !== null){
+        cart = JSON.parse(cart['cart']);
+        if(cart.length > 0){
           let cartTemp = this.cartService.getToken();
-          if(cartTemp !== undefined){
+          if(cartTemp != undefined ){
             cartTemp = JSON.parse(cartTemp);
-            for(let c of JSON.parse(cart['cart'])){
+            console.log(cartTemp);
+            for(let c of cart){
+              console.log(c);
               let index = cartTemp.findIndex(x => x.slug === c.slug);
               if(index == -1){
                 cartTemp.push(c);
@@ -58,7 +61,25 @@ export class AuthComponent implements OnInit, AfterViewInit {
             this.cartService.destroyToken();
             this.cartService.updateCart(cartTemp, 'sync');
           } else {
-            this.cartService.updateCart(JSON.parse(cart['cart']), 'sync');
+            console.log(1);
+            this.cartService.updateCart(cart, 'sync');
+          }
+        } else {
+          let cartTemp = this.cartService.getToken();
+          console.log(cartTemp);
+          if(cartTemp !== undefined){
+            cartTemp = JSON.parse(cartTemp);
+            console.log(cartTemp);
+            for(let c of cart){
+              let index = cartTemp.findIndex(x => x.slug === c.slug);
+              if(index == -1){
+                cartTemp.push(c);
+              } else {
+                cartTemp[index].quantity = (Number(cartTemp[index].quantity)) + (Number(c.quantity));
+              }
+            }
+            this.cartService.destroyToken();
+            this.cartService.updateCart(cartTemp, 'sync');
           }
         }
         this.router.navigateByUrl(this.returnUrl);
