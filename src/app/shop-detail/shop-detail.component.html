@@ -1,7 +1,9 @@
 <app-header></app-header>
 <div class="main">
   <div class="container">
-    <div class="content">
+    <app-spinner [isRunning]="isRequesting">
+    </app-spinner>
+    <div class="content" [hidden]="isRequesting">
       <div class="row margin-bottom-40" *ngIf="shop != undefined || shop != null">
         <div class="col-md-3 col-sm-3">
           <img src="{{shop.logo}}" alt="Cool green dress with red bell" class="img-responsive margin-bottom-40">
@@ -57,13 +59,13 @@
             <div class="col-md-4 col-sm-4 items-info"></div>
             <div class="col-md-8 col-sm-8">
              <pagination-controls (pageChange)="p = $event"></pagination-controls>
-            </div>
+           </div>
            <!-- END PAGINATOR -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
 </div>
 <app-footer></app-footer>
 
@@ -77,37 +79,34 @@
       <div class="product-main-image">
         <img src="{{product.images[0] | imageProduct }}" alt="Cool green dress with red bell" class="img-responsive">
       </div>
-      <div class="product-other-images">
-        <a href="javascript:;" class="active"><img alt="Berry Lace Dress" 
-          src="assets/pages/img/products/model7.jpg"></a>
-          <a href="javascript:;"><img alt="Berry Lace Dress" src="assets/pages/img/products/model4.jpg"></a>
-          <a href="javascript:;"><img alt="Berry Lace Dress" src="assets/pages/img/products/model5.jpg"></a>
-        </div>
+      <div class="product-other-images" *ngIf="product.images.length > 1">
+        <img *ngFor=" let image of product.images " alt="{{product.name}}" src="{{image.url}}">
       </div>
-      <div class="col-md-6 col-sm-6 col-xs-9">
-        <h1>{{product.name}}</h1>
-        <div class="price-availability-block clearfix">
-          <div class="price">
-            <strong><span>$</span>{{product.price * 0.8 | roundPrice}}</strong>
-            <em>$<span>{{product.price}}</span></em>
-          </div>
-          <div class="availability">
-            Availability: <strong>{{product.quantity | availableProduct}}</strong>
-          </div>
-        </div>
-        <div class="description">
-          <p>{{product.description}}</p>
-        </div>
-        <div class="product-page-cart">
-          <div class="product-quantity">
-            <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
-          </div>
-          <button class="btn btn-primary btn-cart" type="submit">Add to cart</button>
-          <a href="javascript:parent.$.fancybox.close();" (click)="detail(product.slug)" class="btn btn-default">More details</a>
-        </div>
-      </div>
-      <div class="sticker sticker-sale"></div>
     </div>
+    <div class="col-md-6 col-sm-6 col-xs-9">
+      <h1>{{product.name}}</h1>
+      <div class="price-availability-block clearfix">
+        <div class="price">
+          <strong><span>$</span>{{product.price * 0.8 | roundPrice}}</strong>
+          <em>$<span>{{product.price}}</span></em>
+        </div>
+        <div class="availability">
+          Availability: <strong>{{product.quantity | availableProduct}}</strong>
+        </div>
+      </div>
+      <div class="description">
+        <p>{{product.description}}</p>
+      </div>
+      <div class="product-page-cart">
+        <div class="product-quantity">
+          <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
+        </div>
+        <button class="btn btn-primary btn-cart" type="submit">Add to cart</button>
+        <a href="javascript:parent.$.fancybox.close();" (click)="detail(product.slug)" class="btn btn-default">More details</a>
+      </div>
+    </div>
+    <div class="sticker sticker-sale"></div>
   </div>
 </div>
-    <!-- END fast view of a product -->
+</div>
+<!-- END fast view of a product -->

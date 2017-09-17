@@ -23,6 +23,7 @@ export class ProductsByCategoryComponent implements OnInit {
   selectedOrder: any;
   productServiceSubsription: Subscription;
   length: any;
+  public isRequesting: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +35,7 @@ export class ProductsByCategoryComponent implements OnInit {
     this.products = [];
     this.orders = ['Default', 'Price (Low -> High)', 'Price (High -> Low)'];
     this.selectedOrder = this.orders[0];
+    this.refresh();
   }
 
   ngOnInit() {
@@ -62,6 +64,7 @@ export class ProductsByCategoryComponent implements OnInit {
             });
           });
         }, (err: any) => {
+          this.stopRefreshing();
           if(Array.isArray(err)){
             for (let error of err) {
               this.notify.printErrorMessage(error);
@@ -69,6 +72,8 @@ export class ProductsByCategoryComponent implements OnInit {
           } else {
             this.notify.printErrorMessage(err.errors);
           }
+        }, () => {
+          this.stopRefreshing();
         })
     });
   }
@@ -109,6 +114,14 @@ export class ProductsByCategoryComponent implements OnInit {
 
   detail = (slug: any) => {
     this.router.navigateByUrl('/home/product/' + slug);
+  }
+
+  public refresh(): void {
+    this.isRequesting = true;
+  }
+
+  private stopRefreshing() {
+    this.isRequesting = false;
   }
 
   ngOnDestroy(){

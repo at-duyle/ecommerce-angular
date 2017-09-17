@@ -15,11 +15,13 @@ export class ListShopsComponent implements OnInit {
   subcriptionShop: Subscription;
   shops: Array<Shop>;
   length: any;
+  public isRequesting: boolean;
 
   constructor(
     private shopService: ShopService,
     private notify: NotificationService
     ) {
+    this.refresh();
     this.shops = [];
   }
 
@@ -30,6 +32,7 @@ export class ListShopsComponent implements OnInit {
         this.shops.splice(0, 1);
         this.length = this.shops.length / 12;
       }, (err: any) => {
+        this.stopRefreshing();
         if(Array.isArray(err)){
           for (let error of err) {
             this.notify.printErrorMessage(error);
@@ -37,8 +40,19 @@ export class ListShopsComponent implements OnInit {
         } else {
           this.notify.printErrorMessage(err.errors);
         }
+      }, () => {
+        this.stopRefreshing();
       });
   }
+
+  public refresh(): void {
+    this.isRequesting = true;
+  }
+
+  private stopRefreshing() {
+    this.isRequesting = false;
+  }
+
 
   ngOnDestroy(){
     if(this.subcriptionShop != undefined){

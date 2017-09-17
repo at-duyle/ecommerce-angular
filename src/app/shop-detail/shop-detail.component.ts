@@ -19,12 +19,15 @@ export class ShopDetailComponent implements OnInit, OnDestroy {
   products: Array<Product>;
   product: Product;
   subscription: Subscription;
+  public isRequesting: boolean;
 
   constructor( private shopService: ShopService,
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
-    private notify: NotificationService) { }
+    private notify: NotificationService) {
+    this.refresh();
+  }
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
@@ -32,7 +35,7 @@ export class ShopDetailComponent implements OnInit, OnDestroy {
         (data: any) => {
           this.shop = data;
         }
-      );
+        );
       this.productService.getProductByShop(params.slug).subscribe(
         (data: any) => {
           this.products = data;
@@ -52,9 +55,28 @@ export class ShopDetailComponent implements OnInit, OnDestroy {
               href: '#product-pop-up'
             });
           });
+        }, (err: any) => {
+          if(Array.isArray(err)){
+            for (let error of err) {
+              this.notify.printErrorMessage(error);
+            }
+          } else {
+            this.notify.printErrorMessage(err.errors);
+          }
+          this.stopRefreshing();
+        }, () => {
+          this.stopRefreshing();
         }
-      );
+        );
     });
+  }
+
+  public refresh(): void {
+    this.isRequesting = true;
+  }
+
+  private stopRefreshing() {
+    this.isRequesting = false;
   }
 
   ngOnDestroy() {

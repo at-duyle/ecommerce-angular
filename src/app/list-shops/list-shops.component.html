@@ -1,4 +1,6 @@
-<div>
+<app-spinner [isRunning]="isRequesting">
+</app-spinner>
+<div [hidden]="isRequesting">
   <ul class="row product-list">
     <!-- PRODUCT ITEM START -->
     <li *ngFor="let shop of shops | paginate: { itemsPerPage: 12, currentPage: p }">

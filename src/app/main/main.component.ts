@@ -12,6 +12,7 @@ export class MainComponent implements OnInit {
   hiddenSlider: boolean;
   hiddenBanner: boolean; 
   private subcription: Subscription;
+  private isSpinnerActive: boolean;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -22,6 +23,7 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isSpinnerActive = true;
     let path = this.document.location.href;
     path = path.replace('http://localhost:4200','');
     if (path === '/' || path === '/home') { 
