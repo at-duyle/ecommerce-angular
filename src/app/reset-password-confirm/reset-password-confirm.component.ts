@@ -23,6 +23,7 @@ export class ResetPasswordConfirmComponent implements OnInit, OnDestroy {
   resetPassSub: Subscription;
   message: string;
   success: string;
+  reserPasswordSubscription: Subscription;
 
   constructor( private formBuilder: FormBuilder,
     private notify: NotificationService,
@@ -92,7 +93,7 @@ export class ResetPasswordConfirmComponent implements OnInit, OnDestroy {
   reset() {
     let password = this.resetForm.value.password;
     let passwordConfirmation = this.resetForm.value.password_confirmation;
-    this.userService.resetPassword(this.resetToken, password, passwordConfirmation).subscribe(
+    this.reserPasswordSubscription = this.userService.resetPassword(this.resetToken, password, passwordConfirmation).subscribe(
       (data: any) => {
         this.success = data.message;
         this.notify.printSuccessMessage(data.message);
@@ -115,6 +116,9 @@ export class ResetPasswordConfirmComponent implements OnInit, OnDestroy {
     }
     if(this.controlEmail != undefined){
       this.controlEmail.unsubscribe();
+    }
+    if(this.reserPasswordSubscription != undefined){
+      this.reserPasswordSubscription.unsubscribe();
     }
   }
 

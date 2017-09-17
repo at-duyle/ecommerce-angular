@@ -10,6 +10,8 @@ import { JwtService } from './jwt.service';
 import { User } from '../models';
 import { Cart } from '../models'
 import { NotificationService } from './notification.service';
+import { Subscription } from 'rxjs';
+
 
 @Injectable()
 export class CartService {
@@ -21,7 +23,7 @@ export class CartService {
   public cart = this.cartSubject.asObservable().distinctUntilChanged();
   private statusSubject = new BehaviorSubject<any>(0);
   public status = this.statusSubject.asObservable().distinctUntilChanged();
-
+  private authenticatedSubcription: Subscription;
   constructor(
     private apiService: ApiService,
     private userService: UserService,
@@ -52,7 +54,7 @@ export class CartService {
   }
 
   saveToken(cartTemp: any) {
-    this.userService.isAuthenticated.subscribe(
+    this.authenticatedSubcription = this.userService.isAuthenticated.subscribe(
       (isAuthenticate: any) => {
         if(isAuthenticate === true){
           this.userCartService.saveCart(JSON.stringify(cartTemp)).subscribe(
@@ -172,4 +174,9 @@ export class CartService {
       );
   }
 
+  ngOnDestroy(){
+    if(this.authenticatedSubcription != undefined){
+      this.authenticatedSubcription.unsubscribe();
+    }
+  }
 }

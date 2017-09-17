@@ -43,6 +43,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   districtSubcription: Subscription;
   districtApiSubcription: Subscription;
   wardApiSubcription: Subscription;
+  userServiceSubscription: Subscription;
 
   constructor(
     private userService: UserService,
@@ -76,7 +77,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.userService.currentUser.subscribe(
+    this.userServiceSubscription = this.userService.currentUser.subscribe(
       (userData) => {
         this.currentUser = userData;
         this.profileForm.patchValue(userData);
@@ -249,6 +250,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
     if(this.wardApiSubcription != undefined){
       this.wardApiSubcription.unsubscribe();
+    }
+    if(this.userServiceSubscription != undefined){
+      this.userServiceSubscription.unsubscribe();
     }
   }
 }

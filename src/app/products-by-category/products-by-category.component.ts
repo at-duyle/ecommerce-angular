@@ -21,6 +21,8 @@ export class ProductsByCategoryComponent implements OnInit {
   subscriptionCheckQuantity: Subscription;
   orders: Array<any>;
   selectedOrder: any;
+  productServiceSubsription: Subscription;
+  length: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,9 +38,10 @@ export class ProductsByCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
-      this.productService.getProductByCategory(params).subscribe(
+      this.productServiceSubsription = this.productService.getProductByCategory(params).subscribe(
         (data: any) => {
           this.products = data;
+          this.length = this.products.length / 12;
           $(document).ready(function() {
             $(".fancybox-button").fancybox({
               groupAttr: 'data-rel',
@@ -114,6 +117,9 @@ export class ProductsByCategoryComponent implements OnInit {
     }
     if(this.subscriptionCheckQuantity != undefined){
       this.subscriptionCheckQuantity.unsubscribe();
+    }
+    if(this.productServiceSubsription != undefined){
+      this.productServiceSubsription.unsubscribe();
     }
   }
 }

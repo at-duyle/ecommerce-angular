@@ -4,10 +4,12 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { Observable } from 'rxjs/Rx';
 
 import { UserService } from './user.service';
+import { Subscription } from 'rxjs';
+
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
-
+  private authenticatedSubcription: Subscription;
   constructor(
     private router: Router,
     private userService: UserService
@@ -18,7 +20,7 @@ export class AuthGuardService implements CanActivate {
     state: RouterStateSnapshot
     ){
     let status = true;
-    this.userService.isAuthenticated.subscribe(
+    this.authenticatedSubcription = this.userService.isAuthenticated.subscribe(
       (data: any) => {
         status = data;
       });
@@ -33,4 +35,9 @@ export class AuthGuardService implements CanActivate {
     return status;
   }
 
+  ngOnDestroy(){
+    if(this.authenticatedSubcription != undefined){
+      this.authenticatedSubcription.unsubscribe();
+    }
+  }
 }

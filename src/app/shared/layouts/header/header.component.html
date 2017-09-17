@@ -87,32 +87,10 @@
     <div class="header-navigation">
       <ul>
         <!-- BEGIN ALL SHOP -->
-        <li class="dropdown dropdown100 nav-catalogue">
-          <a class="dropdown-toggle" data-toggle="dropdown" data-target="" >
-            All Shop <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        <li class="nav-catalogue">
+          <a [routerLink]="['/home/shops']">
+            All Shops
           </a>
-          <ul class="dropdown-menu">
-            <li>
-              <div class="col-md-12">
-                <div class="carousel carousel-showmanymoveone slide" id="myCarousel" data-ride="carousel" data-type="multi" data-interval="3600">
-                  <div class="carousel-inner">
-                    <div *ngFor=" let shop of shops, let id = index " class="{{id | carousel}}">
-                      <div class="col-xs-12 col-sm-6 col-md-3">
-                        <a href="/shop/{{shop.slug}}">
-                        <img src="{{shop.logo}}" class="img-responsive shop-logo">
-                        </a>
-                        <div class="caption">
-                          <h4>{{shop.name}}</h4>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <a class="left carousel-control" (click)="onClick('#myCarousel-prev')" appCarousel><i class="glyphicon glyphicon-chevron-left"></i></a>
-                  <a class="right carousel-control" (click)="onClick('#myCarousel-next')"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                </div>
-              </div>
-            </li>
-          </ul>
         </li>
         <!-- END ALL SHOP -->
 

@@ -29,6 +29,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   newComment: any;
   subCheckPermission: Subscription;
   permission: boolean;
+  productServiceSubscription: Subscription;
+  length: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,7 +47,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
-      this.productService.getProductDetail(params).subscribe(
+      this.productServiceSubscription = this.productService.getProductDetail(params).subscribe(
         (data: any) => {
           this.product = data;
           this.fetchData();
@@ -84,6 +86,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.subComments = this.commentService.getCommentsOfProduct(this.product.id).subscribe(
       (data: any) => {
         this.comments = data;
+        this.length = this.comments.length / 5;
         this.totalReview = this.comments.length;
       }
     );
@@ -146,6 +149,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
     if(this.subCheckPermission != undefined){
       this.subCheckPermission.unsubscribe();
+    }
+    if(this.productServiceSubscription != undefined){
+      this.productServiceSubscription.unsubscribe();
     }
   }
 

@@ -2,21 +2,22 @@ import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angula
 
 import { UserService } from '../services/user.service';
 
+import { Subscription } from 'rxjs';
 @Directive({
   selector: '[showAuthed]'
 })
 export class ShowAuthedDirective {
 
   condition: boolean;
-
+  private authenticatedSubcription: Subscription;
   constructor(
     private templateRef: TemplateRef<any>,
     private userService: UserService,
     private viewContainer: ViewContainerRef
-  ) { }
+    ) { }
 
   ngOnInit() {
-    this.userService.isAuthenticated.subscribe(
+    this.authenticatedSubcription = this.userService.isAuthenticated.subscribe(
       (isAuthenticated) => {
         if (isAuthenticated && this.condition || !isAuthenticated && !this.condition) {
           this.viewContainer.createEmbeddedView(this.templateRef);
@@ -29,5 +30,11 @@ export class ShowAuthedDirective {
 
   @Input() set showAuthed(condition: boolean) {
     this.condition = condition;
+  }
+
+  ngOnDestroy(){
+    if(this.authenticatedSubcription != undefined){
+      this.authenticatedSubcription.unsubscribe();
+    }
   }
 }
