@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit {
   queryParam: string;
   error: string;
   message: string;
+  productServiceSubscription: Subscription;
 
   constructor( private route: ActivatedRoute,
     private productService: ProductService,
@@ -36,7 +37,7 @@ export class SearchComponent implements OnInit {
     this.subscription = this.route.queryParams.subscribe(
       params => {
         this.queryParam = params['q'];
-        this.productService.searchKeyword(this.queryParam).subscribe(
+        this.productServiceSubscription = this.productService.searchKeyword(this.queryParam).subscribe(
           (data: any) => {
             if(data != undefined){
               this.products = data;
@@ -102,6 +103,9 @@ export class SearchComponent implements OnInit {
     }
     if(this.subscriptionCheckQuantity != undefined){
       this.subscription.unsubscribe();
+    }
+    if(this.productServiceSubscription != undefined){
+      this.productServiceSubscription.unsubscribe();
     }
   }
 

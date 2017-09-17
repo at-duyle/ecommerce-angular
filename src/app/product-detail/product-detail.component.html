@@ -91,7 +91,7 @@
               </div>
             </div>
           </div>
-          <div align="center">
+          <div align="center" [hidden]="length < 1">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
           <div *ngIf="totalReview === 0 ">

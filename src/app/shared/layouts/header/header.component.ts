@@ -18,9 +18,7 @@ declare var $: any;
 export class HeaderComponent implements OnInit, OnDestroy {
 
   currentUser: User;
-  shops: Array<Shop>;
   subcriptionUser: Subscription;
-  subcriptionShop: Subscription;
   subcriptionQuantity: Subscription;
   subcriptionTotalPrice: Subscription;
   subcriptionCart: Subscription;
@@ -43,30 +41,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subcriptionUser = this.userService.currentUser.subscribe(
       (userData: any) => {
         this.currentUser = userData;
-      }
-      );
-    this.subcriptionShop = this.shopService.getShops().subscribe(
-      (data) => {
-        this.shops = data;
-        $(document).ready(function(){
-          $('.carousel-showmanymoveone .item').each(function(){
-            var itemToClone = $(this);
-
-            for (var i=1;i<4;i++) {
-              itemToClone = itemToClone.next();
-
-              // wrap around if at end of item collection
-              if (!itemToClone.length) {
-                itemToClone = $(this).siblings(':first');
-              }
-
-              // grab item, clone, add marker class, add to collection
-              itemToClone.children(':first-child').clone()
-              .addClass("cloneditem-"+(i))
-              .appendTo($(this));
-            }
-          });
-        });
       }
       );
     this.subcriptionQuantity = this.cartService.quantity.subscribe(
@@ -106,9 +80,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     if(this.subcriptionUser != undefined){
       this.subcriptionUser.unsubscribe();
-    }
-    if(this.subcriptionShop != undefined){
-      this.subcriptionShop.unsubscribe();
     }
     if(this.subcriptionQuantity != undefined){
       this.subcriptionQuantity.unsubscribe();

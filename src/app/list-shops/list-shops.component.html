@@ -1,0 +1,22 @@
+<div>
+  <ul class="row product-list">
+    <!-- PRODUCT ITEM START -->
+    <li *ngFor="let shop of shops | paginate: { itemsPerPage: 12, currentPage: p }">
+      <div class="product-item">
+        <div class="pi-img-wrapper">
+          <img src="{{shop.logo}}" class="img-responsive" alt="{{shop.name}}">
+        </div>
+        <h3><a [routerLink]="['/shop', shop.slug]" title="{{shop.name}}">{{shop.name}}</a></h3>
+      </div>
+    </li>
+  </ul>
+</div>
+<!-- END PRODUCT LIST -->
+<!-- BEGIN PAGINATOR -->
+<div class="row margin-top-10 margin-bottom-40" [hidden]="length < 1">
+  <div class="col-md-4 col-sm-4 items-info"></div>
+  <div class="col-md-8 col-sm-8">
+   <pagination-controls (pageChange)="p = $event"></pagination-controls>
+ </div>
+ <!-- END PAGINATOR -->
+</div>
