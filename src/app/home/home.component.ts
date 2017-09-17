@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   product: Product;
   hiddenSlider: boolean;
   previousUrl:string;
+  public isRequesting: boolean;
 
   constructor (
     private route: ActivatedRoute,
@@ -34,6 +35,7 @@ export class HomeComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService
     ) {
+    this.refresh();
     this.subscription = route.queryParams.subscribe(
       (queryParam: any) => {
         if(queryParam['ms'] != undefined){
@@ -53,6 +55,23 @@ export class HomeComponent implements OnInit {
       (data: any) => {
         this.bestSeller = data;
         $(document).ready(function(){
+          $(".fancybox-fast-view").fancybox({
+            href: '#product-pop-up',
+            'beforeLoad': function() {
+              $(".product-main-image img:nth-child(2)").remove();
+            } 
+          });
+          $(".fancybox-button").fancybox({
+            groupAttr: 'data-rel',
+            prevEffect: 'none',
+            nextEffect: 'none',
+            closeBtn: true,
+            helpers: {
+              title: {
+                type: 'inside'
+              }
+            }
+          });
           $('.best-seller').slick({
             infinite: true,
             dots: true,
@@ -111,6 +130,9 @@ export class HomeComponent implements OnInit {
         } else {
           this.notify.printErrorMessage(err.errors);
         }
+        this.stopRefreshing();
+      }, () => {
+        this.stopRefreshing();
       }
       );
   }
@@ -151,6 +173,14 @@ export class HomeComponent implements OnInit {
         }
       });
     $('#product-quantity').val(1);
+  }
+
+  public refresh(): void {
+    this.isRequesting = true;
+  }
+
+  private stopRefreshing() {
+    this.isRequesting = false;
   }
 
   ngOnDestroy(){

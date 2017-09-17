@@ -1,5 +1,4 @@
 <!-- BEGIN CONTENT -->
-
 <div class="row list-view-sorting clearfix">
   <div class="col-md-2 col-sm-2 list-view">
     <a href=""><i class="fa fa-th-large"></i></a>
@@ -16,9 +15,11 @@
     </div>
   </div>
 </div>
+<app-spinner [isRunning]="isRequesting">
+</app-spinner>
 <!-- BEGIN PRODUCT LIST -->
 <div>
-  <ul class="row product-list">
+  <ul class="row product-list" [hidden]="isRequesting">
     <!-- PRODUCT ITEM START -->
     <li *ngFor="let product of products | orderByProducts: selectedOrder | paginate: { itemsPerPage: 12, currentPage: p }">
       <div class="product-item">
@@ -58,37 +59,34 @@
       <div class="product-main-image">
         <img src="{{product.images[0] | imageProduct }}" alt="Cool green dress with red bell" class="img-responsive">
       </div>
-      <div class="product-other-images">
-        <a href="javascript:;" class="active"><img alt="Berry Lace Dress" 
-          src="assets/pages/img/products/model7.jpg"></a>
-          <a href="javascript:;"><img alt="Berry Lace Dress" src="assets/pages/img/products/model4.jpg"></a>
-          <a href="javascript:;"><img alt="Berry Lace Dress" src="assets/pages/img/products/model5.jpg"></a>
-        </div>
+      <div class="product-other-images" *ngIf="product.images.length > 1">
+        <img *ngFor=" let image of product.images " alt="{{product.name}}" src="{{image.url}}">
       </div>
-      <div class="col-md-6 col-sm-6 col-xs-9">
-        <h1>{{product.name}}</h1>
-        <div class="price-availability-block clearfix">
-          <div class="price">
-            <strong><span>$</span>{{product.price * 0.8 | roundPrice}}</strong>
-            <em>$<span>{{product.price}}</span></em>
-          </div>
-          <div class="availability">
-            Availability: <strong>{{product.quantity | availableProduct}}</strong>
-          </div>
-        </div>
-        <div class="description">
-          <p>{{product.description}}</p>
-        </div>
-        <div class="product-page-cart">
-          <div class="product-quantity">
-            <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
-          </div>
-          <a class="btn btn-primary btn-cart" type="button" href="javascript:parent.$.fancybox.close();" (click)="addCart(product, 0)">Add to cart</a>
-          <a href="javascript:parent.$.fancybox.close();" (click)="detail(product.slug)" class="btn btn-default">More details</a>
-        </div>
-      </div>
-      <div class="sticker sticker-sale"></div>
     </div>
+    <div class="col-md-6 col-sm-6 col-xs-9">
+      <h1>{{product.name}}</h1>
+      <div class="price-availability-block clearfix">
+        <div class="price">
+          <strong><span>$</span>{{product.price * 0.8 | roundPrice}}</strong>
+          <em>$<span>{{product.price}}</span></em>
+        </div>
+        <div class="availability">
+          Availability: <strong>{{product.quantity | availableProduct}}</strong>
+        </div>
+      </div>
+      <div class="description">
+        <p>{{product.description}}</p>
+      </div>
+      <div class="product-page-cart">
+        <div class="product-quantity">
+          <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
+        </div>
+        <a class="btn btn-primary btn-cart" type="button" href="javascript:parent.$.fancybox.close();" (click)="addCart(product, 0)">Add to cart</a>
+        <a href="javascript:parent.$.fancybox.close();" (click)="detail(product.slug)" class="btn btn-default">More details</a>
+      </div>
+    </div>
+    <div class="sticker sticker-sale"></div>
   </div>
+</div>
 </div>
     <!-- END fast view of a product -->

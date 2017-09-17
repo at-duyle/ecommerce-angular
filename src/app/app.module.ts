@@ -82,6 +82,7 @@ import { ResetPasswordConfirmComponent } from './reset-password-confirm/reset-pa
 import { ImageOrderPipe } from './shared/pipes/image-order.pipe';
 import { ReceiverDeliveryOrderPipe } from './shared/pipes/receiver-delivery-order.pipe';
 import { ListShopsComponent } from './list-shops/list-shops.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 const routes: Routes = [
   { path: 'error', component: ErrorComponent },
@@ -128,6 +129,7 @@ export const routing = RouterModule.forRoot(routes);
     ImageOrderPipe,
     ReceiverDeliveryOrderPipe,
     ListShopsComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

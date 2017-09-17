@@ -23,6 +23,7 @@ export class SearchComponent implements OnInit {
   error: string;
   message: string;
   productServiceSubscription: Subscription;
+  public isRequesting: boolean;
 
   constructor( private route: ActivatedRoute,
     private productService: ProductService,
@@ -30,6 +31,7 @@ export class SearchComponent implements OnInit {
     private notify: NotificationService,
     private cartService: CartService
     ) { 
+    this.refresh();
     this.products = [];
   }
 
@@ -68,7 +70,16 @@ export class SearchComponent implements OnInit {
               });
             });
           }, (err: any) => {
-            this.error = err.errors;
+            this.stopRefreshing();
+            if(Array.isArray(err)){
+              for (let error of err) {
+                this.notify.printErrorMessage(error);
+              }
+            } else {
+              this.notify.printErrorMessage(err.errors);
+            }
+          }, () => {
+            this.stopRefreshing();
           });
       }
       );
@@ -95,6 +106,14 @@ export class SearchComponent implements OnInit {
         }
       });
     $('#product-quantity').val(1);
+  }
+
+  public refresh(): void {
+    this.isRequesting = true;
+  }
+
+  private stopRefreshing() {
+    this.isRequesting = false;
   }
 
   ngOnDestroy(){

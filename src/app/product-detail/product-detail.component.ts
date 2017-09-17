@@ -31,6 +31,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   permission: boolean;
   productServiceSubscription: Subscription;
   length: any;
+  public isRequesting: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +44,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.reviewForm = this.formBuilder.group({
       content: new FormControl('', [Validators.required])
     });
+    this.refresh();
   }
 
   ngOnInit() {
@@ -71,6 +73,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
               .attr('data-BigImgSrc')});
           });
         }, (err: any) => {
+          this.stopRefreshing();
           if(Array.isArray(err)){
             for (let error of err) {
               this.notify.printErrorMessage(error);
@@ -78,6 +81,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           } else {
             this.notify.printErrorMessage(err.errors);
           }
+        }, () => {
+          this.stopRefreshing();
         })
     });
   }
@@ -89,7 +94,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.length = this.comments.length / 5;
         this.totalReview = this.comments.length;
       }
-    );
+      );
   }
 
   checkPermission() {
@@ -97,7 +102,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       (data: any) => {
         this.permission = data;
       }
-    );
+      );
   }
 
   addCart(product: any, quantity: number){
@@ -131,8 +136,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.fetchData();
         this.reviewForm.controls.content.patchValue('');
       }
-    );
+      );
   }
+
+  public refresh(): void {
+    this.isRequesting = true;
+  }
+
+  private stopRefreshing() {
+    this.isRequesting = false;
+  }
+
 
   ngOnDestroy(){
     if(this.subscription != undefined){
