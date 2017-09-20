@@ -25,11 +25,26 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: MainComponent, children: [
     { path: '', component: HomeComponent },
-    { path: 'categories/:slug/:type/products', component: ProductsByCategoryComponent },
-    { path: 'product/:slug', component: ProductDetailComponent },
-    { path: 'search', component: SearchComponent },
-    { path: 'cart', component: DetailCartComponent },
-    { path: 'shops', component: ListShopsComponent }
+    { path: 'categories/:slug/:type/products', component: ProductsByCategoryComponent,
+      data: {
+          breadcrumb: "Category"
+        }},
+    { path: 'product/:slug', component: ProductDetailComponent,
+        data: {
+          breadcrumb: "Product"
+        }},
+    { path: 'search', component: SearchComponent,
+      data: {
+          breadcrumb: "Search"
+        } },
+    { path: 'cart', component: DetailCartComponent, 
+      data: {
+          breadcrumb: "Shopping Cart"
+        }},
+    { path: 'shops', component: ListShopsComponent,
+      data: {
+          breadcrumb: "Shops"
+        } }
   ] }
 ];
 

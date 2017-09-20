@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
   public isRequesting: boolean;
 
   constructor (
+
     private route: ActivatedRoute,
     private notify: NotificationService,
     private router: Router,
@@ -51,90 +52,93 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscriptionBestSeller = this.productService.getBestSeller().subscribe(
-      (data: any) => {
-        this.bestSeller = data;
-        $(document).ready(function(){
-          $(".fancybox-fast-view").fancybox({
-            href: '#product-pop-up',
-            'beforeLoad': function() {
-              $(".product-main-image img:nth-child(2)").remove();
-            } 
-          });
-          $(".fancybox-button").fancybox({
-            groupAttr: 'data-rel',
-            prevEffect: 'none',
-            nextEffect: 'none',
-            closeBtn: true,
-            helpers: {
-              title: {
-                type: 'inside'
+    setTimeout( () => {
+      this.subscriptionBestSeller = this.productService.getBestSeller().subscribe(
+        (data: any) => {
+          this.bestSeller = data;
+          $(document).ready(function(){
+            $(".fancybox-fast-view").fancybox({
+              href: '#product-pop-up',
+              'beforeLoad': function() {
+                $(".product-main-image img:nth-child(2)").remove();
+              } 
+            });
+            $(".fancybox-button").fancybox({
+              groupAttr: 'data-rel',
+              prevEffect: 'none',
+              nextEffect: 'none',
+              closeBtn: true,
+              helpers: {
+                title: {
+                  type: 'inside'
+                }
               }
+            });
+            $('.best-seller').slick({
+              infinite: true,
+              dots: true,
+              slidesToShow: 4,
+              slidesToScroll: 2,
+              autoplay: true,
+              autoplaySpeed: 3000
+            });
+          });
+        }, (err: any) => {
+          if(Array.isArray(err)){
+            for (let error of err) {
+              this.notify.printErrorMessage(error);
             }
-          });
-          $('.best-seller').slick({
-            infinite: true,
-            dots: true,
-            slidesToShow: 4,
-            slidesToScroll: 2,
-            autoplay: true,
-            autoplaySpeed: 3000
-          });
-        });
-      }, (err: any) => {
-        if(Array.isArray(err)){
-          for (let error of err) {
-            this.notify.printErrorMessage(error);
+          } else {
+            this.notify.printErrorMessage(err.errors);
           }
-        } else {
-          this.notify.printErrorMessage(err.errors);
         }
-      }
-      );
-
-    this.subscriptionNewProduct = this.productService.getNewProduct().subscribe(
-      (data: any) => {
-        this.newProduct = data;
-        $(document).ready(function() {
-          $(".fancybox-fast-view").fancybox({
-            href: '#product-pop-up',
-            'beforeLoad': function() {
-              $(".product-main-image img:nth-child(2)").remove();
-            } 
-          });
-          $(".fancybox-button").fancybox({
-            groupAttr: 'data-rel',
-            prevEffect: 'none',
-            nextEffect: 'none',
-            closeBtn: true,
-            helpers: {
-              title: {
-                type: 'inside'
+        );
+    }, 3000);
+    setTimeout( () => {
+      this.subscriptionNewProduct = this.productService.getNewProduct().subscribe(
+        (data: any) => {
+          this.newProduct = data;
+          $(document).ready(function() {
+            $(".fancybox-fast-view").fancybox({
+              href: '#product-pop-up',
+              'beforeLoad': function() {
+                $(".product-main-image img:nth-child(2)").remove();
+              } 
+            });
+            $(".fancybox-button").fancybox({
+              groupAttr: 'data-rel',
+              prevEffect: 'none',
+              nextEffect: 'none',
+              closeBtn: true,
+              helpers: {
+                title: {
+                  type: 'inside'
+                }
               }
+            });
+            $('.new-product').slick({
+              infinite: true,
+              dots: true,
+              slidesToShow: 4,
+              slidesToScroll: 2,
+              autoplay: true,
+              autoplaySpeed: 3000
+            });
+          });
+        }, (err: any) => {
+          if(Array.isArray(err)){
+            for (let error of err) {
+              this.notify.printErrorMessage(error);
             }
-          });
-          $('.new-product').slick({
-            infinite: true,
-            dots: true,
-            slidesToShow: 4,
-            slidesToScroll: 2,
-            autoplay: true,
-            autoplaySpeed: 3000
-          });
-        });
-      }, (err: any) => {
-        if(Array.isArray(err)){
-          for (let error of err) {
-            this.notify.printErrorMessage(error);
+          } else {
+            this.notify.printErrorMessage(err.errors);
           }
-        } else {
-          this.notify.printErrorMessage(err.errors);
+          this.stopRefreshing();
+        }, () => {
+          this.stopRefreshing();
         }
-        this.stopRefreshing();
-      }, () => {
-        this.stopRefreshing();
-      }
-      );
+        );
+    }, 2000);
   }
 
   view = (product: Product) => {

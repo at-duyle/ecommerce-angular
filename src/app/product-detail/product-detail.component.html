@@ -34,7 +34,7 @@
       </button>
     </div>
     <div class="review">
-      <p>Ships from and sold by <a><strong>{{product.shop.name}}</strong></a> shop.</p>
+      <p>Ships from and sold by <a [routerLink]="['/shop', product.shop.slug]"><strong>{{product.shop.name}}</strong></a> shop.</p>
     </div>
     <div class="review">
       <div class="rateit rating">
@@ -77,7 +77,7 @@
           </tr>
           <tr>
             <td class="datasheet-features-type">Supplier</td>
-            <td><a>{{product.shop.name}}</a></td>
+            <td><a [routerLink]="['/shop', product.shop.slug]">{{product.shop.name}}</a></td>
           </tr>
         </table>
       </div>

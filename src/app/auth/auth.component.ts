@@ -42,15 +42,15 @@ export class AuthComponent implements OnInit, AfterViewInit {
     .attemptAuth(credentials)
     .subscribe(
       (data: any) => {
+        setTimeout(function(){
+        }, 7000);
         let cart = data.user.cart;
         cart = JSON.parse(cart['cart']);
         if(cart.length > 0){
           let cartTemp = this.cartService.getToken();
           if(cartTemp != undefined ){
             cartTemp = JSON.parse(cartTemp);
-            console.log(cartTemp);
             for(let c of cart){
-              console.log(c);
               let index = cartTemp.findIndex(x => x.slug === c.slug);
               if(index == -1){
                 cartTemp.push(c);
@@ -61,12 +61,10 @@ export class AuthComponent implements OnInit, AfterViewInit {
             this.cartService.destroyToken();
             this.cartService.updateCart(cartTemp, 'sync');
           } else {
-            console.log(1);
             this.cartService.updateCart(cart, 'sync');
           }
         } else {
           let cartTemp = this.cartService.getToken();
-          console.log(cartTemp);
           if(cartTemp !== undefined){
             cartTemp = JSON.parse(cartTemp);
             console.log(cartTemp);

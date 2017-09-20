@@ -101,6 +101,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.subCheckPermission = this.productService.checkPermissionReview(this.product.slug).subscribe(
       (data: any) => {
         this.permission = data;
+      }, (err: any) => {
+        console.log(err);
       }
       );
   }

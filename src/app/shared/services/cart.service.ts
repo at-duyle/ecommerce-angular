@@ -66,6 +66,9 @@ export class CartService {
               console.log(err);
             }
             );
+        } else {
+          window.localStorage['cart'] = JSON.stringify(cartTemp);
+              this.cartSubject.next(cartTemp);
         }
       });
   }
