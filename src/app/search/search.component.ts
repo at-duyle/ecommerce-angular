@@ -47,6 +47,7 @@ export class SearchComponent implements OnInit {
               this.message = this.products.length + ' results found for \'' + this.queryParam + '\'';
             } else {
               this.products = undefined;
+              console.log(this.queryParam);
               this.error = 'No results found for \'' + this.queryParam + '\'';
             }
             

@@ -153,7 +153,7 @@ export class HomeComponent implements OnInit {
   }
 
   detail = (slug: any) => {
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('/home/product/' + slug);
   }
 
   addCart(product: any, quantity: number){

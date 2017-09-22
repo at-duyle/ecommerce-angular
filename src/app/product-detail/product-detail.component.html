@@ -7,7 +7,7 @@
         <img src="{{product.images[0] | imageProduct }}" alt="Cool green dress with red bell" class="img-responsive">
       </div>
       <div class="product-other-images" *ngIf="product.images.length > 1">
-        <a *ngFor="let img of product.images" href="{{img.url}}" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="{{img.url}}"></a>
+        <a *ngFor="let img of product.images" href="http://res.cloudinary.com/drgmu20kr/{{img.url}}" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="http://res.cloudinary.com/drgmu20kr/{{img.url}}"></a>
       </div>
     </div>
     <div class="col-md-7 col-sm-7">

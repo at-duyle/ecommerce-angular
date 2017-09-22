@@ -9,7 +9,7 @@ export class ImageProductPipe implements PipeTransform {
     let url = '';
     value === null || value === '' || value === undefined ? 
     url = 'https://www.shearwater.com/wp-content/plugins/lightbox/images/No-image-found.jpg'
-         : url = value.url;
+         : url = 'http://res.cloudinary.com/drgmu20kr/' + value.url;
     return url;
   }
 

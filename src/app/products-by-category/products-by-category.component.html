@@ -60,7 +60,7 @@
         <img src="{{product.images[0] | imageProduct }}" alt="Cool green dress with red bell" class="img-responsive">
       </div>
       <div class="product-other-images" *ngIf="product.images.length > 1">
-        <img *ngFor=" let image of product.images " alt="{{product.name}}" src="{{image.url}}">
+        <img *ngFor=" let image of product.images " alt="{{product.name}}" src="http://res.cloudinary.com/drgmu20kr/{{image.url}}">
       </div>
     </div>
     <div class="col-md-6 col-sm-6 col-xs-9">

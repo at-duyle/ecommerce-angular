@@ -52,7 +52,10 @@ export class ShopDetailComponent implements OnInit, OnDestroy {
               }
             });
             $(".fancybox-fast-view").fancybox({
-              href: '#product-pop-up'
+              href: '#product-pop-up',
+              'beforeLoad': function() {
+                $(".product-main-image img:nth-child(2)").remove();
+              } 
             });
           });
         }, (err: any) => {
