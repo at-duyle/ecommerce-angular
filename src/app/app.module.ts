@@ -32,6 +32,7 @@ import { ProfileModule } from './profile/profile.module';
 import { ShopDetailModule } from './shop-detail/shop-detail.module';
 import { MainModule } from './main/main.module';
 import { CheckoutModule } from './checkout/checkout.module';
+import { NewSellerModule } from './new-seller/new-seller.module';
 
 // Import services
 import {
@@ -83,6 +84,7 @@ import { ImageOrderPipe } from './shared/pipes/image-order.pipe';
 import { ReceiverDeliveryOrderPipe } from './shared/pipes/receiver-delivery-order.pipe';
 import { ListShopsComponent } from './list-shops/list-shops.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { NewSellerComponent } from './new-seller/new-seller.component';
 
 const routes: Routes = [
   { path: 'error', component: ErrorComponent },
@@ -130,6 +132,7 @@ export const routing = RouterModule.forRoot(routes);
     ReceiverDeliveryOrderPipe,
     ListShopsComponent,
     SpinnerComponent,
+    NewSellerComponent,
   ],
   imports: [
     BrowserModule,
@@ -148,6 +151,7 @@ export const routing = RouterModule.forRoot(routes);
     ProfileModule,
     CheckoutModule,
     ShopDetailModule,
+    NewSellerModule,
     MainModule,
   ],
   providers: [

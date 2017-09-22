@@ -1,7 +1,7 @@
 <!-- BEGIN CONTENT -->
 <app-spinner [isRunning]="isRequesting">
 </app-spinner>
-<h4 *ngIf="error">{{error}} [hidden]="isRequesting"</h4>
+<h4 *ngIf="error" [hidden]="isRequesting">{{error}}</h4>
 <!-- BEGIN PRODUCT LIST -->
 <div *ngIf="products" [hidden]="isRequesting">
   <h4>{{message}}</h4>

@@ -20,10 +20,12 @@
       <!-- BEGIN TOP BAR MENU -->
       <div class="col-md-6 col-sm-6 additional-nav">
         <ul *showAuthed="false" class="list-unstyled list-inline pull-right">
+          <li><a [routerLink]="['/request_new_seller']">Become new seller with SUPERSHOP</a></li>
           <li><a [routerLink]="['/login']">Log In</a></li>
           <li><a [routerLink]="['/register']">Sign Up</a></li>
         </ul>
         <ul *showAuthed="true" class="list-unstyled list-inline pull-right">
+          <li><a [routerLink]="['/request_new_seller']">Become new seller with SUPERSHOP</a></li>
           <li><a [routerLink]="['/logout']">Logout</a></li>
           <li>
             <a [routerLink]="['/profile']">
