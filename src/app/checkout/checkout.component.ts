@@ -62,6 +62,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSubcription = this.userService.currentUser.subscribe(
       (userData) => {
+        window.scrollTo(0, 0);
         this.currentUser = userData;
       }
       );
@@ -98,10 +99,15 @@ export class CheckoutComponent implements OnInit, OnDestroy {
               this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
               this.districts = this.districts.concat(data.data);
               if(this.flag === true){
-                this.addressForm
-                .controls
-                .district
-                .patchValue(this.currentUser.district);
+                if(val != this.currentUser.city){
+                  this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
+                  this.addressForm.controls.district.patchValue('');
+                } else {
+                  this.addressForm
+                  .controls
+                  .district
+                  .patchValue(this.currentUser.district);
+                }
               }
             }
             );
