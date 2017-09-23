@@ -42,6 +42,7 @@ export class ProductsByCategoryComponent implements OnInit {
     this.subscription = this.route.params.subscribe(params => {
       this.productServiceSubsription = this.productService.getProductByCategory(params).subscribe(
         (data: any) => {
+          window.scrollTo(0, 0);
           this.products = data;
           this.length = this.products.length / 12;
           $(document).ready(function() {

@@ -43,7 +43,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
     .subscribe(
       (data: any) => {
         setTimeout(function(){
-        }, 7000);
+        }, 4000);
         let cart = data.user.cart;
         if(cart == null){
           let cartTemp = this.cartService.getToken();

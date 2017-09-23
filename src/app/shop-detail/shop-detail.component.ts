@@ -33,6 +33,7 @@ export class ShopDetailComponent implements OnInit, OnDestroy {
     this.subscription = this.route.params.subscribe(params => {
       this.shopService.getDetailShop(params.slug).subscribe(
         (data: any) => {
+          window.scrollTo(0, 0);
           this.shop = data;
         }
         );

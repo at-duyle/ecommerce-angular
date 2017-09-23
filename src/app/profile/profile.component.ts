@@ -79,6 +79,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userServiceSubscription = this.userService.currentUser.subscribe(
       (userData) => {
+        window.scrollTo(0, 0);
         this.currentUser = userData;
         this.profileForm.patchValue(userData);
       }

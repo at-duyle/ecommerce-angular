@@ -8,7 +8,8 @@ import { CartService } from '../shared/services';
 
 @Component({
   selector: 'app-logout',
-  templateUrl: './logout.component.html'
+  templateUrl: './logout.component.html',
+  styleUrls: ['./logout.component.scss'],
 })
 export class LogoutComponent implements OnInit {
   errors: Error;
@@ -24,23 +25,25 @@ export class LogoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscription = this.userService
-    .purgeAuth()
-    .subscribe(
-      (data: any) => {
-        this.cartService.destroyToken();
-        this.router.navigateByUrl('/');
-      },
-      (err: any) => {
-        if(Array.isArray(err)){
-          for (let error of err) {
-            this.notify.printErrorMessage(error);
+    setTimeout( () => {
+      this.subscription = this.userService
+      .purgeAuth()
+      .subscribe(
+        (data: any) => {
+          this.cartService.destroyToken();
+          this.router.navigateByUrl('/');
+        },
+        (err: any) => {
+          if(Array.isArray(err)){
+            for (let error of err) {
+              this.notify.printErrorMessage(error);
+            }
+          } else {
+            this.notify.printErrorMessage(err.errors);
           }
-        } else {
-          this.notify.printErrorMessage(err.errors);
         }
-      }
-      );
+        );
+    }, 12000);
   }
 
   ngOnDestroy(){

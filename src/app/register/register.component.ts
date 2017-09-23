@@ -39,6 +39,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.controlConfirmPassword = 
     this.registerForm.controls.password_confirmation.valueChanges.subscribe(
       (val: any) => {
+        window.scrollTo(0, 0);
         if(val != null){
           let password = this.registerForm.controls.password.value;
           this.registerForm.controls.password.setErrors({'Error': true});

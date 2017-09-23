@@ -51,6 +51,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.subscription = this.route.params.subscribe(params => {
       this.productServiceSubscription = this.productService.getProductDetail(params).subscribe(
         (data: any) => {
+          window.scrollTo(0, 0);
           this.product = data;
           this.fetchData();
           this.checkPermission();
