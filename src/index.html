@@ -19,10 +19,102 @@
   <link data-require="fancybox@2.1.4" data-semver="2.1.4" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-buttons.css" />
 
 </head>
+<style type="text/css" media="screen">
+  .loading {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    padding: 0.5em;
+    vertical-align: middle;
+    text-align: center;
+    background-color: transparent;
+    border: 5px solid transparent;
+    border-top-color: #f60;
+    border-bottom-color: #f60;
+    border-radius: 50% 0;
+    box-shadow: 0 0 0.25em #f60 inset;
+  }
+
+  .outer {
+    animation: spin 0.25s infinite linear;
+  }
+
+  .inner {
+    animation: spin 0.35s infinite linear;
+  }
+
+  span {
+    font-family: 'Lato';
+    text-transform: uppercase;
+    font-size:1em;
+    letter-spacing:1.5px;
+    text-align:center;
+    width:155px;
+    margin-top:20px;
+    -webkit-animation: fade 2s infinite;
+    -moz-animation: fade 2s infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotateZ(0deg);
+    }
+    100% {
+      transform: rotateZ(360deg);
+    }
+  }
+
+  @-webkit-keyframes fade {
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes fade {
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @-o-keyframes fade {
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+    @keyframes fade {
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+
+  #wrap {
+    box-sizing: border-box;
+    display: table-cell;
+    position: relative;
+    margin: 50%;
+  }
+</style>
 <body class="ecommerce">
-  <app-root></app-root>
+  <app-root>
+    <div id="wrap">
+      <div class="loading outer">
+        <div class="loading inner"></div>
+      </div>
+      <span>Loading...</span>
+    </div>
+  </app-root>
   <!-- <script src="assets/plugins/jquery.min.js" type="text/javascript"></script>
-  <script src="assets/plugins/jquery-migrate.min.js" type="text/javascript"></script> -->
+    <script src="assets/plugins/jquery-migrate.min.js" type="text/javascript"></script> -->
 <!--   <script data-require="fancybox@2.1.4" data-semver="2.1.4" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.pack.js"></script>
   <script data-require="fancybox@2.1.4" data-semver="2.1.4" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.js"></script>
   <script data-require="fancybox@2.1.4" data-semver="2.1.4" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.js"></script>
