@@ -57,6 +57,14 @@ export class HomeComponent implements OnInit {
         (data: any) => {
           this.bestSeller = data;
           $(document).ready(function(){
+            $('.best-seller').not('.slick-initialized').slick({
+              infinite: true,
+              dots: true,
+              slidesToShow: 4,
+              slidesToScroll: 2,
+              autoplay: true,
+              autoplaySpeed: 3000
+            });
             $(".fancybox-fast-view").fancybox({
               href: '#product-pop-up',
               'beforeLoad': function() {
@@ -73,14 +81,6 @@ export class HomeComponent implements OnInit {
                   type: 'inside'
                 }
               }
-            });
-            $('.best-seller').slick({
-              infinite: true,
-              dots: true,
-              slidesToShow: 4,
-              slidesToScroll: 2,
-              autoplay: true,
-              autoplaySpeed: 3000
             });
           });
         }, (err: any) => {
@@ -93,12 +93,20 @@ export class HomeComponent implements OnInit {
           }
         }
         );
-    }, 3000);
+    }, 4000);
     setTimeout( () => {
       this.subscriptionNewProduct = this.productService.getNewProduct().subscribe(
         (data: any) => {
           this.newProduct = data;
           $(document).ready(function() {
+            $('.new-product').not('.slick-initialized').slick({
+              infinite: true,
+              dots: true,
+              slidesToShow: 4,
+              slidesToScroll: 2,
+              autoplay: true,
+              autoplaySpeed: 3000
+            });
             $(".fancybox-fast-view").fancybox({
               href: '#product-pop-up',
               'beforeLoad': function() {
@@ -115,14 +123,6 @@ export class HomeComponent implements OnInit {
                   type: 'inside'
                 }
               }
-            });
-            $('.new-product').slick({
-              infinite: true,
-              dots: true,
-              slidesToShow: 4,
-              slidesToScroll: 2,
-              autoplay: true,
-              autoplaySpeed: 3000
             });
           });
         }, (err: any) => {
@@ -138,7 +138,7 @@ export class HomeComponent implements OnInit {
           this.stopRefreshing();
         }
         );
-    }, 2000);
+    }, 3000);
   }
 
   view = (product: Product) => {

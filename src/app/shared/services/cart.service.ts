@@ -54,13 +54,14 @@ export class CartService {
   }
 
   saveToken(cartTemp: any) {
+    console.log(cartTemp);
+    this.cartSubject.next(cartTemp);
     this.authenticatedSubcription = this.userService.isAuthenticated.subscribe(
       (isAuthenticate: any) => {
         if(isAuthenticate === true){
           this.userCartService.saveCart(JSON.stringify(cartTemp)).subscribe(
             (data) => {
               window.localStorage['cart'] = JSON.stringify(cartTemp);
-              this.cartSubject.next(cartTemp);
             },
             (err) => {
               console.log(err);
@@ -68,7 +69,6 @@ export class CartService {
             );
         } else {
           window.localStorage['cart'] = JSON.stringify(cartTemp);
-              this.cartSubject.next(cartTemp);
         }
       });
   }

@@ -45,39 +45,48 @@ export class AuthComponent implements OnInit, AfterViewInit {
         setTimeout(function(){
         }, 7000);
         let cart = data.user.cart;
-        cart = JSON.parse(cart['cart']);
-        if(cart.length > 0){
+        if(cart == null){
           let cartTemp = this.cartService.getToken();
           if(cartTemp != undefined ){
             cartTemp = JSON.parse(cartTemp);
-            for(let c of cart){
-              let index = cartTemp.findIndex(x => x.slug === c.slug);
-              if(index == -1){
-                cartTemp.push(c);
-              } else {
-                cartTemp[index].quantity = (Number(cartTemp[index].quantity)) + (Number(c.quantity));
-              }
-            }
             this.cartService.destroyToken();
             this.cartService.updateCart(cartTemp, 'sync');
-          } else {
-            this.cartService.updateCart(cart, 'sync');
           }
         } else {
-          let cartTemp = this.cartService.getToken();
-          if(cartTemp !== undefined){
-            cartTemp = JSON.parse(cartTemp);
-            console.log(cartTemp);
-            for(let c of cart){
-              let index = cartTemp.findIndex(x => x.slug === c.slug);
-              if(index == -1){
-                cartTemp.push(c);
-              } else {
-                cartTemp[index].quantity = (Number(cartTemp[index].quantity)) + (Number(c.quantity));
+          cart = JSON.parse(cart['cart']);
+          if(cart.length > 0){
+            let cartTemp = this.cartService.getToken();
+            if(cartTemp != undefined ){
+              cartTemp = JSON.parse(cartTemp);
+              for(let c of cart){
+                let index = cartTemp.findIndex(x => x.slug === c.slug);
+                if(index == -1){
+                  cartTemp.push(c);
+                } else {
+                  cartTemp[index].quantity = (Number(cartTemp[index].quantity)) + (Number(c.quantity));
+                }
               }
+              this.cartService.destroyToken();
+              this.cartService.updateCart(cartTemp, 'sync');
+            } else {
+              this.cartService.updateCart(cart, 'sync');
             }
-            this.cartService.destroyToken();
-            this.cartService.updateCart(cartTemp, 'sync');
+          } else {
+            let cartTemp = this.cartService.getToken();
+            if(cartTemp !== undefined){
+              cartTemp = JSON.parse(cartTemp);
+              console.log(cartTemp);
+              for(let c of cart){
+                let index = cartTemp.findIndex(x => x.slug === c.slug);
+                if(index == -1){
+                  cartTemp.push(c);
+                } else {
+                  cartTemp[index].quantity = (Number(cartTemp[index].quantity)) + (Number(c.quantity));
+                }
+              }
+              this.cartService.destroyToken();
+              this.cartService.updateCart(cartTemp, 'sync');
+            }
           }
         }
         this.router.navigateByUrl(this.returnUrl);
