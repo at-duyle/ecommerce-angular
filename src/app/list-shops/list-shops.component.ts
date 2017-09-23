@@ -28,6 +28,7 @@ export class ListShopsComponent implements OnInit {
   ngOnInit() {
     this.subcriptionShop = this.shopService.getShops().subscribe(
       (data) => {
+        window.scrollTo(0, 0);
         this.shops = data;
         this.shops.splice(0, 1);
         this.length = this.shops.length / 12;

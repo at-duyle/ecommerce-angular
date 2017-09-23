@@ -43,6 +43,7 @@ export class ResetPasswordConfirmComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.resetPassSub = this.route.params.subscribe(
       (params: any) => {
+        window.scrollTo(0, 0);
         this.resetToken = params.resetToken;
       }
     );

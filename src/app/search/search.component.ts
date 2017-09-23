@@ -41,6 +41,7 @@ export class SearchComponent implements OnInit {
         this.queryParam = params['q'];
         this.productServiceSubscription = this.productService.searchKeyword(this.queryParam).subscribe(
           (data: any) => {
+            window.scrollTo(0, 0);
             if(data != undefined){
               this.products = data;
               this.error = '';

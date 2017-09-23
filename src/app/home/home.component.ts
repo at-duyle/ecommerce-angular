@@ -93,10 +93,11 @@ export class HomeComponent implements OnInit {
           }
         }
         );
-    }, 4000);
+    }, 9000);
     setTimeout( () => {
       this.subscriptionNewProduct = this.productService.getNewProduct().subscribe(
         (data: any) => {
+          window.scrollTo(0, 0);
           this.newProduct = data;
           $(document).ready(function() {
             $('.new-product').not('.slick-initialized').slick({
@@ -138,7 +139,7 @@ export class HomeComponent implements OnInit {
           this.stopRefreshing();
         }
         );
-    }, 3000);
+    }, 7600);
   }
 
   view = (product: Product) => {

@@ -38,6 +38,7 @@ export class NewSellerComponent implements OnInit {
     this.controlEmail =
     this.requestForm.controls.email.valueChanges.subscribe(
       (val: any) => {
+        window.scrollTo(0, 0);
         let pattern = new RegExp(/\w+@\w+\.{1}[a-zA-Z]{2,}/);
         if(!pattern.test(val)){
           this.requestForm.controls.email.setErrors({'Error': true});

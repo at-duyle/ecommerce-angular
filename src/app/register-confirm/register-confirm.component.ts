@@ -27,6 +27,7 @@ export class RegisterConfirmComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.route.params.subscribe(
       (params: any) => {
+        window.scrollTo(0, 0);
         this.confirmToken = params.confirmToken;
         this.userId = params.userId;
         this.userService.registerConfirm(this.userId, this.confirmToken).subscribe(
