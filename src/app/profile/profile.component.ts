@@ -99,12 +99,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
         if(cityId != ''){
           this.districtApiSubcription = this.merchantApiService.getDistrict(cityId).subscribe(
             (data: any) => {
-              this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
-              this.districts = this.districts.concat(data.data);
-              this.profileForm
-              .controls
-              .district
-              .patchValue(this.currentUser.district);
+              if(val != this.currentUser.city){
+                  this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
+                  this.profileForm.controls.district.patchValue('');
+                } else {
+                  this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
+                  this.districts = this.districts.concat(data.data);
+                  this.profileForm
+                  .controls
+                  .district
+                  .patchValue(this.currentUser.district);
+                }
             }
             );
         } else {
