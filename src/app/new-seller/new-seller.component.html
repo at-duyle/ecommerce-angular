@@ -1,5 +1,7 @@
 <app-header></app-header>
 <div class="main">
+  <app-spinner [isRunning]="isRequesting">
+  </app-spinner>
   <div class="container">
     <div class="content">
       <div id="myTabContent" class="tab-content">
@@ -8,78 +10,78 @@
             <div class="card">
               <div class="content">
                 <form [formGroup]="requestForm" novalidate (ngSubmit)="sendRequest(requestForm.value)">
-                    <div class="col-md-6">
-                      <h2>CONTACT INFORMATION</h2>
+                  <div class="col-md-6">
+                    <h2>CONTACT INFORMATION</h2>
+                  </div>
+                  <div class="col-md-6">
+                    <h2>BUSINESS INFORMATION</h2>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Full name</label>
+                      <input type="text" class="form-control" formControlName="name" placeholder="Your name">
+                      <span [hidden]="requestForm.controls.name.valid || (requestForm.controls.name.pristine && !requestForm.submitted)" class="text-error">
+                        Full name don't have special characters!
+                      </span>
                     </div>
-                    <div class="col-md-6">
-                      <h2>BUSINESS INFORMATION</h2>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Shop's name</label>
+                      <input type="text" class="form-control" formControlName="shop_name" placeholder="Shop's name">
+                      <span [hidden]="requestForm.controls.shop_name.valid || (requestForm.controls.shop_name.pristine && !requestForm.submitted)" class="text-error">
+                        Full name don't have special characters!
+                      </span>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Full name</label>
-                        <input type="text" class="form-control" formControlName="name" placeholder="Your name">
-                        <span [hidden]="requestForm.controls.name.valid || (requestForm.controls.name.pristine && !requestForm.submitted)" class="text-error">
-                          Full name don't have special characters!
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Shop's name</label>
-                        <input type="text" class="form-control" formControlName="shopname" placeholder="Shop's name">
-                        <span [hidden]="requestForm.controls.name.valid || (requestForm.controls.name.pristine && !requestForm.submitted)" class="text-error">
-                          Full name don't have special characters!
-                        </span>
-                      </div>
-                    </div>
+                  </div>
 
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" formControlName="email" placeholder="Email">
-                        <span [hidden]="requestForm.controls.email.valid || (requestForm.controls.email.pristine && !requestForm.submitted)" class="text-error">
-                          Email is invalid !
-                        </span>
-                      </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                      <span [hidden]="requestForm.controls.email.valid || (requestForm.controls.email.pristine && !requestForm.submitted)" class="text-error">
+                        Email is invalid !
+                      </span>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Address</label>
-                        <input type="text" class="form-control" formControlName="address" placeholder="Home Address">
-                        <span [hidden]="requestForm.controls.address.valid || (requestForm.controls.address.pristine && !requestForm.submitted)" class="text-error">
-                          Don't over 200 words !
-                        </span>
-                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Address</label>
+                      <input type="text" class="form-control" formControlName="shop_address" placeholder="Home Address">
+                      <span [hidden]="requestForm.controls.shop_address.valid || (requestForm.controls.shop_address.pristine && !requestForm.submitted)" class="text-error">
+                        Don't over 200 words !
+                      </span>
                     </div>
+                  </div>
 
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Phonenumber</label>
-                        <input type="text" class="form-control" formControlName="phonenumber" placeholder="Phonenumber">
-                        <span [hidden]="requestForm.controls.address.valid || (requestForm.controls.address.pristine && !requestForm.submitted)" class="text-error">
-                          This field is required !
-                        </span>
-                      </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Phone Number</label>
+                      <input type="text" class="form-control" formControlName="phone_number" placeholder="Phonenumber">
+                      <span [hidden]="requestForm.controls.phone_number.valid || (requestForm.controls.phone_number.pristine && !requestForm.submitted)" class="text-error">
+                        This field is required !
+                      </span>
                     </div>
+                  </div>
 
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Latitude</label>
-                        <input type="text" class="form-control" formControlName="latitude" placeholder="Latitude">
-                        <span [hidden]="requestForm.controls.address.valid || (requestForm.controls.address.pristine && !requestForm.submitted)" class="text-error">
-                          This field is required !
-                        </span>
-                      </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Latitude</label>
+                      <input type="text" class="form-control" formControlName="latitude" placeholder="Latitude">
+                      <span [hidden]="requestForm.controls.latitude.valid || (requestForm.controls.latitude.pristine && !requestForm.submitted)" class="text-error">
+                        This field is required !
+                      </span>
                     </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Longitude</label>
-                        <input type="text" class="form-control" formControlName="longitude" placeholder="Longitude">
-                        <span [hidden]="requestForm.controls.address.valid || (requestForm.controls.address.pristine && !requestForm.submitted)" class="text-error">
-                          This field is required !
-                        </span>
-                      </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Longitude</label>
+                      <input type="text" class="form-control" formControlName="longitude" placeholder="Longitude">
+                      <span [hidden]="requestForm.controls.longitude.valid || (requestForm.controls.longitude.pristine && !requestForm.submitted)" class="text-error">
+                        This field is required !
+                      </span>
                     </div>
+                  </div>
 
                   <button type="submit" [disabled]="!requestForm.valid" class="btn btn-info btn-fill pull-right btn-cart">Send Request</button>
                   <div class="clearfix"></div>
