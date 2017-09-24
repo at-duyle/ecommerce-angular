@@ -87,31 +87,51 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.cityApiSubcription = this.merchantApiService.getCity().subscribe(
       (data: any) => {
         this.cities = this.cities.concat(data.data);
-        this.profileForm
-              .controls
-              .city
-              .patchValue(this.currentUser.city);
+        if(this.currentUser.city === null){
+          console.log(1);
+          this.profileForm
+          .controls
+          .city
+          .patchValue('');
+        } else {
+          console.log(2);
+          this.profileForm
+          .controls
+          .city
+          .patchValue(this.currentUser.city);
+        }
       }
       );
     this.citySubcription = this.profileForm.controls.city.valueChanges.subscribe(
       (val: any) => {
-        var cityId = val.split('-', 1)[0];
-        if(cityId != ''){
-          this.districtApiSubcription = this.merchantApiService.getDistrict(cityId).subscribe(
-            (data: any) => {
-              if(val != this.currentUser.city){
+        if(val !== null){
+          var cityId = val.split('-', 1)[0];
+          if(cityId != ''){
+            console.log(cityId);
+            this.districtApiSubcription = this.merchantApiService.getDistrict(cityId).subscribe(
+              (data: any) => {
+                if(val != this.currentUser.city && this.currentUser.district != null){
                   this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
+                  this.districts = this.districts.concat(data.data);
                   this.profileForm.controls.district.patchValue('');
                 } else {
                   this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
                   this.districts = this.districts.concat(data.data);
-                  this.profileForm
-                  .controls
-                  .district
-                  .patchValue(this.currentUser.district);
+                  if(this.currentUser.district == null){
+                    this.profileForm.controls.district.patchValue('');
+                  } else {
+                    this.profileForm
+                    .controls
+                    .district
+                    .patchValue(this.currentUser.district);
+                  }
                 }
-            }
-            );
+              }
+              );
+          } else {
+            this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
+            this.profileForm.controls.district.patchValue('');
+          }
         } else {
           this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
           this.profileForm.controls.district.patchValue('');
@@ -119,18 +139,31 @@ export class ProfileComponent implements OnInit, OnDestroy {
       });
     this.districtSubcription = this.profileForm.controls.district.valueChanges.subscribe(
       (val: any) => {
-        var districtId = val.split('-', 1)[0];
-        if(districtId != ''){
-          this.merchantApiService.getWard(districtId).subscribe(
-            (data: any) => {
-              this.wards = [{WardId:'', WardName: '--- Please Select ---'}];
-              this.wards = this.wards.concat(data.data);
-              this.profileForm
-              .controls
-              .ward
-              .patchValue(this.currentUser.ward);
-            }
-            );
+        if(val !== null){
+          var districtId = val.split('-', 1)[0];
+          if(districtId != ''){
+            this.merchantApiService.getWard(districtId).subscribe(
+              (data: any) => {
+                this.wards = [{WardId:'', WardName: '--- Please Select ---'}];
+                this.wards = this.wards.concat(data.data);
+                if(this.currentUser.ward == null){
+                  this.profileForm.controls.ward.patchValue('');
+                } else {
+                  if(val != this.currentUser.district){
+                    this.profileForm.controls.ward.patchValue('');
+                  } else {
+                    this.profileForm
+                    .controls
+                    .ward
+                    .patchValue(this.currentUser.ward);
+                  }
+                }
+              }
+              );
+          } else {
+            this.wards = [{WardId:'', WardName: '--- Please Select ---'}];
+            this.profileForm.controls.ward.patchValue('');
+          }
         } else {
           this.wards = [{WardId:'', WardName: '--- Please Select ---'}];
           this.profileForm.controls.ward.patchValue('');
@@ -139,7 +172,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.orderService.getOrdersOfUser().subscribe(
       (data) => {
         this.orders = data;
-        console.log(data);
       }
       );
     this.controlEmail = this.profileForm.controls.email.valueChanges.subscribe(

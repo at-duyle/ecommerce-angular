@@ -43,7 +43,7 @@ export class LogoutComponent implements OnInit {
           }
         }
         );
-    }, 8000);
+    }, 5000);
   }
 
   ngOnDestroy(){

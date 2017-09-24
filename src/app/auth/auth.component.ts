@@ -89,6 +89,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
             }
           }
         }
+        this.notify.printSuccessMessage('Welcome to SuperShop!');
         this.router.navigateByUrl(this.returnUrl);
       },
       (err: any) => {

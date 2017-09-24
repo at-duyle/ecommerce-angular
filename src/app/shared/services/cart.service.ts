@@ -54,7 +54,6 @@ export class CartService {
   }
 
   saveToken(cartTemp: any) {
-    console.log(cartTemp);
     this.cartSubject.next(cartTemp);
     this.authenticatedSubcription = this.userService.isAuthenticated.subscribe(
       (isAuthenticate: any) => {

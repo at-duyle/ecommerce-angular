@@ -63,15 +63,15 @@ export class NotificationService {
   }
 
   printSuccessMessage = (message: string) => {
-    this._notifier.success(message);
+    this._notifier.success(message).dismissOthers();
   }
 
   printWarningMessage = (message: string) => {
-    this._notifier.warning(message);
+    this._notifier.warning(message).dismissOthers();
   }
 
   printErrorMessage = (message: string) => {
-    this._notifier.error(message);
+    this._notifier.error(message).dismissOthers();
   }
 
   printConfirmationDialog = (message: string, okCallBack: () => any) => {

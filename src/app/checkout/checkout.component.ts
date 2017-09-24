@@ -78,10 +78,16 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         } else {
           this.addressForm.controls.name.patchValue(this.currentUser.name);
           this.addressForm.controls.address.patchValue(this.currentUser.address);
-          this.addressForm
-          .controls
-          .city
-          .patchValue(this.currentUser.city);
+          if(this.currentUser.city == null){
+            // this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
+            // this.wards = [{WardId:'', WardName: '--- Please Select ---'}];
+            this.addressForm.controls.city.patchValue('');
+          } else {
+            this.addressForm
+            .controls
+            .city
+            .patchValue(this.currentUser.city);
+          }
         }
       }
       );
@@ -99,14 +105,22 @@ export class CheckoutComponent implements OnInit, OnDestroy {
               this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
               this.districts = this.districts.concat(data.data);
               if(this.flag === true){
-                if(val != this.currentUser.city){
+                if(val != this.currentUser.city && this.currentUser.district != null){
                   this.districts = [{ProvinceId:'', ProvinceName: '--- Please Select ---'}];
+                  this.districts = this.districts.concat(data.data);
                   this.addressForm.controls.district.patchValue('');
                 } else {
-                  this.addressForm
-                  .controls
-                  .district
-                  .patchValue(this.currentUser.district);
+                  if(this.currentUser.district == null){
+                    this.addressForm
+                    .controls
+                    .district
+                    .patchValue('');
+                  }else {
+                    this.addressForm
+                    .controls
+                    .district
+                    .patchValue(this.currentUser.district);
+                  }
                 }
               }
             }
@@ -125,10 +139,21 @@ export class CheckoutComponent implements OnInit, OnDestroy {
               this.wards = [{WardId:'', WardName: '--- Please Select ---'}];
               this.wards = this.wards.concat(data.data);
               if(this.flag === true){
-                this.addressForm
-                .controls
-                .ward
-                .patchValue(this.currentUser.ward);
+                if(this.currentUser.ward == null){
+                  this.addressForm
+                  .controls
+                  .ward
+                  .patchValue('');
+                } else {
+                  if(val != this.currentUser.district){
+                    this.addressForm.controls.ward.patchValue('');
+                  } else {
+                    this.addressForm
+                    .controls
+                    .ward
+                    .patchValue(this.currentUser.ward);
+                  }
+                }
               }
             }
             );
